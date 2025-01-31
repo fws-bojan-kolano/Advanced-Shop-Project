@@ -1,0 +1,36 @@
+html {
+	box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: inherit;
+}
+
+body {
+	background: url('../../assets/images/body.jpg');
+	background-repeat: repeat;
+	background-size: 100% 100%;
+	font-family: $font-main;
+}
+
+.container {
+	width: calc(100% - 120px);
+	margin: 0 auto;
+	max-width: 1340px;
+
+	@include mq($lg) {
+		max-width: 950px;
+	}
+
+	@include mq($md) {
+		width: calc(100% - 50px);
+		max-width: 720px;
+	}
+
+	@include mq($sm) {
+		width: calc(100% - 20px);
+		max-width: 540px;
+	}
+}

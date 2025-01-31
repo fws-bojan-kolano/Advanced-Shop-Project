@@ -1,0 +1,292 @@
+.book-flip {
+    padding: 150px 0 70px;
+
+    &__right {
+
+        @include mq($sm) {
+            transform: scale(0.6);
+        }
+    }
+
+    &__text {
+        font-size: 28px;
+        line-height: 1.4;
+        margin-bottom: 100px;
+
+        @include mq($lg) {
+            text-align: center;
+            font-size: 22px;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+
+        @include mq($md) {
+            font-size: 18px;
+            line-height: 1.2;
+            max-width: 450px;
+            margin: 0 auto 20px;
+        }
+    }
+
+    &__span {
+        font-size: 30px;
+        font-weight: bold;
+        color: $black;
+
+        @include mq($lg) {
+            text-align: center;
+            margin: 0 auto;
+            display: block;
+        }
+
+        @include mq($md) {
+            font-size: 24px;
+        }
+    }
+
+    &__icon {
+        animation: animate-arrow 5s linear infinite;
+
+        @include mq($lg) {
+            transform: rotate(90deg);
+        }
+    }
+
+    @include mq($xl) {
+        padding: 100px 0 70px;
+    }
+
+    @include mq($lg) {
+        padding: 60px 0 30px;
+    }
+
+    @include mq($md) {
+        padding: 40px 0 20px;
+    }
+
+    @include mq($sm) {
+        overflow: hidden;
+        padding: 40px 0;
+    }
+}
+
+@keyframes animate-arrow {
+    0% {
+        transform: translate(0);
+    }
+
+    25% {
+        transform: translate(50%, 0);
+    }
+
+    35% {
+        transform: translate(50%, -100%) rotate(-90deg);
+    }
+
+    45% {
+        transform: translate(50%, -100%) rotate(0);
+    }
+
+    55% {
+        transform: translate(150%, -100%) rotate(0);
+    }
+
+    65% {
+        transform: translate(150%, -100%) rotate(0);
+    }
+
+    75% {
+        transform: translate(150%, 0) rotate(90deg);
+    }
+
+    100% {
+        transform: translate(0) rotate(0);
+    }
+}
+
+.card {
+	color: $blue;
+	width: 300px;
+	height: 400px;
+	background: $quill-gray;
+	transform-style: preserve-3d;
+	transform: perspective(2000px);
+	box-shadow: inset 300px 0 50px rgba(0, 0, 0, .5), 20px 0 60px rgba(0, 0, 0, .5);
+	transition: 1s;
+    margin: 50px auto 0;
+
+    &::before {
+        content:'';
+        position: absolute;
+        top: -5px;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: $pumice;
+        transform-origin: bottom;
+        transform: skewX(-45deg);
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: -5px;
+        width: 5px;
+        height: 100%;
+        background: $pewter;
+        transform-origin: left;
+        transform: skewY(-45deg);
+    }
+
+    &:hover {
+        transform: perspective(2000px) rotate(15deg) scale(1.2);
+        box-shadow: inset 20px 0 50px rgba(0, 0, 0, .5), 0 10px 100px rgba(0, 0, 0, .5);
+
+        .bark {
+            opacity: 1;
+            transition: .6s;
+            box-shadow: 300px 200px 100px rgba(0, 0, 0, .4) inset;
+
+            @include mq($lap-large) {
+                box-shadow: 200px 100px 500px rgba(0, 0, 0, .4) inset;
+            }
+        }
+
+        .img-box {
+            transform: rotateY(-135deg);
+
+            @include mq($md) {
+                transform: rotateY(-100deg);
+            }
+        }
+
+        @include mq($lg) {
+            transform: perspective(2000px) rotate(15deg) scale(1.2) translateX(100px);
+        }
+
+        @include mq($md) {
+            transform: perspective(2000px) rotate(5deg) scale(1.2) translateX(20px);
+        }
+    }
+
+    @include mq($lap-large) {
+        width: 230px;
+        height: 300px;
+        box-shadow: inset 200px 0 50px rgba(0, 0, 0, .5), 20px 0 60px rgba(0, 0, 0, .5);
+    }
+
+    @include mq($lg) {
+        margin: 45px auto 0;
+    }
+
+    @include mq($md) {
+        margin: 35px auto 0;
+    }
+
+    @include mq($sm) {
+        margin: -20px auto 0;
+    }
+}
+
+.img-box {
+	width: 100%;
+	height: 100%;
+	position: relative;
+	transform-origin: left;
+	transition: .7s;
+    overflow: hidden;
+
+    img {
+        min-width: 250px;
+        max-height: 400px;
+
+        @include mq($lap-large) {
+            min-width: 230px;
+            max-height: 300px;
+        }
+    }
+}
+
+.bark {
+	position: absolute;
+	background: $quill-gray;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	transition: .7s;
+}
+
+.details {
+	position: absolute;
+	top: 0;
+	left: 0;
+	box-sizing: border-box;
+    padding: 0 0 0 15px;
+	z-index: -1;
+	margin-top: 50px;
+
+    &__title {
+        font-size: 26px;
+        line-height: 1px;
+
+        @include mq($lap-large) {
+            font-size: 20px;
+        }
+    }
+
+    &__title--green {
+        color: $green;
+    }
+
+    &__title--red {
+        color: $red;
+        margin-top: 30px;
+        font-size: 24px;
+
+        @include mq($lap-large) {
+            font-size: 16px;
+            line-height: 1.2;
+            margin-top: 20px;
+        }
+    }
+
+    p {
+        font-size: 15px;
+        line-height: 5px;
+        transform: rotate(-8deg);
+        padding: 20px 0 0 20px;
+
+        &:first-of-type {
+            margin-top: 20px;
+
+            @include mq($lap-large) {
+                margin-top: 5px;
+            }
+        }
+
+        &:last-of-type {
+            margin-bottom: 10px;
+        }
+
+        @include mq($lap-large) {
+            font-size: 12px;
+            line-height: normal;
+            padding: 6px 0 0 7px;
+            transform: rotate(-5deg);
+        }
+    }
+
+    h3 {
+        text-align: center;
+    }
+
+    &__bottom-text {
+        text-align: right;
+    }
+
+    @include mq($lap-large) {
+        margin-top: 20px;
+        padding: 0 0 0 18px;
+    }
+}

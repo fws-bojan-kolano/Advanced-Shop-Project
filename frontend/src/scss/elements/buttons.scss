@@ -1,0 +1,31 @@
+input[type='submit'],
+.btn {
+	display: inline-block;
+	text-align: center;
+	border-radius: 8px;
+	background-color: $dark-brand;
+	color: $green-brand;
+	padding: 14px 24px;
+	outline: none;
+	min-width: 183px;
+	transition: $dur $ease;
+	border: none;
+	font-size: 16px;
+	line-height: 28px;
+
+	@include hover {
+		background-color: $green-brand;
+		color: $dark-brand;
+		transition: $dur $ease;
+	}
+
+    &.btn--reverse {
+        background-color: $green-brand;
+        color: $dark-brand;
+
+        @include hover {
+            background-color: $dark-brand;
+            color: $green-brand;
+        }
+    }
+}

@@ -1,0 +1,126 @@
+@use 'sass:math';
+
+//Fonts
+$font-main: 'Arial, Helvetica, sans-serif';
+
+//Colors
+$black: #1d1d1f;
+$white: #fff;
+$gray: #eee;
+$pumice: #bac1ba;
+$pewter: #92a29c;
+$red: #c0392b;
+$green: #1bbc9b;
+$blue: #013243;
+$quill-gray: #e0e1dc;
+$dark-brand: #101c1f;
+$green-brand: #b5d848;
+
+//Transitions
+$dur: 350ms;
+$ease: ease;
+
+//Bootstrap Variables
+$enable-grid-classes: true !default;
+
+$grid-breakpoints: (
+	xs: 0,
+	sm: 576px,
+	md: 768px,
+	lg: 992px,
+	xl: 1200px
+) !default;
+
+// Grid containers
+$container-max-widths: (
+	sm: 540px,
+	md: 720px,
+	lg: 960px,
+	xl: 1340px
+) !default;
+
+/*
+Breakpoints for max-width.
+
+These variables are mapped with $grid-breakpoints SCSS map variable which is used for bootstrap.
+The reason for this setup is that it is needed to have variables that reflect bootstrap's breakpoints.
+Bootstrap is using min-with and this starter max-with approach, so bootstrap's breakpoint at 992px (min-width)
+is reflected as 991px (max-width), thus the mapped variables bellow.
+*/
+$sm: map-get($grid-breakpoints, sm) - 1;
+$md: map-get($grid-breakpoints, md) - 1;
+$lg: map-get($grid-breakpoints, lg) - 1;
+$xl: map-get($grid-breakpoints, xl) - 1;
+$lap-small: 1250px;
+$lap-large: 1400px;
+$desk-small: 1600px;
+
+//Grid columns
+$grid-columns: 12 !default;
+$grid-gutter-width: 30px !default;
+
+$columns: (
+	1: 8.33%,
+	2: 16.67%,
+	3: 25%,
+	4: 33.33%,
+	5: 41.67%,
+	6: 50%,
+	7: 58.33%,
+	8: 66.67%,
+	9: 75%,
+	10: 83.33%,
+	11: 91.67%,
+	12: 100%
+);
+
+//Row class
+.row {
+	display: flex;
+	flex-wrap: wrap;
+	margin-right: -15px;
+	margin-left: -15px;
+}
+  
+//Column class
+[class*='col-'] {
+	padding-right: 15px;
+	padding-left: 15px;
+}
+
+//Manually reordered breakpoints in descending order
+$grid-breakpoints-reversed: (
+	xl: 1200px,
+	lg: 992px,
+	md: 768px,
+	sm: 576px,
+	xs: 0
+);
+
+//Generate grid classes dynamically
+@mixin grid-column($columns) {
+	$column-width: math.div(100%, $grid-columns) * $columns;
+	width: $column-width;
+	flex: 0 0 $column-width;
+	max-width: $column-width;
+}
+
+//Base column styles (default for xl and larger screens)
+@for $i from 1 through $grid-columns {
+	.col-xl-#{$i} {
+		@include grid-column($i);
+	}
+}
+
+//Generate media query overrides
+@each $breakpoint, $breakpoint-value in $grid-breakpoints-reversed {
+	@if $breakpoint-value != 0 {
+		@media (max-width: $breakpoint-value) {
+			@for $i from 1 through $grid-columns {
+				.col-#{$breakpoint}-#{$i} {
+					@include grid-column($i);
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,70 @@
+.hero-banner {
+    background-image: url('../../assets/images/hero-banner.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    padding: 150px 0 140px;
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        background-color: rgba($color: $black, $alpha: 0.3);
+        z-index: 1;
+    }
+
+    &__content {
+        position: relative;
+        z-index: 2;
+        max-width: 600px;
+
+        @include mq($xl) {
+            max-width: 530px;
+        }
+
+        @include mq($md) {
+            max-width: 470px;
+        }
+
+        @include mq($sm) {
+            max-width: 330px;
+        }
+    }
+
+    .hero-banner__title,
+    &__sub-title {
+        color: $white;
+    }
+
+    &__title {
+        margin-bottom: 40px;
+
+        @include mq($xl) {
+            margin-bottom: 30px;
+        }
+
+        @include mq($md) {
+            margin-bottom: 20px;
+        }
+    }
+
+    @include mq($xl) {
+        padding: 100px 0 110px;
+    }
+
+    @include mq($lg) {
+        padding: 80px 0 100px;
+    }
+
+    @include mq($md) {
+        padding: 60px 0 70px;
+    }
+
+    @include mq($sm) {
+        padding: 50px 0;
+    }
+}

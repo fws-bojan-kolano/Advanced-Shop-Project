@@ -1,0 +1,100 @@
+/*--------------------------------------------------------------
+## Typography
+--------------------------------------------------------------*/
+body,
+button,
+input,
+select,
+optgroup,
+textarea {
+	color: $black;
+	font-size: 16px;
+	line-height: 1.5;
+}
+
+pre {
+	background: #ededed;
+	max-width: 100%;
+	overflow: auto;
+	padding: 1.6em;
+	font-size: 12px;
+	margin-bottom: 30px;
+}
+
+p {
+	font-size: 18px;
+    line-height: 1.2;
+
+    @include mq($xl) {
+        font-size: 16px;
+    }
+
+    @include mq($md) {
+        font-size: 14px;
+    }
+}
+
+.page-title {
+	font-size: 80px;
+	line-height: 88px;
+	color: $black;
+    letter-spacing: -0.3px;
+    font-weight: bold;
+
+	@include mq($lap-large) {
+		font-size: 70px;
+		line-height: 78px;
+	}
+
+	@include mq($xl) {
+        font-size: 50px;
+        line-height: 58px;
+	}
+
+	@include mq($md) {
+        font-size: 40px;
+        line-height: 48px;
+	}
+
+	@include mq($sm) {
+        font-size: 36px;
+        line-height: 42px;
+	}
+}
+
+.section-title {
+	display: block;
+    font-size: 71px;
+    line-height: 79px;
+    letter-spacing: 0.2px;
+
+	@include mq($lap-large) {
+		font-size: 61px;
+		line-height: 69px;
+	}
+
+	@include mq(1320px) {
+        font-size: 55px;
+        line-height: 65px;
+	}
+
+	@include mq($xl) {
+        font-size: 45px;
+        line-height: 55px;
+	}
+
+	@include mq($lg) {
+        font-size: 40px;
+        line-height: 50px;
+	}
+
+	@include mq($md) {
+        font-size: 35px;
+        line-height: 45px;
+	}
+
+	@include mq($sm) {
+        font-size: 28px;
+        line-height: 38px;
+	}
+}
