@@ -4,7 +4,7 @@ const usersRouter = express.Router();
 
 usersRouter
     .get('/users', usersController.usersControllerGet)
-    .post('/login', usersController.loginController);
+    .post('/users', usersController.usersLoginController);
 
 module.exports = {
     usersRouter

@@ -11,15 +11,19 @@ const usersControllerGet = async (req, res) => {
 }
 
 //Login
-const loginController = async (req, res) => {
+const usersLoginController = async (req, res) => {
     try {
         const {username, password} = req.body;
         const users = getUsers();
     
         const user = users.find(user => user.username === username && user.password === password);
-    
+
         if(user) {
-            res.status(200).send({success: true, message: 'Login successful'});
+            res.status(200).send({
+                success: true,
+                message: 'Login successful',
+                user: user
+            });
         } else {
             res.status(400).send({success: false, message: 'Invalid username or password'});
         }
@@ -32,6 +36,6 @@ const loginController = async (req, res) => {
 module.exports = {
     usersController: {
         usersControllerGet,
-        loginController
+        usersLoginController
     }
 }

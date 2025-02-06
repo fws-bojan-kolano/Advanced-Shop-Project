@@ -56,9 +56,16 @@ textarea {
     margin: 0 auto;
 }
 
-.form-error {
-	color: $red;
+.form-message {
 	font-weight: bold;
 	margin-bottom: 10px;
 	display: block;
+
+	&.form-error {
+		color: $red;
+	}
+
+	&.form-success {
+		color: $green;
+	}
 }
