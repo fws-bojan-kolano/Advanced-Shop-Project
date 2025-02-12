@@ -19,7 +19,7 @@ function App() {
             </Routes>
             <Footer />
           </BrowserRouter>
-          </div>
+        </div>
       </UserContextProvider>
     </>
   )

@@ -1,6 +1,7 @@
 import HeroBanner from "../components/heroBanner/HeroBanner";
 import BookFlip from "../components/bookFlip/BookFlip";
 import BasicText from "../components/basicText/BasicText";
+import TextFlip from "../components/textFlip/TextFlip";
 import Products from "../components/products/Products";
 
 const PageHome = () => {
@@ -9,6 +10,7 @@ const PageHome = () => {
             <HeroBanner />
             <BookFlip />
             <Products />
+            <TextFlip />
             <BasicText />
         </>
     )

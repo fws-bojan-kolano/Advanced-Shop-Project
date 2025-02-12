@@ -1,0 +1,49 @@
+.text-flip {
+    font-size: 72px;
+    text-align: center;
+    color: $pewter;
+    font-weight: bold;
+    text-transform: uppercase;
+
+    &__flips {
+        height: 120px;
+        overflow:hidden;
+        
+        & > div > div {
+            color: $white;
+            padding: 12px;
+            display: inline-block;
+            height: 120px;
+            margin-bottom: 120px;
+        }
+
+        div {
+            &:first-child {
+                animation: flip-text 5s linear infinite;
+
+                div {
+                    background:$sky;
+                }
+            }
+
+            &:last-child div {
+                background:$red;
+            }
+        }
+
+        div div {
+            background:$green;
+        }
+    }
+}
+
+@keyframes flip-text {
+    0% {margin-top:-270px;}
+    5% {margin-top:-210px;}
+    33% {margin-top:-210px;}
+    38% {margin-top:-110px;}
+    66% {margin-top:-110px;}
+    71% {margin-top:0px;}
+    99.99% {margin-top:0px;}
+    100% {margin-top:-270px;}
+}
