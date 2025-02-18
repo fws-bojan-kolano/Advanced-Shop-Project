@@ -5,22 +5,22 @@ export default function Footer() {
         <div className="footer">
             <div className="container">
                 <div className="row footer__content">
-                    <div className="col-xl-4">
+                    <div className="col-xl-6 col-lg-4 col-md-4 col-sm-12">
                         <a href="/" className="footer__logo"><img className="header__logo" src='../../src/assets/images/logo.png' alt='Logo' /></a>
                         <span className="footer__logo-sub">I like books!</span>
                     </div>
-                    <div className="col-xl-4">
+                    <div className="col-xl-3 col-lg-4 col-md-4 col-sm-12">
                         <ul>
-                            <li><a href="/">Some page here</a></li>
-                            <li><a href="/">Another page here</a></li>
-                            <li><a href="/">More pages here</a></li>
+                            <li className='footer__list-item'><a href="/">Some page here</a></li>
+                            <li className='footer__list-item'><a href="/">Another page here</a></li>
+                            <li className='footer__list-item'><a href="/">More pages here</a></li>
                         </ul>
                     </div>
-                    <div className="col-xl-4">
+                    <div className="col-xl-3 col-lg-4 col-md-4 col-sm-12">
                         <ul>
-                            <li><a href="/">Some page here</a></li>
-                            <li><a href="/">Another page here</a></li>
-                            <li><a href="/">More pages here</a></li>
+                            <li className='footer__list-item'><a href="/">Some page here</a></li>
+                            <li className='footer__list-item'><a href="/">Another page here</a></li>
+                            <li className='footer__list-item'><a href="/">More pages here</a></li>
                         </ul>
                     </div>
                 </div>

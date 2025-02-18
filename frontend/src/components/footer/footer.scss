@@ -1,4 +1,76 @@
 .footer {
     background-color: $dark-brand;
-    padding: 100px 0;
+    padding: 100px 0 20px;
+
+    &__logo {
+
+        img {
+            filter: brightness(0) invert(1);
+        }
+
+        @include mq($sm) {
+            display: block;
+            width: 100%;
+            text-align: center;
+        }
+    }
+
+    &__list-item {
+        text-align: left;
+        margin-bottom: 5px;
+    
+        a {
+            color: $white;
+            font-size: 16px;
+            position: relative;
+            line-height: 1.2;
+    
+            &::after {
+                position: absolute;
+                left: 0;
+                width: 0;
+                height: 1px;
+                background-color: $white;
+                bottom: -1px;
+                transition: $dur $ease;
+                content: '';
+            }
+    
+            @include hover {
+                &::after {
+                    width: 100%;
+                    transition: $dur $ease;
+                }
+            }
+        }
+
+        @include mq($sm) {
+            text-align: center;
+        }
+    }
+
+    &__copyright {
+        margin-top: 80px;
+        padding: 10px 0;
+
+        @include mq($md) {
+            margin-top: 50px;
+        }
+
+        @include mq($sm) {
+            margin-top: 30px;
+        }
+    }
+
+    &__copyright-text {
+        color: $white;
+
+        @include mq($sm) {
+            text-align: center;
+        }
+    }
+
+    @include mq($md) {
+        padding: 50px 0 20px;
+    }
 }
