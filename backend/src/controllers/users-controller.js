@@ -33,9 +33,32 @@ const usersLoginController = async (req, res) => {
     }
 }
 
+//My account update account
+const usersUpdateAccountController = async (req, res) => {
+    try {
+        const { id, username, email } = req.body;
+        const usersData = getUsers();
+        const foundIndex = usersData.findIndex(user => user.id === id);
+
+        if(!foundIndex === -1) {
+            return res.status(404).send({message: 'User not found!'});
+        }
+
+        if (username) usersData[foundIndex].username = username;
+        if (email) usersData[foundIndex].email = email;
+        
+        fs.writeFileSync('data/users.json', JSON.stringify(usersData, null, 2));
+        return res.send({ success: true, message: 'User updated!', user: usersData[foundIndex] });
+    } catch (error) {
+        console.error('Error updating user:', error);
+        return res.status(500).send({ success: false, message: 'Internal Server Error' });
+    }
+}
+
 module.exports = {
     usersController: {
         usersControllerGet,
-        usersLoginController
+        usersLoginController,
+        usersUpdateAccountController
     }
 }

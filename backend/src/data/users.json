@@ -1,18 +1,20 @@
 [
-    {
-      "id": 1,
-      "username": "Bojan",
-      "password": "100",
-      "role": "user",
-      "email": "email@mail.com",
-      "cart": []
-    },
-    {
-      "id": 2,
-      "username": "Bojan2",
-      "password": "1002",
-      "role": "admin",
-      "email": "email1@mail.com",
-      "cart": []
-    }
+  {
+    "id": 1,
+    "username": "Bojan4",
+    "password": "100",
+    "role": "user",
+    "email": "email@mail.com",
+    "cart": [],
+    "orders": []
+  },
+  {
+    "id": 2,
+    "username": "Bojan2",
+    "password": "1002",
+    "role": "admin",
+    "email": "email1@mail.com",
+    "cart": [],
+    "orders": []
+  }
 ]
