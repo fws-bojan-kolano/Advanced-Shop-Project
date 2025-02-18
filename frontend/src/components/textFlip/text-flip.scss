@@ -4,6 +4,7 @@
     color: $pewter;
     font-weight: bold;
     text-transform: uppercase;
+    padding: 70px 0 20px;
 
     &__flips {
         height: 120px;
@@ -14,12 +15,19 @@
             padding: 12px;
             display: inline-block;
             height: 120px;
-            margin-bottom: 120px;
+            margin-bottom: 20px;
+            width: 500px;
+
+            @include mq($sm) {
+                width: 330px;
+                height: 90px;
+                margin-bottom: 15px;
+            }
         }
 
         div {
+            animation: flip-text 8s linear infinite;
             &:first-child {
-                animation: flip-text 5s linear infinite;
 
                 div {
                     background:$sky;
@@ -34,16 +42,24 @@
         div div {
             background:$green;
         }
+
+        @include mq($sm) {
+            height: 90px;
+        }
+    }
+
+    @include mq($lg) {
+        padding: 20px 0;
+    }
+
+    @include mq($sm) {
+        padding: 0px 0 70px;
+        font-size: 45px;
     }
 }
 
 @keyframes flip-text {
-    0% {margin-top:-270px;}
-    5% {margin-top:-210px;}
-    33% {margin-top:-210px;}
-    38% {margin-top:-110px;}
-    66% {margin-top:-110px;}
-    71% {margin-top:0px;}
-    99.99% {margin-top:0px;}
-    100% {margin-top:-270px;}
+    0%{transform: translateY(0);}
+    50%{transform: translateY(-100px);}
+    100%{transform: translateY(0);}
 }

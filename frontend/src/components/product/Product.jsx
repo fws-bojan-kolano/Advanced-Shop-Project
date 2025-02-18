@@ -2,7 +2,7 @@ import './product.scss';
 
 export default function Product() {
     return (
-        <div className="col-xl-6 product">
+        <div className="col-xl-6 col-lg-6 col-md-12 product">
             <div className="product__wrapper">
                 <figure className="book">
                     <ul className="hardcover-front">
