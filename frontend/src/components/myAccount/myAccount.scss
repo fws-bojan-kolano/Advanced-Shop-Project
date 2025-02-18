@@ -1,0 +1,22 @@
+.my-account {
+
+    &__form-fields {
+        display: flex;
+    }
+
+    &__form {
+        position: relative;
+
+        .loader {
+            position: absolute;
+            top: 50%;
+            left: 48%;
+            transform: translate(-48%, -50%);
+        }
+    }
+}
+
+input[type=submit].my-account__form-submit {
+    display: block;
+    margin: 80px 10px 0 auto;
+}

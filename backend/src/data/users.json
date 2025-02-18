@@ -4,6 +4,7 @@
       "username": "Bojan",
       "password": "100",
       "role": "user",
+      "email": "email@mail.com",
       "cart": []
     },
     {
@@ -11,6 +12,7 @@
       "username": "Bojan2",
       "password": "1002",
       "role": "admin",
+      "email": "email1@mail.com",
       "cart": []
     }
 ]

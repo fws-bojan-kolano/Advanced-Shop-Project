@@ -37,6 +37,10 @@ textarea {
 		color: $pewter;
 	}
 
+	&.form-input {
+		margin-bottom: 5px;
+	}
+
 	&:focus {
 		border: 1px solid $blue;
 	}
@@ -68,4 +72,9 @@ textarea {
 	&.form-success {
 		color: $green;
 	}
+}
+
+.input-wrapper {
+	width: 50%;
+	padding: 0 10px;
 }

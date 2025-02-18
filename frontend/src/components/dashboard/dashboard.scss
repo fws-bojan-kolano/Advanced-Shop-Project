@@ -1,0 +1,50 @@
+.dashboard {
+    padding: 100px 0;
+    min-height: 80vh;
+
+    &__title {
+        margin-bottom: 50px;
+    }
+
+    &__content {
+        display: flex;
+    }
+
+    &__content-list {
+        width: 30%;
+    }
+
+    &__content-wrapper {
+        width: 70%;
+    }
+
+    &__content-list-item-link {
+        font-size: 24px;
+        line-height: 1.2;
+        position: relative;
+
+        &::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -1px;
+            height: 1px;
+            width: 0;
+            background-color: $black;
+            transition: $dur $ease;
+        }
+
+        @include hover {
+            &::after {
+                width: 100%;
+                transition: $dur $ease;
+            }
+        }
+    }
+
+    &__content-list-item {
+        margin-bottom: 20px;
+        display: block;
+        text-align: left;
+    }
+}
