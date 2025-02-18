@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useRef } from "react";
 import { UserContext } from "../user/user-context";
 import './myAccount.scss';
 import { SERVER } from "../../utils/utils";
@@ -7,11 +7,14 @@ export default function MyAccount() {
     const [showLoader, setShowLoader] = useState(false);
     const [showErrorUsername, setShowErrorUsername] = useState(false);
     const [showErrorEmail, setShowErrorEmail] = useState(false);
-
+    const [showErrorPassword, setShowErrorPassword] = useState(false);
     const { user, setUser } = useContext(UserContext);
 
     const [username, setUsername] = useState(user ? user.username : '');
     const [email, setEmail] = useState(user ? user.email : '');
+
+    const passwordRef = useRef(null);
+    const passwordRepeatRef = useRef(null);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -30,9 +33,17 @@ export default function MyAccount() {
             return;
         }
 
+        const passwordValue = passwordRef.current.value;
+        if(!passwordValue.trim()) {
+            setShowErrorPassword(true);
+            setShowLoader(false);
+            return;
+        }
+
         const updatedData = {};
         if(username !== user.username) updatedData.username = username;
         if(email !== user.email) updatedData.email = email;
+        if(passwordRef.current.value !== user.password && passwordRef.current.value !== passwordRepeatRef.current.value)
         updatedData.id = user.id;
 
         try {
@@ -51,7 +62,8 @@ export default function MyAccount() {
                 setUser(prevUser => ({
                     ...prevUser,
                     username: username,
-                    email: email
+                    email: email,
+                    password: passwordRef.current.value
                 }));
                 setShowLoader(false);
                 setShowErrorUsername(false);
@@ -72,11 +84,18 @@ export default function MyAccount() {
                 <div className="my-account__form-fields">
                     <div className="input-wrapper">
                         <input type="text" className="form-input" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
-                        {showErrorUsername && <span className="form-message form-error form-input-error">Enter correct data.</span>}
+                        {showErrorUsername && <span className="form-message form-error form-input-error">Enter correct username.</span>}
                     </div>
                     <div className="input-wrapper">
                         <input type="email" className="form-input" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-                        {showErrorEmail && <span className="form-message form-error form-input-error">Enter correct data.</span>}
+                        {showErrorEmail && <span className="form-message form-error form-input-error">Enter correct email.</span>}
+                    </div>
+                    <div className="input-wrapper">
+                        <input type="text" className="form-input" placeholder="Password" ref={passwordRef} />
+                        {showErrorPassword && <span className="form-message form-error form-input-error">Enter old or new matching password.</span>}
+                    </div>
+                    <div className="input-wrapper">
+                        <input type="text" className="form-input" placeholder="Repeat Password" ref={passwordRepeatRef} />
                     </div>
                 </div>
                 <input className='my-account__form-submit' type="submit" value="Update" />

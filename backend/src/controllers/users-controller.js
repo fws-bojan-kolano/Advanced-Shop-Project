@@ -1,4 +1,6 @@
 const fs = require('fs');
+const bcrypt = require('bcrypt');
+const SALT_ROUNDS = 10;
 
 //Load users
 const getUsers = () => {
@@ -18,7 +20,7 @@ const usersLoginController = async (req, res) => {
     
         const user = users.find(user => user.username === username && user.password === password);
 
-        if(user) {
+        if (user && await bcrypt.compare(password, user.password)) {
             res.status(200).send({
                 success: true,
                 message: 'Login successful',
@@ -36,7 +38,7 @@ const usersLoginController = async (req, res) => {
 //My account update account
 const usersUpdateAccountController = async (req, res) => {
     try {
-        const { id, username, email } = req.body;
+        const { id, username, password, email } = req.body;
         const usersData = getUsers();
         const foundIndex = usersData.findIndex(user => user.id === id);
 
@@ -46,6 +48,10 @@ const usersUpdateAccountController = async (req, res) => {
 
         if (username) usersData[foundIndex].username = username;
         if (email) usersData[foundIndex].email = email;
+        if (password) {
+            const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
+            usersData[foundIndex].password = hashedPassword;
+        }
         
         fs.writeFileSync('data/users.json', JSON.stringify(usersData, null, 2));
         return res.send({ success: true, message: 'User updated!', user: usersData[foundIndex] });
