@@ -5,7 +5,7 @@ import { SERVER } from "../../utils/utils";
 
 export default function MyAccount() {
     const [showLoader, setShowLoader] = useState(false);
-    const [showSuccess, setShowSucces] = useState(false);
+    const [showSuccess, setShowSuccess] = useState(false);
     const [showErrorUsername, setShowErrorUsername] = useState(false);
     const [showErrorEmail, setShowErrorEmail] = useState(false);
     const [showErrorPassword, setShowErrorPassword] = useState(false);
@@ -21,17 +21,24 @@ export default function MyAccount() {
         event.preventDefault();
 
         setShowLoader(true);
+        setShowSuccess(false);
 
         if(!username.trim()) {
             setShowErrorUsername(true);
             setShowLoader(false);
             return;
+        } else {
+            setShowErrorUsername(false);
+            setShowLoader(false);
         }
 
         if(!email.trim()) {
             setShowErrorEmail(true);
             setShowLoader(false);
             return;
+        } else {
+            setShowErrorEmail(false);
+            setShowLoader(false);
         }
 
         const passwordValue = passwordRef.current.value;
@@ -41,14 +48,32 @@ export default function MyAccount() {
         if(username !== user.username) updatedData.username = username;
         if(email !== user.email) updatedData.email = email;
 
-        if(passwordValue) {
-            if(passwordValue !== passwordRepeatValue) {
+        if(!passwordValue.trim()) {
+            setShowErrorPassword(true);
+            setShowLoader(false);
+            return;
+        } else {
+            setShowErrorPassword(false);
+            setShowLoader(false);
+        }
+
+        if (passwordValue.trim() || passwordRepeatValue.trim()) {
+            if (!passwordValue.trim() || !passwordRepeatValue.trim()) {
                 setShowErrorPassword(true);
                 setShowLoader(false);
                 return;
             }
-
+    
+            if (passwordValue !== passwordRepeatValue) {
+                setShowErrorPassword(true);
+                setShowLoader(false);
+                return;
+            }
+    
+            setShowErrorPassword(false);
             updatedData.password = passwordValue;
+        } else {
+            setShowErrorPassword(false);
         }
 
         try {
@@ -70,10 +95,12 @@ export default function MyAccount() {
                     email: result.user.email,
                     password: result.user.password
                 }));
+                passwordRef.current.value = '';
+                passwordRepeatRef.current.value = '';
                 setShowLoader(false);
                 setShowErrorUsername(false);
                 setShowErrorEmail(false);
-                setShowSucces(true);
+                setShowSuccess(true);
             } else {
                 setShowLoader(false);
             }

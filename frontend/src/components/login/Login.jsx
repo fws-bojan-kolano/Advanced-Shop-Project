@@ -5,7 +5,7 @@ import './login.scss';
 
 export default function Login() {
     const [showError, setShowError] = useState(false);
-    const [showSuccess, setShowSucces] = useState(false);
+    const [showSuccess, setShowSuccess] = useState(false);
     const [showLoader, setShowLoader] = useState(false);
 
     const {setUser} = useContext(UserContext);
@@ -39,7 +39,7 @@ export default function Login() {
             if(result.success) {
                 setUser(result.user);//Store the logged in user in the context and localstorage
                 setShowError(false);
-                setShowSucces(true);
+                setShowSuccess(true);
                 usernameRef.current.value = '';
                 passwordRef.current.value = '';
                 setShowLoader(false);

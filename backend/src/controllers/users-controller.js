@@ -54,7 +54,7 @@ const usersUpdateAccountController = async (req, res) => {
         if (username) usersData[foundIndex].username = username;
         if (email) usersData[foundIndex].email = email;
         
-        if (password) {
+        if (password && password.trim() !== "") {
             const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
             usersData[foundIndex].password = hashedPassword;
         }

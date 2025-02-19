@@ -15,6 +15,11 @@
             transform: translate(-48%, -50%);
         }
     }
+
+    &__success {
+        text-align: right;
+        margin: 15px 5px 0;
+    }
 }
 
 input[type=submit].my-account__form-submit {
