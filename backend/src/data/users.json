@@ -2,7 +2,7 @@
   {
     "id": 1,
     "username": "Bojan4",
-    "password": "100",
+    "password": "$2b$10$5iD9fpLfbTx1erLk7lu0wOPdF34Iqx5FdptVFO4m6J8ccSl6NdKZm",
     "role": "user",
     "email": "email@mail.com",
     "cart": [],
@@ -11,7 +11,7 @@
   {
     "id": 2,
     "username": "Bojan2",
-    "password": "1002",
+    "password": "$2b$10$D0Zzjbc560.FL9eZ4ZZp6ePUJIez81n4b/XfUYqEwOeDvaf6pjCNa",
     "role": "admin",
     "email": "email1@mail.com",
     "cart": [],

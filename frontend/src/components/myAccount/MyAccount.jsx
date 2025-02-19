@@ -5,6 +5,7 @@ import { SERVER } from "../../utils/utils";
 
 export default function MyAccount() {
     const [showLoader, setShowLoader] = useState(false);
+    const [showSuccess, setShowSucces] = useState(false);
     const [showErrorUsername, setShowErrorUsername] = useState(false);
     const [showErrorEmail, setShowErrorEmail] = useState(false);
     const [showErrorPassword, setShowErrorPassword] = useState(false);
@@ -34,17 +35,21 @@ export default function MyAccount() {
         }
 
         const passwordValue = passwordRef.current.value;
-        if(!passwordValue.trim()) {
-            setShowErrorPassword(true);
-            setShowLoader(false);
-            return;
-        }
+        const passwordRepeatValue = passwordRepeatRef.current.value;
 
-        const updatedData = {};
+        let updatedData = {id: user.id};
         if(username !== user.username) updatedData.username = username;
         if(email !== user.email) updatedData.email = email;
-        if(passwordRef.current.value !== user.password && passwordRef.current.value !== passwordRepeatRef.current.value)
-        updatedData.id = user.id;
+
+        if(passwordValue) {
+            if(passwordValue !== passwordRepeatValue) {
+                setShowErrorPassword(true);
+                setShowLoader(false);
+                return;
+            }
+
+            updatedData.password = passwordValue;
+        }
 
         try {
             const response = await fetch(`${SERVER}users`, {
@@ -61,13 +66,14 @@ export default function MyAccount() {
             if(result.success) {
                 setUser(prevUser => ({
                     ...prevUser,
-                    username: username,
-                    email: email,
-                    password: passwordRef.current.value
+                    username: result.user.username,
+                    email: result.user.email,
+                    password: result.user.password
                 }));
                 setShowLoader(false);
                 setShowErrorUsername(false);
                 setShowErrorEmail(false);
+                setShowSucces(true);
             } else {
                 setShowLoader(false);
             }
@@ -100,6 +106,7 @@ export default function MyAccount() {
                 </div>
                 <input className='my-account__form-submit' type="submit" value="Update" />
                 {showLoader && <span className='loader my-account__loader'></span>}
+                {showSuccess && <span className='form-message form-success my-account__success'>Account updated successfully!</span>}
             </form>
         </div>
     )

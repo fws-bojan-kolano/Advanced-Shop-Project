@@ -17,14 +17,19 @@ const usersLoginController = async (req, res) => {
     try {
         const {username, password} = req.body;
         const users = getUsers();
-    
-        const user = users.find(user => user.username === username && user.password === password);
+        const user = users.find(user => user.username === username);
+        const isPasswordValid = user ? await bcrypt.compare(password, user.password) : false;
 
-        if (user && await bcrypt.compare(password, user.password)) {
+        if (user && isPasswordValid) {
             res.status(200).send({
                 success: true,
                 message: 'Login successful',
-                user: user
+                user: {
+                    id: user.id,
+                    username: user.username,
+                    email: user.email,
+                    password: user.password
+                }
             });
         } else {
             res.status(400).send({success: false, message: 'Invalid username or password'});
@@ -48,6 +53,7 @@ const usersUpdateAccountController = async (req, res) => {
 
         if (username) usersData[foundIndex].username = username;
         if (email) usersData[foundIndex].email = email;
+        
         if (password) {
             const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
             usersData[foundIndex].password = hashedPassword;
