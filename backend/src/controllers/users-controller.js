@@ -64,8 +64,11 @@ const usersRegisterController = async (req, res) => {
         const newUser = {
             id: uuidv4(),
             username,
+            password: hashedPassword,
+            role: 'user',
             email,
-            password: hashedPassword
+            cart: [],
+            orders: []
         }
 
         usersData.push(newUser);
