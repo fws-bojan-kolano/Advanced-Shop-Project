@@ -22,9 +22,13 @@ export default function Dashboard() {
                         <li className="dashboard__content-list-item">
                             <span className="dashboard__content-list-item-link" onClick={() => handleSectionClick('myAccount')}>My Account</span>
                         </li>
-                        <li className="dashboard__content-list-item">
-                            <span className="dashboard__content-list-item-link" onClick={() => handleSectionClick('orders')}>Orders</span>
-                        </li>
+                        {
+                            user.role === 'user' && (
+                                <li className="dashboard__content-list-item">
+                                    <span className="dashboard__content-list-item-link" onClick={() => handleSectionClick('orders')}>Orders</span>
+                                </li>
+                            )
+                        }
                         {
                             user.role === 'admin' && (
                                 <li className="dashboard__content-list-item">

@@ -9,20 +9,20 @@
     "orders": []
   },
   {
-    "id": "2",
-    "username": "Bojan2",
-    "password": "$2b$10$D0Zzjbc560.FL9eZ4ZZp6ePUJIez81n4b/XfUYqEwOeDvaf6pjCNa",
-    "role": "admin",
-    "email": "email1@mail.com",
-    "cart": [],
-    "orders": []
-  },
-  {
     "id": "78bb261a-bb13-472b-bff5-ab1bdc8e344f",
     "username": "bokisa",
     "password": "$2b$10$2RVOiwOaoQTcdO3ZZ9Bc7.sPAQCEuv00VnTyJxJGpbvW6ZKP2eU7C",
     "role": "admin",
     "email": "bokisa@mail.com",
+    "cart": [],
+    "orders": []
+  },
+  {
+    "id": "52301bf5-483f-431b-97a3-bbb7e925126b",
+    "username": "newuser",
+    "password": "$2b$10$NibZKkWL//jvOZjjwBaVLu7cyvf8w/3q4p6i7ZXbZLaBQm2hY15Hq",
+    "role": "user",
+    "email": "newuser@mail.com",
     "cart": [],
     "orders": []
   }

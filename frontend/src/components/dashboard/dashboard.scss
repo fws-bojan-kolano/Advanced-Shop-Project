@@ -8,14 +8,27 @@
 
     &__content {
         display: flex;
+
+        @include mq($md) {
+            flex-direction: column;
+        }
     }
 
     &__content-list {
         width: 30%;
+
+        @include mq($md) {
+            width: 100%;
+        }
     }
 
     &__content-wrapper {
         width: 70%;
+
+        @include mq($md) {
+            width: 100%;
+            margin-top: 20px;
+        }
     }
 
     &__content-list-item-link {
@@ -47,5 +60,9 @@
         margin-bottom: 20px;
         display: block;
         text-align: left;
+    }
+
+    @include mq($md) {
+        min-height: 70vh;
     }
 }

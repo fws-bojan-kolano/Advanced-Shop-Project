@@ -117,11 +117,30 @@ const usersUpdateAccountController = async (req, res) => {
     }
 }
 
+const usersRemoveController = async (req, res) => {
+    try {
+        const usersData = getUsers();
+        const foundIndex = usersData.findIndex(user => user.id === req.params.id);
+
+        if(foundIndex === -1) {
+            return res.status(404).send({message: 'User not found!'});
+        }
+
+        usersData.splice(foundIndex, 1);
+        fs.writeFileSync('data/users.json', JSON.stringify(usersData, null, 2));
+        return res.send({message: 'User deleted!'});
+    } catch (error) {
+        console.error('Error removing user:', error);
+        return res.status(500).send({ success: false, message: 'Internal Server Error' });
+    }
+}
+
 module.exports = {
     usersController: {
         usersControllerGet,
         usersLoginController,
         usersRegisterController,
-        usersUpdateAccountController
+        usersUpdateAccountController,
+        usersRemoveController
     }
 }

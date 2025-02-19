@@ -1,0 +1,28 @@
+.change-users {
+    &__list-item-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &__list-button {
+        cursor: pointer;
+        color: $black;
+        font-size: 14px;
+        transition: $dur $ease;
+
+        @include hover {
+            color: $green-brand;
+            transition: $dur $ease;
+        }
+    }
+
+    &__list-remove {
+        margin-right: 15px;
+    }
+
+    &__list-item {
+        border-bottom: 1px solid $quill-gray;
+        padding: 5px 0;
+    }
+}
