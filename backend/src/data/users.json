@@ -2,8 +2,8 @@
   {
     "id": "1",
     "username": "Bojan4",
-    "password": "$2b$10$AdbmbMNPEmfQQNrEw0bT6e.BkLt6K2qC89wIEZmDnLKvJgGXw4QIi",
-    "role": "user",
+    "password": "$2b$10$ysLNX6pPcs.mpl.mTHdCHOa0oEbMHdXAv.naLxkaK/lPOZsS4IIti",
+    "role": "admin",
     "email": "email@mail.com",
     "cart": [],
     "orders": []
@@ -21,7 +21,7 @@
     "id": "78bb261a-bb13-472b-bff5-ab1bdc8e344f",
     "username": "bokisa",
     "password": "$2b$10$2RVOiwOaoQTcdO3ZZ9Bc7.sPAQCEuv00VnTyJxJGpbvW6ZKP2eU7C",
-    "role": "user",
+    "role": "admin",
     "email": "bokisa@mail.com",
     "cart": [],
     "orders": []

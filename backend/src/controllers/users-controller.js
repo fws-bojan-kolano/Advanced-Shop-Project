@@ -32,8 +32,11 @@ const usersLoginController = async (req, res) => {
                 user: {
                     id: user.id,
                     username: user.username,
+                    password: user.password,
+                    role: user.role,
                     email: user.email,
-                    password: user.password
+                    cart: user.cart,
+                    orders: user.orders
                 }
             });
         } else {
