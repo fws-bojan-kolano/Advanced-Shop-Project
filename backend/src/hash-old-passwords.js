@@ -1,3 +1,5 @@
+/* Script that hashes unhashed passwords. Needs to be run only once in case there are unhashed passwords in data. */
+
 const fs = require('fs');
 const bcrypt = require('bcrypt');
 const SALT_ROUNDS = 10;

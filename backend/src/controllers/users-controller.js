@@ -45,6 +45,7 @@ const usersLoginController = async (req, res) => {
     }
 }
 
+//Registration
 const usersRegisterController = async (req, res) => {
     try {
         const { username, email, password } = req.body;
