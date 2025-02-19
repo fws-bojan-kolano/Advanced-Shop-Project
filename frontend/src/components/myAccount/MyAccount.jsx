@@ -77,7 +77,7 @@ export default function MyAccount() {
         }
 
         try {
-            const response = await fetch(`${SERVER}users`, {
+            const response = await fetch(`${SERVER}users/update`, {
                 method: "PUT",
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(updatedData)

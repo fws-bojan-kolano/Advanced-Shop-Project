@@ -16,5 +16,11 @@
     "email": "email1@mail.com",
     "cart": [],
     "orders": []
+  },
+  {
+    "id": "274d30f0-5db4-4267-9848-9e14a613db68",
+    "username": "1",
+    "email": "bojan@forwardslashny.com",
+    "password": "$2b$10$iPTJ0Olbie/ikqzHaK8FT.xkntlJ4aAQ58mE64MXe06Phf4v8u.be"
   }
 ]

@@ -15,7 +15,7 @@ function App() {
             <Header />
             <Routes>
               <Route path="/" element={<PageHome />} />
-              <Route path="/dashboard" element={<PageDashboard />} />
+              <Route path="/dashboard/*" element={<PageDashboard />} />
             </Routes>
             <Footer />
           </BrowserRouter>

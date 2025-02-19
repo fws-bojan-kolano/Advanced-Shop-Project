@@ -1,10 +1,15 @@
 const fs = require('fs');
 const bcrypt = require('bcrypt');
+const {v4: uuidv4} = require('uuid');
 const SALT_ROUNDS = 10;
 
 //Load users
 const getUsers = () => {
-    return JSON.parse(fs.readFileSync('data/users.json', {encoding: 'utf-8'}));
+    try {
+        return JSON.parse(fs.readFileSync('data/users.json', {encoding: 'utf-8'}));
+    } catch (error) {
+        return [];
+    }
 }
 
 //Get users
@@ -40,6 +45,44 @@ const usersLoginController = async (req, res) => {
     }
 }
 
+const usersRegisterController = async (req, res) => {
+    try {
+        const { username, email, password } = req.body;
+
+        if(!username || !email || !password) {
+            return res.status(400).send({ success: false, message: 'All fields are required!' });
+        }
+
+        const usersData = getUsers();
+        
+        const existingUser = usersData.find(user => user.username === username || user.email === email);
+        if (existingUser) {
+            return res.status(400).send({ success: false, message: 'Username or email already exists!' });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
+        const newUser = {
+            id: uuidv4(),
+            username,
+            email,
+            password: hashedPassword
+        }
+
+        usersData.push(newUser);
+        fs.writeFileSync('data/users.json', JSON.stringify(usersData, null, 2));
+
+        res.status(201).send({ 
+            success: true, 
+            message: 'Registration successful!', 
+            user: { id: newUser.id, username: newUser.username, email: newUser.email } 
+        });
+
+    } catch (error) {
+        console.error('Error during registration:', error);
+        res.status(500).send({ success: false, message: 'Internal Server Error' });
+    }
+}
+
 //My account update account
 const usersUpdateAccountController = async (req, res) => {
     try {
@@ -71,6 +114,7 @@ module.exports = {
     usersController: {
         usersControllerGet,
         usersLoginController,
+        usersRegisterController,
         usersUpdateAccountController
     }
 }

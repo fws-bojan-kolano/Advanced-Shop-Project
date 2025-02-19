@@ -13,4 +13,8 @@
     &__form-button {
         margin-top: 15px;
     }
+
+    @include mq($sm) {
+        padding: 70px 0;
+    }
 }

@@ -1,4 +1,5 @@
 import { useRef, useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../user/user-context';
 import { SERVER } from '../../utils/utils';
 import './login.scss';
@@ -9,6 +10,8 @@ export default function Login() {
     const [showLoader, setShowLoader] = useState(false);
 
     const {setUser} = useContext(UserContext);
+
+    const navigate = useNavigate();
 
     const usernameRef = useRef(null);
     const passwordRef = useRef(null);
@@ -22,7 +25,7 @@ export default function Login() {
         setShowLoader(true);
 
         try {
-            const response = await fetch(`${SERVER}users`, {
+            const response = await fetch(`${SERVER}users/login`, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({
@@ -43,6 +46,7 @@ export default function Login() {
                 usernameRef.current.value = '';
                 passwordRef.current.value = '';
                 setShowLoader(false);
+                navigate('/dashboard');
             } else {
                 setShowError(true);
                 setShowLoader(false);
@@ -66,7 +70,7 @@ export default function Login() {
                     <input type="text" placeholder="Password" ref={passwordRef} />
                     <input className='login__form-submit' type="submit" value="Login" />
                 </form>
-                <a className='btn btn--reverse login__form-button' href="#">Register</a>
+                <a className='btn btn--reverse login__form-button' href="/dashboard/register">Register</a>
             </div>
         </div>
     )
