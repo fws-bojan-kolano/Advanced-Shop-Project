@@ -31,7 +31,7 @@ export default function Header() {
                                 <button className='header__link' onClick={handleLogout}>Log Out</button>
                             )}
                         </li>
-                        <li className='header__list-item'><a className='header__link' href="#">Cart</a></li>
+                        {user ? (<li className='header__list-item'><a className='header__link' href="#">Cart</a></li>) : null}
                     </nav>
                 </div>
             </div>
