@@ -25,5 +25,23 @@
     "email": "newuse123r@mail.com",
     "cart": [],
     "orders": []
+  },
+  {
+    "id": "a6001435-a809-4763-bbf3-e6edda3c6cdb",
+    "username": "test",
+    "password": "$2b$10$O8AANOq/ul2FJPdnUVYoI.eXnjpPJtNbfA9a9wXzvw1ZVUzg9JWBa",
+    "role": "user",
+    "email": "test@mail.com",
+    "cart": [],
+    "orders": []
+  },
+  {
+    "id": "8042814f-2b48-47b2-9a1b-d0da4f1e4725",
+    "username": "another",
+    "password": "$2b$10$/cUffhso84EcbEgs7Yb3rOSBGgyXMv9PyVPcioKfMTGpI4jiPouiO",
+    "role": "user",
+    "email": "another@mail.com",
+    "cart": [],
+    "orders": []
   }
 ]
