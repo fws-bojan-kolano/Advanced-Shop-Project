@@ -7,7 +7,8 @@ usersRouter
     .post('/users/login', usersController.usersLoginController)
     .post('/users/register', usersController.usersRegisterController)
     .put('/users/update', usersController.usersUpdateAccountController)
-    .delete('/users/:id', usersController.usersRemoveController);
+    .delete('/users/:id', usersController.usersRemoveController)
+    .put('/users/:id', usersController.usersChangeUser);
 
 module.exports = {
     usersRouter

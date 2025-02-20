@@ -25,4 +25,17 @@
         border-bottom: 1px solid $quill-gray;
         padding: 5px 0;
     }
+
+    &__list-item-bottom {
+        padding-top: 20px;
+    }
+
+    .register__radio-wrapper-item {
+        display: inline-block;
+        margin-right: 20px;
+    }
+    
+    .my-account__form-submit {
+        margin: 20px 10px 0 auto;
+    }
 }

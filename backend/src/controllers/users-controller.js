@@ -135,12 +135,41 @@ const usersRemoveController = async (req, res) => {
     }
 }
 
+const usersChangeUser = async (req, res) => {
+    try {
+        const {id} = req.params;
+        const updates = req.body;//get fields to update
+
+        const usersData = getUsers();
+        const foundIndex = usersData.findIndex(user => user.id === id);
+
+        if(foundIndex === -1) {
+            return res.status(404).send({message: 'User not found!'});
+        }
+
+        //Update only provided fields
+        Object.entries(updates).forEach(([key, value]) => {
+            if(value && value.trim() !== '') {//ignore empty values
+                usersData[foundIndex][key] = value;
+            }
+        })
+
+        fs.writeFileSync('data/users.json', JSON.stringify(usersData, null, 2));
+        return res.send({success: true, message: 'User updated!', user: usersData[foundIndex]});
+        
+    } catch (error) {
+        console.error('Error changing user:', error);
+        return res.status(500).send({ success: false, message: 'Internal Server Error' });
+    }
+}
+
 module.exports = {
     usersController: {
         usersControllerGet,
         usersLoginController,
         usersRegisterController,
         usersUpdateAccountController,
-        usersRemoveController
+        usersRemoveController,
+        usersChangeUser
     }
 }

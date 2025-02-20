@@ -19,19 +19,10 @@
   },
   {
     "id": "52301bf5-483f-431b-97a3-bbb7e925126b",
-    "username": "newuser",
-    "password": "$2b$10$NibZKkWL//jvOZjjwBaVLu7cyvf8w/3q4p6i7ZXbZLaBQm2hY15Hq",
-    "role": "user",
-    "email": "newuser@mail.com",
-    "cart": [],
-    "orders": []
-  },
-  {
-    "id": "081f5035-d19a-4353-9a56-d179e9baafa2",
-    "username": "new",
-    "password": "$2b$10$Qh.D8HsgeyzuvpvqxE7o8.xc4dPdhVF2AKjevtzcsEMjkryAsm9A.",
-    "role": "user",
-    "email": "new@mail.com",
+    "username": "newuser3",
+    "password": "333",
+    "role": "admin",
+    "email": "newuse123r@mail.com",
     "cart": [],
     "orders": []
   }
