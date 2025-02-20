@@ -117,6 +117,7 @@ const usersUpdateAccountController = async (req, res) => {
     }
 }
 
+//Remove user - my account
 const usersRemoveController = async (req, res) => {
     try {
         const usersData = getUsers();
@@ -135,6 +136,7 @@ const usersRemoveController = async (req, res) => {
     }
 }
 
+//Change user - my account
 const usersChangeUser = async (req, res) => {
     try {
         const {id} = req.params;
