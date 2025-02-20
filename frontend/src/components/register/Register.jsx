@@ -8,6 +8,7 @@ export default function Register() {
     const [showError, setShowError] = useState(false);
     const [showLoader, setShowLoader] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
+    const [role, setRole] = useState('admin');
 
     const {setUser} = useContext(UserContext);
 
@@ -35,7 +36,8 @@ export default function Register() {
                 body: JSON.stringify({
                     username: usernameRef.current.value,
                     email: emailRef.current.value,
-                    password: passwordRef.current.value
+                    password: passwordRef.current.value,
+                    role: role
                 }),
             });
 
@@ -71,6 +73,17 @@ export default function Register() {
                     <input type="text" name="username" placeholder="Username" ref={usernameRef} />
                     <input type="email" name="email" placeholder="Email" ref={emailRef} />
                     <input type="password" name="password" placeholder="Password" ref={passwordRef} />
+                    <div className="register__radio-wrapper">
+                        <p>Select the role:</p>
+                        <div className="register__radio-wrapper-item">
+                            <input type="radio" id="admin" name="role" value="admin" checked={role === 'admin'} onChange={(e) => setRole(e.target.value)} />
+                            <label for="admin">Admin</label>
+                        </div>
+                        <div className="register__radio-wrapper-item">
+                            <input type="radio" id="user" name="role" value="user" checked={role === 'user'} onChange={(e) => setRole(e.target.value)} />
+                            <label for="user">User</label>
+                        </div>
+                    </div>
                     <input className="register__form-submit" type="submit" value="Register" />
                 </form>
             </div>

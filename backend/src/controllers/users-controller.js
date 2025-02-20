@@ -51,9 +51,9 @@ const usersLoginController = async (req, res) => {
 //Registration
 const usersRegisterController = async (req, res) => {
     try {
-        const { username, email, password } = req.body;
+        const { username, email, password, role } = req.body;
 
-        if(!username || !email || !password) {
+        if(!username || !email || !password || !role) {
             return res.status(400).send({ success: false, message: 'All fields are required!' });
         }
 
@@ -69,7 +69,7 @@ const usersRegisterController = async (req, res) => {
             id: uuidv4(),
             username,
             password: hashedPassword,
-            role: 'user',
+            role: role,
             email,
             cart: [],
             orders: []
@@ -81,7 +81,7 @@ const usersRegisterController = async (req, res) => {
         res.status(201).send({ 
             success: true, 
             message: 'Registration successful!', 
-            user: { id: newUser.id, username: newUser.username, email: newUser.email } 
+            user: { id: newUser.id, username: newUser.username, email: newUser.email, role: newUser.role } 
         });
 
     } catch (error) {

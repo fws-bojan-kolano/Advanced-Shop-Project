@@ -25,5 +25,14 @@
     "email": "newuser@mail.com",
     "cart": [],
     "orders": []
+  },
+  {
+    "id": "081f5035-d19a-4353-9a56-d179e9baafa2",
+    "username": "new",
+    "password": "$2b$10$Qh.D8HsgeyzuvpvqxE7o8.xc4dPdhVF2AKjevtzcsEMjkryAsm9A.",
+    "role": "user",
+    "email": "new@mail.com",
+    "cart": [],
+    "orders": []
   }
 ]
