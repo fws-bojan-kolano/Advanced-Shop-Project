@@ -128,7 +128,7 @@ export default function ChangeUsers() {
                 setShowSuccess(false);
                 setEditingUserId(null);
                 setEditedUser(null);
-            }, 1500);
+            }, 1000);
         } catch (error) {
             setShowErrorChange(true);
             setShowLoader(false);
