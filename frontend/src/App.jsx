@@ -1,4 +1,5 @@
 import PageHome from './pages/PageHome';
+import PageAbout from './pages/PageAbout';
 import PageDashboard from './pages/PageDashboard';
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
@@ -15,6 +16,7 @@ function App() {
             <Header />
             <Routes>
               <Route path="/" element={<PageHome />} />
+              <Route path="/about" element={<PageAbout />} />
               <Route path="/dashboard/*" element={<PageDashboard />} />
             </Routes>
             <Footer />
