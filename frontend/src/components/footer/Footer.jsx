@@ -11,7 +11,7 @@ export default function Footer() {
                     </div>
                     <div className="col-xl-3 col-lg-4 col-md-4 col-sm-12">
                         <ul>
-                            <li className='footer__list-item'><a href="/">Some page here</a></li>
+                            <li className='footer__list-item'><a href="/about">About Us</a></li>
                             <li className='footer__list-item'><a href="/">Another page here</a></li>
                             <li className='footer__list-item'><a href="/">More pages here</a></li>
                         </ul>

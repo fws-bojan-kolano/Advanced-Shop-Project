@@ -6,21 +6,42 @@ export default function HeroComic() {
             <article class="comic">
                 <div class="panel">
                     <p class="text top-left">Suddenly...</p>
-                    <p class="text bottom-right">...something amazing happened</p>
+                    <img src="../../src/assets/images/hero.png" alt="Hero" />
+                    <p class="text bottom-right">...a wild hero appears</p>
                 </div>
                 <div class="panel">
-                    <p class="text top-left">Try resizing...</p>
-                    <p class="text bottom-right">...it's responsive</p>
+                    <p class="text top-left">A book...</p>
+                    <img src="../../src/assets/images/logo.png" alt="Book" />
+                    <p class="text bottom-right">...or is it?</p>
                 </div>
                 <div class="panel">
-                    <p class="speech">A speech bubble</p>
+                    <img src="../../src/assets/images/logo.png" alt="Book" />
+                    <p class="speech">I am just an old book..</p>
                 </div>
-                <div class="panel"></div>
-                <div class="panel"></div>
-                <div class="panel"></div>
-                <div class="panel"></div>
-                <div class="panel"></div>
                 <div class="panel">
+                    <p class="text top-left">A sudden transformation?...</p>
+                    <img src="../../src/assets/images/villain.png" alt="Villain" />
+                </div>
+                <div class="panel">
+                    <p class="text top-left">The book...</p>
+                    <img src="../../src/assets/images/logo.png" alt="Book" />
+                    <p class="text bottom-right">...was not just a book</p>
+                </div>
+                <div class="panel">
+                    <p class="text top-left">It was a prison...</p>
+                    <img src="../../src/assets/images/logo.png" alt="Book" />
+                </div>
+                <div class="panel">
+                    <img src="../../src/assets/images/villain.png" alt="Villain" />
+                    <p class="text bottom-right">A prison for the most evil guy!</p>
+                </div>
+                <div class="panel">
+                    <img src="../../src/assets/images/villain.png" alt="Villain" />
+                    <p class="text bottom-right">An evil guy who wanted to destroy books!</p>
+                </div>
+                <div class="panel">
+                    <p class="text top-left">But the hero was stronger...</p>
+                    <img src="../../src/assets/images/hero.png" alt="Hero" />
                     <p class="text bottom-right">THE END</p>
                 </div>
                 </article>
