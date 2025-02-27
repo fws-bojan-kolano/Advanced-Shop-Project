@@ -1,4 +1,5 @@
 
+import Gallery from "../components/gallery/Gallery";
 import HeroComic from "../components/heroScrolling/HeroComic";
 import Rays from "../components/rays/Rays";
 
@@ -7,6 +8,7 @@ const PageAbout = () => {
         <>
             <Rays />
             <HeroComic />
+            <Gallery />
         </>
     )
 }
