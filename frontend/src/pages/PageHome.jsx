@@ -3,6 +3,7 @@ import BookFlip from "../components/bookFlip/BookFlip";
 import BasicText from "../components/basicText/BasicText";
 import TextFlip from "../components/textFlip/TextFlip";
 import Products from "../components/products/Products";
+import Gallery from "../components/gallery/Gallery";
 
 const PageHome = () => {
     return (
@@ -12,6 +13,7 @@ const PageHome = () => {
             <Products />
             <TextFlip />
             <BasicText />
+            <Gallery />
         </>
     )
 }
