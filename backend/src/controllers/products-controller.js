@@ -34,8 +34,13 @@ const productsControllerGetById = async(req, res) => {
 
 //Get product by reccomended
 const productsControllerGetByRecommended = async(req, res) => {
+    const {id} = req.query;
     const products = getProducts();
-    const recommendedProducts = products.filter(product => product.recommended === true);
+    let recommendedProducts = products.filter(product => product.recommended === true);
+
+    if(id) {//exclude current product
+        recommendedProducts = recommendedProducts.filter(product => product.id !== id);
+    }
 
     if(recommendedProducts.length > 0) {
         return res.json(recommendedProducts);

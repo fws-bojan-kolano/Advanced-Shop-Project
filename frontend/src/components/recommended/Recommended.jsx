@@ -4,9 +4,10 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from 'react-slick';
 import { useEffect, useState } from 'react';
 import { SERVER } from '../../utils/utils';
-import {Link} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 
 export default function Recommended() {
+    const {id} = useParams();
     const [recommendedProducts, setRecommendedProducts] = useState([]);
 
     const settings = {
@@ -19,14 +20,18 @@ export default function Recommended() {
 
     useEffect(() => {
         const fetchRecommendedProducts = async () => {
-            const response = await fetch(`${SERVER}products/recommended`);
+            const response = await fetch(`${SERVER}products/recommended?id=${id}`);
+            if (!response.ok) {
+                throw new Error("Failed to fetch recommended products");
+            }
+
             const data = await response.json();
             setRecommendedProducts(data);
         }
 
         console.log(recommendedProducts);
         fetchRecommendedProducts();
-    }, []);
+    }, [id]);
 
     return (
         <div className="recommended">
