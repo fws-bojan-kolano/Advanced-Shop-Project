@@ -1,0 +1,64 @@
+[
+    {
+      "id": "1",
+      "name": "Product 1",
+      "price": 300,
+      "creator": "Marcela Paz",
+      "description": "Fennel bamboo shoot pea sprouts rutabaga parsnip green bean gram wattle seed lentil horseradish nori. Grape lettuce turnip greens.",
+      "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
+      "recommended": true
+    },
+    {
+        "id": "2",
+        "name": "Product 2",
+        "price": 50,
+        "creator": "Bojan Paz",
+        "description": "Second book description goes here.",
+        "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
+        "recommended": false
+    },
+    {
+      "id": "3",
+      "name": "Product 3",
+      "price": 50,
+      "creator": "Bojan Paz",
+      "description": "Third book description goes here.",
+      "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
+      "recommended": true
+  },
+  {
+    "id": "4",
+    "name": "Product 4",
+    "price": 50,
+    "creator": "Bojan Paz",
+    "description": "Fourth book description goes here.",
+    "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
+    "recommended": false
+  },
+  {
+    "id": "5",
+    "name": "Product 5",
+    "price": 50,
+    "creator": "Bojan Paz",
+    "description": "Fifth book description goes here.",
+    "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
+    "recommended": true
+  }
+  ,{
+    "id": "6",
+    "name": "Product 6",
+    "price": 50,
+    "creator": "Bojan Paz",
+    "description": "Sixth book description goes here.",
+    "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
+    "recommended": true
+  },{
+    "id": "7",
+    "name": "Product 7",
+    "price": 50,
+    "creator": "Bojan Paz",
+    "description": "Seventh book description goes here.",
+    "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
+    "recommended": true
+  }
+]

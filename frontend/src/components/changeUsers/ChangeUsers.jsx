@@ -33,6 +33,7 @@ export default function ChangeUsers() {
                 setShowError(false);
             } catch (error) {
                 setShowError(true);
+                console.error("Error fetching users:", error);
             }
         };
 

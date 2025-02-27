@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const {v4: uuidv4} = require('uuid');
 const SALT_ROUNDS = 10;
 
-//Load users
+//Load all users
 const getUsers = () => {
     try {
         return JSON.parse(fs.readFileSync('data/users.json', {encoding: 'utf-8'}));
@@ -12,7 +12,7 @@ const getUsers = () => {
     }
 }
 
-//Get users
+//Get all users
 const usersControllerGet = async (req, res) => {
     res.send({users: getUsers()});
 }
