@@ -1,12 +1,12 @@
 
-import BasicText from "../components/basicText/BasicText";
 import HeroComic from "../components/heroScrolling/HeroComic";
+import Rays from "../components/rays/Rays";
 
 const PageAbout = () => {
     return (
         <>
+            <Rays />
             <HeroComic />
-            <BasicText />
         </>
     )
 }
