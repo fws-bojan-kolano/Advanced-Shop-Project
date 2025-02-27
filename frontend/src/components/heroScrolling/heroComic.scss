@@ -1,12 +1,12 @@
 .hero-comic {
-	.comic {
+	&__comic {
 		display: flex;
 		flex-wrap: wrap;
 		font-family: 'Comic Sans', cursive;
 		padding: 1vmin;
 	}
 
-	.panel {
+	&__panel {
 		background-color: $white;
 		border: solid 2px $black;
 		box-shadow: 0 6px 6px -6px $black;
@@ -18,13 +18,7 @@
 		position: relative;
 		flex-basis: 400px;
 
-		&:nth-child(2),
-		&:nth-child(3),
-		&:nth-child(4),
-		&:nth-child(5),
-		&:nth-child(6),
-		&:nth-child(8),
-		&:nth-child(9) {
+		&:is(:nth-child(2), :nth-child(3), :nth-child(4), :nth-child(5), :nth-child(6), :nth-child(8), :nth-child(9)) {
 			flex-basis: 200px;
 		}
 
