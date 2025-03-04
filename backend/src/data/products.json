@@ -1,30 +1,30 @@
 [
-    {
-      "id": "1",
-      "name": "Product 1",
-      "price": 300,
-      "creator": "Marcela Paz",
-      "description": "Fennel bamboo shoot pea sprouts rutabaga parsnip green bean gram wattle seed lentil horseradish nori. Grape lettuce turnip greens.",
-      "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
-      "recommended": true
-    },
-    {
-        "id": "2",
-        "name": "Product 2",
-        "price": 50,
-        "creator": "Bojan Paz",
-        "description": "Second book description goes here.",
-        "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
-        "recommended": false
-    },
-    {
-      "id": "3",
-      "name": "Product 3",
-      "price": 50,
-      "creator": "Bojan Paz",
-      "description": "Third book description goes here.",
-      "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
-      "recommended": true
+  {
+    "id": "1",
+    "name": "Product 1",
+    "price": 300,
+    "creator": "Marcela Paz",
+    "description": "Fennel bamboo shoot pea sprouts rutabaga parsnip green bean gram wattle seed lentil horseradish nori. Grape lettuce turnip greens.",
+    "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
+    "recommended": true
+  },
+  {
+    "id": "2",
+    "name": "Product 2",
+    "price": 50,
+    "creator": "Bojan Paz",
+    "description": "Second book description goes here.",
+    "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
+    "recommended": false
+  },
+  {
+    "id": "3",
+    "name": "Product 3",
+    "price": 50,
+    "creator": "Bojan Paz",
+    "description": "Third book description goes here.",
+    "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
+    "recommended": true
   },
   {
     "id": "4",
@@ -43,8 +43,8 @@
     "description": "Fifth book description goes here.",
     "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
     "recommended": true
-  }
-  ,{
+  },
+  {
     "id": "6",
     "name": "Product 6",
     "price": 50,
@@ -52,13 +52,50 @@
     "description": "Sixth book description goes here.",
     "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
     "recommended": true
-  },{
+  },
+  {
     "id": "7",
     "name": "Product 7",
     "price": 50,
     "creator": "Bojan Paz",
     "description": "Seventh book description goes here.",
     "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
+    "recommended": true
+  },
+  {
+    "id": "26d4add7-9293-44d3-bab1-b36b1843208a",
+    "name": "New Product",
+    "price": "232",
+    "creator": "Boksa",
+    "description": "This is a new product test....it should work and not be recommended",
+    "image": "https://wastesolutionservices.com/wp-content/uploads/2025/02/Frame-13118.jpg",
+    "recommended": false
+  },
+  {
+    "id": "6e36313c-8c5b-45d2-b099-98004831318e",
+    "name": "Test",
+    "price": "213",
+    "creator": "asd aasd ad ad",
+    "description": "adasd asdad aasdasdasda asdas asd asd asd ",
+    "image": "https://wastesolutionservices.com/wp-content/uploads/2024/10/control3.jpg",
+    "recommended": true
+  },
+  {
+    "id": "81167c2f-9fa3-43db-b96f-b2f63efeb0db",
+    "name": "Test 2 2 2",
+    "price": "213",
+    "creator": "asd aasd ad ad",
+    "description": "adasd asdad aasdasdasda asdas asd asd asd ",
+    "image": "https://wastesolutionservices.com/wp-content/uploads/2024/10/control4.jpg",
+    "recommended": false
+  },
+  {
+    "id": "5356d9bd-8cce-49fb-8d62-1a2ac305e097",
+    "name": "New test product",
+    "price": "1234",
+    "creator": "Me",
+    "description": "This is a product description but no lorem ipsum was used here!",
+    "image": "https://wastesolutionservices.com/wp-content/uploads/2024/10/control2.jpg",
     "recommended": true
   }
 ]

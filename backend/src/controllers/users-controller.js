@@ -81,7 +81,12 @@ const usersRegisterController = async (req, res) => {
         res.status(201).send({ 
             success: true, 
             message: 'Registration successful!', 
-            user: { id: newUser.id, username: newUser.username, email: newUser.email, role: newUser.role } 
+            user: {
+                id: newUser.id,
+                username: newUser.username,
+                email: newUser.email,
+                role: newUser.role
+            } 
         });
 
     } catch (error) {

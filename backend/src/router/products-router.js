@@ -5,7 +5,8 @@ const productsRouter = express.Router();
 productsRouter
     .get('/products', productsController.productsControllerGet)
     .get('/products/recommended', productsController.productsControllerGetByRecommended)
-    .get('/products/:id', productsController.productsControllerGetById);
+    .get('/products/:id', productsController.productsControllerGetById)
+    .post('/products/new', productsController.productsControllerAddNew);
 
 module.exports = {
     productsRouter
