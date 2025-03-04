@@ -18,7 +18,27 @@ const getProductById = (id) => {
 //Get all products
 const productsControllerGet = async (req, res) => {
     const products = getProducts();
-    res.send({products});
+
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 6;
+
+    const totalProducts = products.length;
+    const totalPages = Math.ceil(totalProducts / limit);
+
+    //Page needs to be in range
+    if(page < 1 || page > totalPages) {
+        return res.status(400).json({success: false, message: 'Invalid page number!'});
+    }
+
+    const startIndex = (page -1) * limit;
+    const endIndex = startIndex + limit;
+    const paginatedProducts = products.slice(startIndex, endIndex);
+
+    res.json({
+        success: true,
+        products: paginatedProducts,
+        totalPages
+    });
 }
 
 //Get product by ID
