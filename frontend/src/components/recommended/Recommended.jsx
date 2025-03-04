@@ -14,8 +14,28 @@ export default function Recommended() {
         dots: true,
         infinite: true,
         speed: 500,
-        slidesToShow: 3,
+        slidesToShow: 4,
         slidesToScroll: 1,
+        responsive: [
+            {
+                breakpoint: 992,
+                settings: {
+                    slidesToShow: 3
+                }
+            },
+            {
+                breakpoint: 767,
+                settings: {
+                    slidesToShow: 2
+                }
+            },
+            {
+                breakpoint: 576,
+                settings: {
+                    slidesToShow: 1
+                }
+            }
+        ]
     }
 
     useEffect(() => {
@@ -33,17 +53,25 @@ export default function Recommended() {
         fetchRecommendedProducts();
     }, [id]);
 
+    const handleScrollTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    };
+
     return (
         <div className="recommended">
             <div className="container">
+                <h2 className="recommended__title">Recommended</h2>
                 <Slider {...settings}>
                     {recommendedProducts.map(product => (
                         <div className="recommended__slide" key={product.id}>
                             <div className="recommended__slide-wrapp">
-                                <Link to={`/product/${product.id}`} className='recommended__slide-link'>
-                                    <img className='recommended__slide-image' src={product.iamge} alt={product.name} />
+                                <Link to={`/product/${product.id}`} className='recommended__slide-link' onClick={handleScrollTop}>
+                                    <img className='recommended__slide-image' src={product.image} alt={product.name} />
                                     <h3 className="recommended__slide-name">{product.name}</h3>
-                                    <p className="recommended__slide-creator">{product.creator}</p>
+                                    <p className="recommended__slide-creator">By {product.creator}</p>
                                     <p className="recommended__slide-price">${product.price}</p>
                                 </Link>
                             </div>

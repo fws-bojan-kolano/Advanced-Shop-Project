@@ -1,3 +1,73 @@
 .recommended {
     overflow: hidden;
+    padding-bottom: 130px;
+
+    &__title {
+        font-size: 50px;
+        margin-bottom: 50px;
+    }
+
+    &__slide-link {
+        padding:  0 10px;
+        text-align: center;
+
+        @include hover {
+            .recommended__slide-image {
+                box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.34);
+                transition: $dur $ease;
+            }
+        }
+    }
+
+    &__slide-image {
+        margin: 0 auto 20px;
+        transition: $dur $ease;
+    }
+
+    &__slide-name {
+        font-size: 25px;
+        margin-bottom: 10px;
+    }
+
+    &__slide-creator {
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+
+    &__slide-price {
+        font-size: 30px;
+    }
+
+    .slick-prev,
+    .slick-next {
+        width: 50px;
+        height: 50px;
+        z-index: 1;
+    }
+
+    .slick-prev {
+        left: 0;
+    }
+
+    .slick-next {
+        right: 0;
+    }
+
+    .slick-arrow {
+        &::before {
+            color: $black;
+            font-size: 50px;
+            transition: $dur $ease;
+        }
+
+        @include hover {
+            &::before {
+                transition: $dur $ease;
+            }
+        }
+    }
+
+    .slick-dots {
+        transform: translateY(50px);
+    }
 }
