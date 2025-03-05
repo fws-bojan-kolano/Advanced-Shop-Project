@@ -1,8 +1,50 @@
 .products {
-    padding-top: 80px;
     overflow: hidden;
+    padding: 80px 0 120px;
+
+    &__title {
+        margin-bottom: 80px;
+    }
 
     @include mq($sm) {
         padding-top: 30px;
+    }
+}
+
+.pagination {
+    text-align: center;
+
+    &__button,
+    &__number {
+        margin: 0 5px;
+        outline: none;
+        border: none;
+        border-radius: 50%;
+        min-width: 30px;
+        width: 30px;
+        min-height: 30px;
+        background-color: rgba($color: $pewter, $alpha: .7);
+        transition: $dur $ease;
+        font-size: 15px;
+        font-weight: bold;
+
+        @include hover {
+            background-color: rgba($color: $pewter, $alpha: 1);
+        }
+    }
+
+    &__number.active {
+        background-color: rgba($color: $green-brand, $alpha: 1.0);
+    }
+
+    &__button {
+        width: 100px;
+        min-width: 100px;
+        border-radius: 16px;
+    }
+
+    &__dots {
+        font-size: 20px;
+        padding: 0 5px;
     }
 }

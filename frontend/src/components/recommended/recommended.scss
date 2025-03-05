@@ -19,8 +19,18 @@
         }
     }
 
-    &__slide-image {
+    &__slide-image-box {
+        min-height: 250px;
+        max-width: 160px;
+        overflow: hidden;
         margin: 0 auto 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__slide-image {
+        margin: 0 auto;
         transition: $dur $ease;
     }
 

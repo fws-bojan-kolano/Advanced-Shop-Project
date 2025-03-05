@@ -48,6 +48,11 @@ export default function AddNewProduct() {
                 setShowLoader(false);
                 setShowError(false);
                 setShowSuccess(true);
+                productNameRef.current.value = '';
+                productPriceRef.current.value = '';
+                productCreatorRef.current.value = '';
+                productImageRef.current.value = '';
+                productDescriptionRef.current.value = '';
             } else {
                 setShowLoader(false);
                 setShowError(true);

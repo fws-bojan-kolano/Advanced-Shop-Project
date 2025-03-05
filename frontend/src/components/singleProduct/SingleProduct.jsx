@@ -8,6 +8,8 @@ export default function SingleProduct() {
     const [product, setProduct] = useState(null);
 
     useEffect(() => {
+        window.scrollTo(0, 0);
+
         const fetchProduct = async () => {
             const response = await fetch(`${SERVER}products/${id}`);
             if(!response.ok) {

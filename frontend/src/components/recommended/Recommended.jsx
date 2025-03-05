@@ -69,7 +69,9 @@ export default function Recommended() {
                         <div className="recommended__slide" key={product.id}>
                             <div className="recommended__slide-wrapp">
                                 <Link to={`/product/${product.id}`} className='recommended__slide-link' onClick={handleScrollTop}>
-                                    <img className='recommended__slide-image' src={product.image} alt={product.name} />
+                                    <div className="recommended__slide-image-box">
+                                        <img className='recommended__slide-image' src={product.image} alt={product.name} />
+                                    </div>
                                     <h3 className="recommended__slide-name">{product.name}</h3>
                                     <p className="recommended__slide-creator">By {product.creator}</p>
                                     <p className="recommended__slide-price">${product.price}</p>

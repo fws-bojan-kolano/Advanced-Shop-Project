@@ -6,6 +6,7 @@ import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import UserContextProvider from './components/user/user-context';
+import PageProductListing from './pages/PageProductListing';
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
             <Routes>
               <Route path="/" element={<PageHome />} />
               <Route path="/about" element={<PageAbout />} />
+              <Route path="/shop" element={<PageProductListing />} />
               <Route path="/dashboard/*" element={<PageDashboard />} />
               <Route path='/product/:id' element={<PageSingleProduct />} />
             </Routes>
