@@ -1,95 +1,99 @@
 import { useEffect, useState, useContext } from 'react';
 import { SERVER } from '../../utils/utils';
-import './changeUsers.scss';
+import './changeProduct.scss';
 import { UserContext } from '../user/user-context';
 
-export default function ChangeUsers() {
+export default function ChangeProduct() {
     const [showError, setShowError] = useState(false);
     const [showErrorChange, setShowErrorChange] = useState(false);
     const [showSuccessRemove, setSuccessRemove] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
     const [showLoader, setShowLoader] = useState(false);
     const [users, setUsers] = useState([]);
-    const [editingUserId, setEditingUserId] = useState(null);
-    const [editedUser, setEditedUser] = useState(null);
+    const [editingProductId, setEditingProductId] = useState(null);
+    const [editedProduct, setEditedProduct] = useState(null);
 
     const {user} = useContext(UserContext);
 
+    
+    const [products, setProducts] = useState([]);
+
     useEffect(() => {
-        const fetchUsers = async () => {
+        const fetchProducts = async () => {
             try {
-                const response = await fetch(`${SERVER}users`, {
+                const response = await fetch(`${SERVER}products`, {
                     method: "GET",
                 });
 
                 if(!response.ok) {
-                    throw new Error("Failed to fetch users!");
+                    throw new Error("Failed to fetch products!");
                 }
 
                 const data = await response.json();
-                const filteredUsers = data.users.filter(u => u.id !== user.id);//Omit the current logged in user
 
-                setUsers(filteredUsers);
+                setProducts(Array.isArray(data.products) ? data.products : []);
                 setShowError(false);
             } catch (error) {
                 setShowError(true);
-                console.error("Error fetching users:", error);
+                console.error("Error fetching products:", error);
             }
         };
 
-        fetchUsers();
-    }, [user.id]);
+        fetchProducts();
+    }, []);
 
-    const handleRemove = async (userId) => {
-        setEditingUserId(null);
-        setEditedUser(null);
+    const handleRemove = async (productId) => {
+        setEditingProductId(null);
+        setEditedProduct(null);
 
         try {
-            const response = await fetch(`${SERVER}users/${userId}`, {
+            const response = await fetch(`${SERVER}products/${productId}`, {
                 method: 'DELETE',
             });
 
             if(response.ok) {
-                setUsers(users.filter(user => user.id !== userId));
+                setProducts(prevProducts => prevProducts.filter(product => product.id !== productId));
                 setSuccessRemove(true);
                 setTimeout(() => {
                     setSuccessRemove(false);
                 }, 1000);
             } else {
                 setSuccessRemove(false);
-                throw new Error("Failed to remove user");
+                throw new Error("Failed to remove product");
             }
 
         } catch (error) {
             setShowError(true);
-            throw new Error("Error removing user: ", error);
+            throw new Error("Error removing product: ", error);
         }
     };
 
-    const handleDropdown = (user) => {
-        if(editingUserId === user.id) {
-            setEditingUserId(null);
-            setEditedUser(null);
+    const handleDropdown = (product) => {
+        if(editingProductId === product.id) {
+            setEditingProductId(null);
+            setEditedProduct(null);
         } else {
-            setEditingUserId(user.id);
-            setEditedUser({
-                username: user.username,
-                email: user.email,
-                role: user.role,
-                password: ""
+            setEditingProductId(product.id);
+            setEditedProduct({
+                name: product.name,
+                price: product.price,
+                creator: product.creator,
+                description: product.description,
+                image: product.image,
+                recommended: product.recommended
             });
         }
     };
     
     const handleInputChange = (field, value) => {
-        setEditedUser(prev => ({
+        setEditedProduct(prev => ({
             ...prev,
             [field]: value,
         }));
     };
 
     const handleUpdate = async (event) => {
-        event.preventDefault();
+        /* event.preventDefault();
 
         setShowLoader(true);
 
@@ -133,32 +137,32 @@ export default function ChangeUsers() {
         } catch (error) {
             setShowErrorChange(true);
             setShowLoader(false);
-        }
+        } */
     };
 
     return (
-        <div className="change-users">
-            {showError && <span className='form-message form-error change__error'>Enter correct username and password!</span>}
-            {showSuccessRemove && <span className='form-message form-success change__success'>User removed!</span>}
+        <div className="change-product">
+            {showError && <span className='form-message form-error change__error'>Enter correct data!</span>}
+            {showSuccessRemove && <span className='form-message form-success change__success'>Data removed!</span>}
             <ul className="change-users__list">
                 {
-                    users.map(user => 
+                    products.map(product => 
                     (
-                        <li className="change-users__list-item" key={user.id}>
+                        <li className="change-users__list-item" key={product.id}>
                             <div className="change-users__list-item-top">
                                 <div className="change-users__list-item-left">
-                                    <span className="change-users__list-item-name">{user.username}</span>
+                                    <span className="change-users__list-item-name">{product.name}</span>
                                 </div>
                                 <div className="change-users__list-item-right">
-                                    <span className="change-users__list-button change-users__list-remove" onClick={() => handleRemove(user.id)}>Remove</span>
-                                    <span className="change-users__list-button change-users__list-change" onClick={() => handleDropdown(user)}>Change</span>
+                                    <span className="change-users__list-button change-users__list-remove" onClick={() => handleRemove(product.id)}>Remove</span>
+                                    <span className="change-users__list-button change-users__list-change" onClick={() => handleDropdown(product)}>Change</span>
                                 </div>
                             </div>
                         </li>
                     )
                 )}
             </ul>
-            {editingUserId !== null && editedUser && 
+            {editingProductId !== null && editedProduct && 
                 <div className="change-users__list-item-bottom">
                     <form className="change-users__form" onSubmit={handleUpdate}>
                         <div className="my-account__form-fields">
@@ -166,18 +170,27 @@ export default function ChangeUsers() {
                                 <input 
                                     type="text" 
                                     className="form-input" 
-                                    placeholder="Username" 
-                                    value={editedUser.username} 
-                                    onChange={(e) => handleInputChange("username", e.target.value)} 
+                                    placeholder="Product Name" 
+                                    value={editedProduct.name} 
+                                    onChange={(e) => handleInputChange("name", e.target.value)} 
                                     />
                             </div>
                             <div className="input-wrapper">
                                 <input 
-                                    type="email" 
+                                    type="number" 
                                     className="form-input" 
-                                    placeholder="Email"
-                                    value={editedUser.email} 
-                                    onChange={(e) => handleInputChange("email", e.target.value)} 
+                                    placeholder="Product Price"
+                                    value={editedProduct.price} 
+                                    onChange={(e) => handleInputChange("price", e.target.value)} 
+                                    />
+                            </div>
+                            <div className="input-wrapper">
+                                <input 
+                                    type="number" 
+                                    className="form-input" 
+                                    placeholder="Product Creator"
+                                    value={editedProduct.creator} 
+                                    onChange={(e) => handleInputChange("creator", e.target.value)} 
                                     />
                             </div>
                             <div className="input-wrapper">
@@ -189,7 +202,7 @@ export default function ChangeUsers() {
                                             id="admin" 
                                             name="role" 
                                             value="admin" 
-                                            checked={editedUser.role === "admin"} 
+                                            checked={editedProduct.role === "admin"} 
                                             onChange={(e) => handleInputChange("role", e.target.value)} 
                                             />
                                         <label htmlFor="admin">Admin</label>
@@ -200,7 +213,7 @@ export default function ChangeUsers() {
                                             id="user" 
                                             name="role" 
                                             value="user" 
-                                            checked={editedUser.role === "user"} 
+                                            checked={editedProduct.role === "user"} 
                                             onChange={(e) => handleInputChange("role", e.target.value)} 
                                             />
                                         <label htmlFor="user">User</label>
@@ -212,15 +225,15 @@ export default function ChangeUsers() {
                                     type="text" 
                                     className="form-input" 
                                     placeholder="Password" 
-                                    value={editedUser.password}
+                                    value={editedProduct.password}
                                     onChange={(e) => handleInputChange("password", e.target.value)} 
                                     />
                             </div>
                         </div>
                         <input className='my-account__form-submit' type="submit" value="Update" />
                         {showLoader && <span className='loader my-account__loader'></span>}
-                        {showSuccess && <span className='form-message form-success my-account__success'>Account updated successfully!</span>}
-                        {showErrorChange && <span className='form-message form-error change__error'>Enter correct username and password!</span>}
+                        {showSuccess && <span className='form-message form-success my-account__success'>Product updated successfully!</span>}
+                        {showErrorChange && <span className='form-message form-error change__error'>Enter correct data!</span>}
                     </form>
                 </div>
             }

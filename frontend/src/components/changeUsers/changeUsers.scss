@@ -30,6 +30,14 @@
         padding-top: 20px;
     }
 
+    &__list {
+        max-height: 400px;
+        overflow: auto;
+        padding-right: 5px;
+
+        @include scroll-style($pewter);
+    }
+
     .register__radio-wrapper-item {
         display: inline-block;
         margin-right: 20px;

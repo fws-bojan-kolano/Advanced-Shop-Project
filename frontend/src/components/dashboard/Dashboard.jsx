@@ -1,9 +1,10 @@
+import './dashboard.scss';
 import { useContext, useState } from "react";
 import MyAccount from '../myAccount/MyAccount';
 import ChangeUsers from '../changeUsers/ChangeUsers';
 import { UserContext } from '../user/user-context';
-import './dashboard.scss';
 import AddNewProduct from "../addNewProduct/AddNewProduct";
+import ChangeProduct from "../changeProduct/ChangeProduct";
 
 export default function Dashboard() {
     const {user} = useContext(UserContext);
@@ -11,7 +12,7 @@ export default function Dashboard() {
     const [activeSection, setActiveSection] = useState('myAccount');
 
     const handleSectionClick = (section) => {
-        setActiveSection(section)
+        setActiveSection(section);
     }
 
     return (
@@ -21,6 +22,7 @@ export default function Dashboard() {
                 <div className="dashboard__content">
                     <ul className="dashboard__content-list">
                         <li className="dashboard__content-list-item">
+                            {/* Napraviti da trenutno izabran ima active clasu sa nekim stilom */}
                             <span className="dashboard__content-list-item-link" onClick={() => handleSectionClick('myAccount')}>My Account</span>
                         </li>
                         {
@@ -44,12 +46,20 @@ export default function Dashboard() {
                                 </li>
                             )
                         }
+                        {
+                            user.role === 'admin' && (
+                                <li className="dashboard__content-list-item">
+                                    <span className="dashboard__content-list-item-link" onClick={() => handleSectionClick('changeProduct')}>Change Product</span>
+                                </li>
+                            )
+                        }
                     </ul>
                     <div className="dashboard__content-wrapper">
                         {activeSection === 'myAccount' && <MyAccount />}
                         {activeSection === 'orders' && <div>Orders Section</div>}
                         {activeSection === 'changeUsers' && <ChangeUsers />}
                         {activeSection === 'addNewProduct' && <AddNewProduct />}
+                        {activeSection === 'changeProduct' && <ChangeProduct />}
                     </div>
                 </div>
             </div>

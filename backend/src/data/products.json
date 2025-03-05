@@ -367,14 +367,5 @@
     "description": "Sleek design and top-tier performance.",
     "image": "https://wastesolutionservices.com/wp-content/uploads/2024/10/control4.jpg",
     "recommended": false
-  },
-  {
-    "id": "d4e5f6a1-b2c3-7890-jklm-ef0123456789",
-    "name": "Product 60",
-    "price": "120",
-    "creator": "Mia Hall",
-    "description": "An everyday product that is reliable and efficient.",
-    "image": "https://wastesolutionservices.com/wp-content/uploads/2024/10/control3.jpg",
-    "recommended": false
   }
 ]

@@ -6,7 +6,8 @@ productsRouter
     .get('/products', productsController.productsControllerGet)
     .get('/products/recommended', productsController.productsControllerGetByRecommended)
     .get('/products/:id', productsController.productsControllerGetById)
-    .post('/products/new', productsController.productsControllerAddNew);
+    .post('/products/new', productsController.productsControllerAddNew)
+    .delete('/products/:id', productsController.productsControllerRemove);
 
 module.exports = {
     productsRouter

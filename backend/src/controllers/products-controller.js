@@ -19,26 +19,30 @@ const getProductById = (id) => {
 const productsControllerGet = async (req, res) => {
     const products = getProducts();
 
-    const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 6;
-
-    const totalProducts = products.length;
-    const totalPages = Math.ceil(totalProducts / limit);
-
-    //Page needs to be in range
-    if(page < 1 || page > totalPages) {
-        return res.status(400).json({success: false, message: 'Invalid page number!'});
+    if(req.params.page && req.query.limit) {//Show pagination only if page and limit are added as parameters
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 6;
+    
+        const totalProducts = products.length;
+        const totalPages = Math.ceil(totalProducts / limit);
+    
+        //Page needs to be in range
+        if(page < 1 || page > totalPages) {
+            return res.status(400).json({success: false, message: 'Invalid page number!'});
+        }
+    
+        const startIndex = (page -1) * limit;
+        const endIndex = startIndex + limit;
+        const paginatedProducts = products.slice(startIndex, endIndex);
+    
+        res.json({
+            success: true,
+            products: paginatedProducts,
+            totalPages
+        });
     }
 
-    const startIndex = (page -1) * limit;
-    const endIndex = startIndex + limit;
-    const paginatedProducts = products.slice(startIndex, endIndex);
-
-    res.json({
-        success: true,
-        products: paginatedProducts,
-        totalPages
-    });
+    return res.json({success: true, products});
 }
 
 //Get product by ID
@@ -70,6 +74,7 @@ const productsControllerGetByRecommended = async(req, res) => {
     }
 }
 
+//Add new product
 const productsControllerAddNew = async(req, res) => {
     try {
         const { name, price, creator, description, image, recommended } = req.body;
@@ -119,11 +124,32 @@ const productsControllerAddNew = async(req, res) => {
     }
 }
 
+//Remove product
+const productsControllerRemove = async(req, res) => {
+    try {
+        const productsData = getProducts();
+        const foundIndex = productsData.findIndex(product => product.id === req.params.id);
+
+        if(foundIndex === -1) {
+            return res.status(400).send({message: 'Product not found!'});
+        }
+        
+        productsData.splice(foundIndex, 1);
+        fs.writeFileSync(`data/products.json`, JSON.stringify(productsData, null, 2));
+        return res.send({message: 'Product deleted!'});
+    } catch (error) {
+        console.error('Error removing product:', error);
+        return res.status(500).send({success: false, message: 'Internal Server Error'});
+    }
+}
+
+
 module.exports = {
     productsController: {
         productsControllerGet,
         productsControllerGetById,
         productsControllerGetByRecommended,
-        productsControllerAddNew
+        productsControllerAddNew,
+        productsControllerRemove
     }
 }
