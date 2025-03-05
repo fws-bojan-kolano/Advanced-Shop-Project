@@ -186,7 +186,7 @@ export default function ChangeProduct() {
                             </div>
                             <div className="input-wrapper">
                                 <input 
-                                    type="number" 
+                                    type="text" 
                                     className="form-input" 
                                     placeholder="Product Creator"
                                     value={editedProduct.creator} 
@@ -194,29 +194,38 @@ export default function ChangeProduct() {
                                     />
                             </div>
                             <div className="input-wrapper">
+                                <input 
+                                    type="text" 
+                                    className="form-input" 
+                                    placeholder="Product Description"
+                                    value={editedProduct.description} 
+                                    onChange={(e) => handleInputChange("description", e.target.value)} 
+                                    />
+                            </div>
+                            <div className="input-wrapper">
                                 <div className="register__radio-wrapper">
-                                    <p>Select the role:</p>
+                                    <p>Recommended:</p>
                                     <div className="register__radio-wrapper-item">
                                         <input 
                                             type="radio" 
-                                            id="admin" 
-                                            name="role" 
-                                            value="admin" 
-                                            checked={editedProduct.role === "admin"} 
-                                            onChange={(e) => handleInputChange("role", e.target.value)} 
+                                            id="recommyes" 
+                                            name="recomm" 
+                                            value="yes" 
+                                            checked={editedProduct.recommended === true} 
+                                            onChange={(e) => handleInputChange("recommended", e.target.value)} 
                                             />
-                                        <label htmlFor="admin">Admin</label>
+                                        <label htmlFor="recommyes">Yes</label>
                                     </div>
                                     <div className="register__radio-wrapper-item">
                                         <input 
                                             type="radio" 
-                                            id="user" 
-                                            name="role" 
-                                            value="user" 
-                                            checked={editedProduct.role === "user"} 
-                                            onChange={(e) => handleInputChange("role", e.target.value)} 
+                                            id="recommno" 
+                                            name="recomm" 
+                                            value="no" 
+                                            checked={editedProduct.role === false} 
+                                            onChange={(e) => handleInputChange("recommended", e.target.value)} 
                                             />
-                                        <label htmlFor="user">User</label>
+                                        <label htmlFor="recommno">No</label>
                                     </div>
                                 </div>
                             </div>
@@ -224,9 +233,9 @@ export default function ChangeProduct() {
                                 <input 
                                     type="text" 
                                     className="form-input" 
-                                    placeholder="Password" 
-                                    value={editedProduct.password}
-                                    onChange={(e) => handleInputChange("password", e.target.value)} 
+                                    placeholder="Image" 
+                                    value={editedProduct.image}
+                                    onChange={(e) => handleInputChange("image", e.target.value)} 
                                     />
                             </div>
                         </div>
