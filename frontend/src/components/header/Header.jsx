@@ -1,9 +1,11 @@
 import { useContext, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { UserContext } from '../user/user-context';
 import './header.scss';
 
 export default function Header() {
     const {user} = useContext(UserContext);
+    const location = useLocation();
 
     useEffect(() => {
         console.log(user);
@@ -23,7 +25,9 @@ export default function Header() {
                         <li className='header__list-item'>
                             {!user ? <a className='header__link' href="/dashboard">Login</a> : null}
                         </li>
-                        {user ? (<li className='header__list-item'><a className='header__link' href="/dashboard">My account</a></li>) : null}
+                        {user && location.pathname !== '/dashboard' && (
+                            <li className='header__list-item'><a className='header__link' href="/dashboard">My account</a></li>)
+                        }
                         {user ? (<li className='header__list-item'><a className='header__link' href="#">Cart</a></li>) : null}
                     </nav>
                 </div>
