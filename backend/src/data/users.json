@@ -20,7 +20,7 @@
   {
     "id": "52301bf5-483f-431b-97a3-bbb7e925126b",
     "username": "newuser3",
-    "password": "333",
+    "password": "$2b$10$eFyBlAawfjnpreE6ym3zW.B98h7FCLWZEah6yY6UyHfeoS4sQ8A7.",
     "role": "admin",
     "email": "newuse123r@mail.com",
     "cart": [],
