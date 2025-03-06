@@ -1,7 +1,6 @@
 import { useEffect, useState, useContext } from 'react';
 import { SERVER } from '../../utils/utils';
 import './changeProduct.scss';
-import { UserContext } from '../user/user-context';
 
 export default function ChangeProduct() {
     const [showError, setShowError] = useState(false);
@@ -9,13 +8,8 @@ export default function ChangeProduct() {
     const [showSuccessRemove, setSuccessRemove] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
     const [showLoader, setShowLoader] = useState(false);
-    const [users, setUsers] = useState([]);
     const [editingProductId, setEditingProductId] = useState(null);
     const [editedProduct, setEditedProduct] = useState(null);
-
-    const {user} = useContext(UserContext);
-
-    
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
@@ -93,13 +87,15 @@ export default function ChangeProduct() {
     };
 
     const handleUpdate = async (event) => {
-        /* event.preventDefault();
+        event.preventDefault();
 
         setShowLoader(true);
 
         const payload = {};
-        Object.entries(editedUser).forEach(([key, value]) => {
-            if(value.trim() !== "") {
+        Object.entries(editedProduct).forEach(([key, value]) => {
+            if(typeof value === 'string' && value.trim() !== '') {
+                payload[key] = value;
+            } else if(typeof value === 'number' || typeof value === 'boolean') {
                 payload[key] = value;
             }
         });
@@ -111,33 +107,33 @@ export default function ChangeProduct() {
         }
 
         try {
-            const response = await fetch(`${SERVER}users/${editingUserId}`, {
+            const response = await fetch(`${SERVER}products/${editingProductId}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload)
             });
 
             if (!response.ok) {
-                throw new Error("Failed to update user!");
+                throw new Error("Failed to update product!");
             }
 
-            const updatedUser = {...users.find(user => user.id === editingUserId), ...payload};
+            const updatedProduct = {...products.find(product => product.id === editingProductId), ...payload};
 
-            setUsers(users.map(user => user.id === editingUserId ? {...user, ...payload} : user));
+            setProducts(products.map(product => product.id === editingProductId ? {...product, ...payload} : product));
 
-            setEditedUser(updatedUser);//update input fields after succesfull change
+            setEditedProduct(updatedProduct);//update input fields after succesfull change
 
             setShowSuccess(true);
             setShowLoader(false);
             setTimeout(() => {
                 setShowSuccess(false);
-                setEditingUserId(null);
-                setEditedUser(null);
+                setEditingProductId(null);
+                setEditedProduct(null);
             }, 1000);
         } catch (error) {
             setShowErrorChange(true);
             setShowLoader(false);
-        } */
+        }
     };
 
     return (
@@ -212,7 +208,7 @@ export default function ChangeProduct() {
                                             name="recomm" 
                                             value="yes" 
                                             checked={editedProduct.recommended === true} 
-                                            onChange={(e) => handleInputChange("recommended", e.target.value)} 
+                                            onChange={(e) => handleInputChange("recommended", true)} 
                                             />
                                         <label htmlFor="recommyes">Yes</label>
                                     </div>
@@ -221,9 +217,9 @@ export default function ChangeProduct() {
                                             type="radio" 
                                             id="recommno" 
                                             name="recomm" 
-                                            value="no" 
-                                            checked={editedProduct.role === false} 
-                                            onChange={(e) => handleInputChange("recommended", e.target.value)} 
+                                            value="false" 
+                                            checked={editedProduct.recommended === false} 
+                                            onChange={(e) => handleInputChange("recommended",false)} 
                                             />
                                         <label htmlFor="recommno">No</label>
                                     </div>

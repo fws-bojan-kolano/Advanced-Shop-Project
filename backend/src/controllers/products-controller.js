@@ -1,5 +1,5 @@
 const fs = require('fs');
-const {v4: uuidv4} = require('uuid');
+const {v4: uuidv4, validate} = require('uuid');
 
 //Load products
 const getProducts = () => {
@@ -143,6 +143,35 @@ const productsControllerRemove = async(req, res) => {
     }
 }
 
+//Change Product
+const productsControllerChange = async(req, res) => {
+    try {
+        const {id} = req.params;
+        const updates = req.body;
+
+        const productsData = getProducts();
+        const foundIndex = productsData.findIndex(product => product.id === id);
+
+        if(foundIndex === -1) {
+            return res.status(400).send({message: 'Product not found!'});
+        }
+
+        Object.entries(updates).forEach(([key, value]) => {
+            if(typeof value === 'string' && value.trim() !== '') {
+                productsData[foundIndex][key] = value;
+            } else if(typeof value === 'number' || typeof value === 'boolean') {
+                productsData[foundIndex][key] = value;
+            }
+        })
+
+        fs.writeFileSync('data/products.json', JSON.stringify(productsData, null, 2));
+        return res.send({success: true, message: 'Product updated!', product: productsData[foundIndex]});
+
+    } catch (error) {
+        console.error('Error changing product:', error);
+        return res.status(500).send({ success: false, message: 'Internal Server Error' });
+    }
+}
 
 module.exports = {
     productsController: {
@@ -150,6 +179,7 @@ module.exports = {
         productsControllerGetById,
         productsControllerGetByRecommended,
         productsControllerAddNew,
-        productsControllerRemove
+        productsControllerRemove,
+        productsControllerChange
     }
 }

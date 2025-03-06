@@ -89,9 +89,7 @@ export default function Products() {
                 <h2 className="section-title products__title">Products</h2>
                 <div className="row products__wrapper">
                     {showLoader && <span className='loader products__loader'></span>}
-                    {products.map(product => (
-                        <Product key={product.id} product={product} />
-                    ))}
+                    {products.map(product => (<Product key={product.id} product={product} />))}
                 </div>
                 <div className="pagination">
                     <button 
@@ -102,9 +100,7 @@ export default function Products() {
                         &laquo; Prev
                     </button>
 
-                    {currentPage > 3 && totalPages > 5 && (
-                        <span className="pagination__dots">...</span>
-                    )}
+                    {currentPage > 3 && totalPages > 5 && (<span className="pagination__dots">...</span>)}
 
                     {generatePageNumbers().map(pageNumber => (
                         <button 
@@ -116,9 +112,7 @@ export default function Products() {
                         </button>
                     ))}
 
-                    {currentPage < totalPages - 2 && totalPages > 5 && (
-                        <span className="pagination__dots">...</span>
-                    )}
+                    {currentPage < totalPages - 2 && totalPages > 5 && (<span className="pagination__dots">...</span>)}
 
                     <button 
                         className="pagination__button" 
