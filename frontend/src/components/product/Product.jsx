@@ -2,6 +2,11 @@ import { Link } from 'react-router-dom';
 import './product.scss';
 
 export default function Product({product}) {
+
+    const truncateDescription = (text, maxLength = 60) => {
+        return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
+    };
+
     return (
         <div className="col-xl-6 col-lg-6 col-md-12 product">
             <div className="product__wrapper">
@@ -32,7 +37,7 @@ export default function Product({product}) {
                     <figcaption className="figcaption">
                         <h2 className="figcaption__title">{product.name}</h2>
                         <span className="figcaption__sub-title">By {product.creator}</span>
-                        <p className="figcaption__text">{product.description}</p>
+                        <p className="figcaption__text">{truncateDescription(product.description)}</p>
                         <span className="figcaption__price">Price: ${product.price}</span>
                     </figcaption>
                 </figure>
