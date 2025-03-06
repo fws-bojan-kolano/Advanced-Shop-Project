@@ -31,6 +31,11 @@ export default function SingleProduct() {
     return (
         <div className="single-product">
             <div className="container">
+                <div className="single-product__breadcrumbs">
+                    <span>
+                        <a href="/">Homepage</a> / <a href="/shop">Shop</a> / {product.name}
+                    </span>
+                </div>
                 <div className="single-product__wrapper">
                     <div className="single-product__wrapper-left">
                         <h2 className="section-title single-product__title">{product.name}</h2>
