@@ -56,10 +56,30 @@
         }
     }
 
+    &__content-list-item-link--logout {
+        border: none;
+        outline: none;
+
+        &::after {
+            display: none;
+        }
+    }
+
     &__content-list-item {
         margin-bottom: 20px;
         display: block;
         text-align: left;
+        transition: $dur $ease;
+
+        &.active {
+            color: $green-brand;
+            transition: $dur $ease;
+
+            span::after {
+                width: 100%;
+                background-color: $green-brand;
+            }
+        }
     }
 
     @include mq($md) {

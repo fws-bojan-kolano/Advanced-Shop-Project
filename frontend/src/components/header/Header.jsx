@@ -3,11 +3,7 @@ import { UserContext } from '../user/user-context';
 import './header.scss';
 
 export default function Header() {
-    const {user, setUser} = useContext(UserContext);
-
-    const handleLogout = () => {
-        setUser(null);
-    }
+    const {user} = useContext(UserContext);
 
     useEffect(() => {
         console.log(user);
@@ -25,12 +21,9 @@ export default function Header() {
                     ) : null}
                     <nav className="header__list">
                         <li className='header__list-item'>
-                            {!user ? (
-                                <a className='header__link' href="/dashboard">Login</a>
-                            ) : (
-                                <button className='header__link' onClick={handleLogout}>Log Out</button>
-                            )}
+                            {!user ? <a className='header__link' href="/dashboard">Login</a> : null}
                         </li>
+                        {user ? (<li className='header__list-item'><a className='header__link' href="/dashboard">My account</a></li>) : null}
                         {user ? (<li className='header__list-item'><a className='header__link' href="#">Cart</a></li>) : null}
                     </nav>
                 </div>

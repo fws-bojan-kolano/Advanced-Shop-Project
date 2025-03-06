@@ -7,12 +7,16 @@ import AddNewProduct from "../addNewProduct/AddNewProduct";
 import ChangeProduct from "../changeProduct/ChangeProduct";
 
 export default function Dashboard() {
-    const {user} = useContext(UserContext);
+    const {user, setUser} = useContext(UserContext);
 
     const [activeSection, setActiveSection] = useState('myAccount');
 
     const handleSectionClick = (section) => {
         setActiveSection(section);
+    }
+
+    const handleLogout = () => {
+        setUser(null);
     }
 
     return (
@@ -21,38 +25,33 @@ export default function Dashboard() {
                 <h2 className="section-title dashboard__title">Dashboard</h2>
                 <div className="dashboard__content">
                     <ul className="dashboard__content-list">
-                        <li className="dashboard__content-list-item">
+                        <li className={`dashboard__content-list-item ${activeSection === 'myAccount' ? 'active' : ''}`}>
                             {/* Napraviti da trenutno izabran ima active clasu sa nekim stilom */}
                             <span className="dashboard__content-list-item-link" onClick={() => handleSectionClick('myAccount')}>My Account</span>
                         </li>
-                        {
-                            user.role === 'user' && (
-                                <li className="dashboard__content-list-item">
-                                    <span className="dashboard__content-list-item-link" onClick={() => handleSectionClick('orders')}>Orders</span>
-                                </li>
-                            )
-                        }
-                        {
-                            user.role === 'admin' && (
-                                <li className="dashboard__content-list-item">
-                                    <span className="dashboard__content-list-item-link" onClick={() => handleSectionClick('changeUsers')}>Change Users</span>
-                                </li>
-                            )
-                        }
-                        {
-                            user.role === 'admin' && (
-                                <li className="dashboard__content-list-item">
-                                    <span className="dashboard__content-list-item-link" onClick={() => handleSectionClick('addNewProduct')}>Add New Product</span>
-                                </li>
-                            )
-                        }
-                        {
-                            user.role === 'admin' && (
-                                <li className="dashboard__content-list-item">
-                                    <span className="dashboard__content-list-item-link" onClick={() => handleSectionClick('changeProduct')}>Change Product</span>
-                                </li>
-                            )
-                        }
+                        {user.role === 'user' && (
+                            <li className={`dashboard__content-list-item ${activeSection === 'orders' ? 'active' : ''}`}>
+                                <span className="dashboard__content-list-item-link" onClick={() => handleSectionClick('orders')}>Orders</span>
+                            </li>
+                        )}
+                        {user.role === 'admin' && (
+                            <li className={`dashboard__content-list-item ${activeSection === 'changeUsers' ? 'active' : ''}`}>
+                                <span className="dashboard__content-list-item-link" onClick={() => handleSectionClick('changeUsers')}>Change Users</span>
+                            </li>
+                        )}
+                        {user.role === 'admin' && (
+                            <li className={`dashboard__content-list-item ${activeSection === 'addNewProduct' ? 'active' : ''}`}>
+                                <span className="dashboard__content-list-item-link" onClick={() => handleSectionClick('addNewProduct')}>Add New Product</span>
+                            </li>
+                        )}
+                        {user.role === 'admin' && (
+                            <li className={`dashboard__content-list-item ${activeSection === 'changeProduct' ? 'active' : ''}`}>
+                                <span className="dashboard__content-list-item-link" onClick={() => handleSectionClick('changeProduct')}>Change Product</span>
+                            </li>
+                        )}
+                        <li className="dashboard__content-list-item">
+                            <button className='dashboard__content-list-item-link hero-banner__link dashboard__content-list-item-link--logout' onClick={handleLogout}>Log Out</button>
+                        </li>
                     </ul>
                     <div className="dashboard__content-wrapper">
                         {activeSection === 'myAccount' && <MyAccount />}
