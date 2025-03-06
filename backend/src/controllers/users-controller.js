@@ -155,11 +155,15 @@ const usersChangeUser = async (req, res) => {
         }
 
         //Update only provided fields
-        Object.entries(updates).forEach(([key, value]) => {
-            if(value && value.trim() !== '') {//ignore empty values
-                usersData[foundIndex][key] = value;
+        for(const [key, value] of Object.entries(updates)) {
+            if(value & value.trim() !== '') {//ignore empty values
+                if(key === 'password') {
+                    usersData[foundIndex][key] = await bcrypt.hash(value, SALT_ROUNDS);
+                } else {
+                    usersData[foundIndex][key] = value;
+                }
             }
-        })
+        }
 
         fs.writeFileSync('data/users.json', JSON.stringify(usersData, null, 2));
         return res.send({success: true, message: 'User updated!', user: usersData[foundIndex]});
