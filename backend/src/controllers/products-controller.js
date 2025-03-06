@@ -19,7 +19,7 @@ const getProductById = (id) => {
 const productsControllerGet = async (req, res) => {
     const products = getProducts();
 
-    if(req.params.page && req.query.limit) {//Show pagination only if page and limit are added as parameters
+    if(req.query.page && req.query.limit) {//Show pagination only if page and limit are added as parameters
         const page = parseInt(req.query.page) || 1;
         const limit = parseInt(req.query.limit) || 6;
     
@@ -40,9 +40,9 @@ const productsControllerGet = async (req, res) => {
             products: paginatedProducts,
             totalPages
         });
+    } else {
+        return res.json({success: true, products});
     }
-
-    return res.json({success: true, products});
 }
 
 //Get product by ID
