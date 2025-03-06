@@ -1,0 +1,30 @@
+.add-to-cart {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+
+    &__inc-dec {
+        font-size: 40px;
+        width: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 48px;
+        cursor: pointer;
+        transition: $dur $ease;
+        color: $black;
+
+        @include hover {
+            color: $green-brand;
+            transition: $dur $ease;
+        }
+    }
+
+    .add-to-cart__input {
+        max-width: 100px;
+        margin: 0 10px;
+        text-align: center;
+        font-size: 20px;
+        font-weight: bold;
+    }
+}
