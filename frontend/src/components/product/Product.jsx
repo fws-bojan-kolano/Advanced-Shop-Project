@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom';
 import { useCart } from '../cart/cart-context';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './product.scss';
 import '../cart/listingProductsItemCart.scss';
+import PositiveNumberInput from '../common/PositiveNumberInput';
 
 export default function Product({product}) {
-    const {addToCart, updateQuantity} = useCart();
+    const { addToCart, removeFromCart, updateQuantity } = useCart();
     const [quantity, setQuantity] = useState(0);
 
     const truncateDescription = (text, maxLength = 60) => {
@@ -13,12 +14,20 @@ export default function Product({product}) {
     };
 
     const handleIncrement = () => {
-        setQuantity(prevQuantity => prevQuantity + 1);
-    }
+        setQuantity(prevQuantity => {
+            const newQuantity = prevQuantity + 1;
+            updateQuantity(product.id, newQuantity);
+            return newQuantity;
+        });
+    };
 
     const handleDecrement = () => {
-        setQuantity(prevQuantity => prevQuantity - 1);
-    }
+        setQuantity(prevQuantity => {
+            const newQuantity = Math.max(0, prevQuantity - 1);
+            updateQuantity(product.id, newQuantity);
+            return newQuantity;
+        });
+    };
 
     const handleAddToCart = () => {
         if(quantity > 0) {
@@ -26,11 +35,18 @@ export default function Product({product}) {
         }
     }
 
-    const handleChangeQuantity = (e) => {
-        const value = Math.max(0, parseInt(e.target.value) || 0);
-        setQuantity(value);
-        updateQuantity(product.id, value);
-    }
+    const handleChangeQuantity = (newQuantity) => {
+        setQuantity(newQuantity);
+        updateQuantityInCart(product.id, newQuantity);
+    };
+
+    const updateQuantityInCart = (newQuantity) => {
+        if (newQuantity === 0) {
+          removeFromCart(product.id); // Remove item if quantity becomes 0
+        } else {
+          updateQuantity(product.id, newQuantity); // Update quantity in cart
+        }
+    };
 
     return (
         <div className="col-xl-6 col-lg-6 col-md-12 product">
@@ -64,11 +80,7 @@ export default function Product({product}) {
                         <span className="figcaption__sub-title">By {product.creator}</span>
                         <p className="figcaption__text">{truncateDescription(product.description)}</p>
                         <span className="figcaption__price">Price: ${product.price}</span>
-                        <div className="add-to-cart">
-                            <span className="add-to-cart__inc-dec add-to-cart__dec" onClick={handleDecrement}>-</span>
-                            <input type="number" className="add-to-cart__input" value={quantity} onChange={handleChangeQuantity} />
-                            <span className="add-to-cart__inc-dec add-to-cart__inc" onClick={handleIncrement}>+</span>
-                        </div>
+                        <PositiveNumberInput value={quantity} onChange={handleChangeQuantity} onIncrement={handleIncrement} onDecrement={handleDecrement} />
                     </figcaption>
                 </figure>
             </div>

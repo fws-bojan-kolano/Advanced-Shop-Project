@@ -1,70 +1,72 @@
 import { createContext, useState, useContext, useEffect } from "react";
-import {useUser} from '../user/user-context';
+import { useUser } from "../user/user-context";
 
 const CartContext = createContext();
 
 export const useCart = () => {
-    return useContext(CartContext);
-}
+	return useContext(CartContext);
+};
 
-export const CartContextProvider = ({children}) => {
-    const {user, updateUserCart} = useUser();
-    const [cart, setCart] = useState([]);
+export const CartContextProvider = ({ children }) => {
+	const { user, updateUserCart } = useUser();
+	const [cart, setCart] = useState([]);
 
-    useEffect(() => {
-        if(user) {
-            setCart(user.cart);
-        }
-    }, [user]);
+	useEffect(() => {
+		if (user && user.cart) {
+			setCart(user.cart);
+		}
+	}, [user]);
 
-    const addToCart = (product, quantity) => {
-        setCart(prevCart => {
-            const existingProductIndex = prevCart.findIndex(item => item.id === product.id);
+  	const addToCart = (product, quantity) => {
+		setCart((prevCart) => {
+			const existingProductIndex = prevCart.findIndex((item) => item.id === product.id);
+			let updatedCart;
 
-            if(existingProductIndex >= 0) {//update quantity if product already in the cart
-                const updatedCart = [...prevCart];
-                updatedCart[existingProductIndex].quantity += quantity;
-            } else {
-                updatedCart = [...prevCart, {...product, quantity}];//add product in cart if it already isn't
-            }
+			if (existingProductIndex >= 0) {
+				updatedCart = [...prevCart];
+				updatedCart[existingProductIndex].quantity += quantity;
+			} else {
+				updatedCart = [...prevCart, { ...product, quantity }];
+			}
 
-            updateUserCart(updatedCart);
-            return updatedCart;
-        });
-    };
+			updateUserCart(updatedCart); // Sync cart with user data
+			return updatedCart;
+		});
+	};
 
-    const removeFromCart = (productId) => {
-        setCart(prevCart => {
-            const updatedCart = prevCart.filter(item => item.id !== productId);
-            updateUserCart(updatedCart);
-            return updatedCart;
-        });
-    };
+  	const removeFromCart = (productId) => {
+			setCart((prevCart) => {
+			const updatedCart = prevCart.filter((item) => item.id !== productId);
+			updateUserCart(updatedCart); // Sync cart with user data
+			return updatedCart;
+		});
+  	};
 
-    const updateQuantity = (productId, newQuantity) => {
-        setCart(prevCart => {
-            const updatedCart = [...prevCart];
-            const productIndex = updatedCart.findIndex(item => item.id === productId);
+  const updateQuantity = (productId, newQuantity) => {
+	setCart((prevCart) => {
+		const updatedCart = [...prevCart];
+		const productIndex = updatedCart.findIndex((item) => item.id === productId);
 
-            if(productIndex >= 0) {
-                updatedCart[productIndex].quantity = newQuantity;
-            }
+		if (productIndex >= 0) {
+			if (newQuantity === 0) {
+			// Remove item from cart if quantity is 0
+			updatedCart.splice(productIndex, 1);
+			} else {
+			updatedCart[productIndex].quantity = newQuantity;
+			}
+		}
 
-            updateUserCart(updatedCart);
-            return updatedCart;
-        });
-    };
+		updateUserCart(updatedCart); // Sync cart with user data
+		return updatedCart;
+		});
+	};
 
-    const contextValue = {
-        cart,
-        addToCart,
-        removeFromCart,
-        updateQuantity
-    }
+  	const contextValue = {
+		cart,
+		addToCart,
+		removeFromCart,
+		updateQuantity
+	};
 
-    return (
-        <CartContext.Provider value={contextValue} >
-            {children}
-        </CartContext.Provider>
-    )
-}
+  	return <CartContext.Provider value={contextValue}>{children}</CartContext.Provider>;
+};
