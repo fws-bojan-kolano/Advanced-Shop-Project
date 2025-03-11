@@ -49,7 +49,6 @@ export default function Recommended() {
             setRecommendedProducts(data);
         }
 
-        console.log(recommendedProducts);
         fetchRecommendedProducts();
     }, [id]);
 

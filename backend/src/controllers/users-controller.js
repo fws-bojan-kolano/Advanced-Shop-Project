@@ -174,6 +174,35 @@ const usersChangeUser = async (req, res) => {
     }
 }
 
+const userUpdateCartController = async (req, res) => {
+    try {
+        const {id, cart} = req.body;
+
+        if(!id || !Array.isArray(cart)) {
+            return res.status(400).send({success: false, message: 'Invalid user ID or cart data!'});
+        }
+
+        const usersData = getUsers();
+        const foundIndex = usersData.findIndex(user => user.id === id);
+
+        if(foundIndex === -1) {
+            return res.status(404).send({message: 'User not found!'});
+        }
+
+        //Update cart
+        usersData[foundIndex].cart = cart;
+        fs.writeFileSync('data/users.json', JSON.stringify(usersData, null, 2));
+        res.send({
+            success: true,
+            message: 'Cart updated succesfully!',
+            cart: usersData[foundIndex].cart
+        });
+    } catch (error) {
+        console.error('Error changing user:', error);
+        return res.status(500).send({ success: false, message: 'Internal Server Error' });
+    }
+}
+
 module.exports = {
     usersController: {
         usersControllerGet,
@@ -181,6 +210,7 @@ module.exports = {
         usersRegisterController,
         usersUpdateAccountController,
         usersRemoveController,
-        usersChangeUser
+        usersChangeUser,
+        userUpdateCartController
     }
 }

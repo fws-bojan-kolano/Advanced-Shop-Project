@@ -5,55 +5,47 @@ import './product.scss';
 import '../cart/listingProductsItemCart.scss';
 import PositiveNumberInput from '../common/PositiveNumberInput';
 
-export default function Product({product}) {
+export default function Product({ product }) {
     const { cart, addToCart, removeFromCart } = useCart();
-    const [quantity, setQuantity] = useState(0);
+    /* const [quantity, setQuantity] = useState(0); */
 
-    useEffect(() => {
+    const cartItem = cart.find(item => item.id === product.id);
+    const quantity = cartItem ? cartItem.quantity : 0;
+
+    /* useEffect(() => {
         const cartItem = cart.find(item => item.id === product.id);
-        if(cartItem) {
-            setQuantity(cartItem.quantity);
+        if (cartItem) {
+            setQuantity(cartItem.quantity);  // Initialize quantity from cart
         }
-    }, [cart, product.id])
+    }, [product.id]); */
 
-    const handleIncrement = () => {
+    /* const handleIncrement = () => {
         const newQuantity = quantity + 1;
         setQuantity(newQuantity);
         addToCart(product, newQuantity);
-    };
+    }; */
+    const handleIncrement = () => addToCart(product, quantity + 1);
 
     const handleDecrement = () => {
-        const newQuantity = Math.max(0, quantity - 1);
-        setQuantity(newQuantity);
+        const newQuantity = Math.max(0, quantity - 1); // Ensure no negative values
+        /* setQuantity(newQuantity); */
         if (newQuantity === 0) {
             removeFromCart(product.id);
         } else {
             addToCart(product, newQuantity);
         }
     };
-
-    /* const handleAddToCart = () => {
-        if(quantity > 0) {
-            addToCart(product, quantity)
-        }
-    } */
 
     const handleChangeQuantity = (newQuantity) => {
-        setQuantity(newQuantity);
-        if (newQuantity === 0) {
+        console.log("Quantity changed:", newQuantity);  // This log should be printed
+        /* setQuantity(newQuantity); */
+        const num = parseInt(newQuantity, 10) || 0;
+        if (num === 0) {
             removeFromCart(product.id);
         } else {
-            addToCart(product, newQuantity);
+            addToCart(product, num);
         }
     };
-
-    /* const updateQuantityInCart = (newQuantity) => {
-        if (newQuantity === 0) {
-          removeFromCart(product.id); // Remove item if quantity becomes 0
-        } else {
-          updateQuantity(product.id, newQuantity); // Update quantity in cart
-        }
-    }; */
 
     const truncateDescription = (text, maxLength = 60) => {
         return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
@@ -72,7 +64,7 @@ export default function Product({product}) {
                     <ul className="page">
                         <li></li>
                         <li>
-                            <Link className="book__btn" to={`/product/${product.id}`} >See More</Link>
+                            <Link className="book__btn" to={`/product/${product.id}`}>See More</Link>
                         </li>
                         <li></li>
                         <li></li>
@@ -91,10 +83,16 @@ export default function Product({product}) {
                         <span className="figcaption__sub-title">By {product.creator}</span>
                         <p className="figcaption__text">{truncateDescription(product.description)}</p>
                         <span className="figcaption__price">Price: ${product.price}</span>
-                        <PositiveNumberInput value={quantity} onChange={handleChangeQuantity} onIncrement={handleIncrement} onDecrement={handleDecrement} />
+                        {/* Pass quantity as value prop */}
+                        <PositiveNumberInput
+                            value={quantity}
+                            onChange={handleChangeQuantity}  // Ensure this is passed correctly
+                            onIncrement={handleIncrement}
+                            onDecrement={handleDecrement}
+                        />
                     </figcaption>
                 </figure>
             </div>
         </div>
-    )
+    );
 }

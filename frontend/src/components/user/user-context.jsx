@@ -14,7 +14,7 @@ export default function UserContextProvider({ children }) {
 		return storedUser ? JSON.parse(storedUser) : null;
 	});
 
-	/* useEffect(() => {
+	useEffect(() => {
 		// Get user from localStorage
 		const storedUser = JSON.parse(localStorage.getItem("user"));
 		if (storedUser) {
@@ -29,7 +29,7 @@ export default function UserContextProvider({ children }) {
 		} else {
 			localStorage.removeItem("user");
 		}
-	}, [user]); */
+	}, [user]);
 
 	const updateUserCart = (updatedCart) => {
 		if(user) {

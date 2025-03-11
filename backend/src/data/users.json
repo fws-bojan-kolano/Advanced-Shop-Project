@@ -5,7 +5,48 @@
     "password": "$2b$10$1uJE4m5cCoifyBb/UK4Ea.OPzsr8RTlwNVtLdSNHuR0P/KAATLPV6",
     "role": "admin",
     "email": "email@mail.com",
-    "cart": [],
+    "cart": [
+      {
+        "id": "2",
+        "name": "Product 2",
+        "price": 50,
+        "creator": "Bojan Paz",
+        "description": "Second book description goes here.",
+        "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
+        "recommended": false,
+        "quantity": 97
+      },
+      {
+        "id": "1",
+        "name": "Product 12232",
+        "price": "30022",
+        "creator": "Marcela Paz22",
+        "description": "2Fennel bamboo shoot pea sprouts rutabaga parsnip green bean gram wattle seed lentil horseradish nori. Grape lettuce turnip greens.",
+        "image": "https://wastesolutionservices.com/wp-content/uploads/2025/02/Frame-13118.jpg",
+        "recommended": false,
+        "quantity": 409
+      },
+      {
+        "id": "3",
+        "name": "Product 3",
+        "price": 50,
+        "creator": "Bojan Paz",
+        "description": "Third book description goes here.",
+        "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
+        "recommended": false,
+        "quantity": 8
+      },
+      {
+        "id": "4",
+        "name": "Product 4",
+        "price": 50,
+        "creator": "Bojan Paz",
+        "description": "Fourth book description goes here.",
+        "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
+        "recommended": false,
+        "quantity": 7
+      }
+    ],
     "orders": []
   },
   {

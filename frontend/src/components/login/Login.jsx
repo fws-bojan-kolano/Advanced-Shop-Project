@@ -1,6 +1,7 @@
-import { useRef, useState, useContext } from 'react';
+import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { UserContext } from '../user/user-context';
+import { useCart } from '../cart/cart-context';
+import { useUser } from '../user/user-context';
 import { SERVER } from '../../utils/utils';
 import './login.scss';
 
@@ -9,7 +10,8 @@ export default function Login() {
     const [showSuccess, setShowSuccess] = useState(false);
     const [showLoader, setShowLoader] = useState(false);
 
-    const {setUser} = useContext(UserContext);
+    const {setUser} = useUser();
+    const {setCart} = useCart();
 
     const navigate = useNavigate();
 
@@ -41,6 +43,7 @@ export default function Login() {
             const result = await response.json();
             if(result.success) {
                 setUser(result.user);//Store the logged in user in the context and localstorage
+                setCart(result.user.cart || []);
                 setShowError(false);
                 setShowSuccess(true);
                 usernameRef.current.value = '';
