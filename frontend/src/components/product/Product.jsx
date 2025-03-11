@@ -1,51 +1,62 @@
 import { Link } from 'react-router-dom';
 import { useCart } from '../cart/cart-context';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import './product.scss';
 import '../cart/listingProductsItemCart.scss';
 import PositiveNumberInput from '../common/PositiveNumberInput';
 
 export default function Product({product}) {
-    const { addToCart, removeFromCart, updateQuantity } = useCart();
+    const { cart, addToCart, removeFromCart } = useCart();
     const [quantity, setQuantity] = useState(0);
 
-    const truncateDescription = (text, maxLength = 60) => {
-        return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
-    };
+    useEffect(() => {
+        const cartItem = cart.find(item => item.id === product.id);
+        if(cartItem) {
+            setQuantity(cartItem.quantity);
+        }
+    }, [cart, product.id])
 
     const handleIncrement = () => {
-        setQuantity(prevQuantity => {
-            const newQuantity = prevQuantity + 1;
-            updateQuantity(product.id, newQuantity);
-            return newQuantity;
-        });
+        const newQuantity = quantity + 1;
+        setQuantity(newQuantity);
+        addToCart(product, newQuantity);
     };
 
     const handleDecrement = () => {
-        setQuantity(prevQuantity => {
-            const newQuantity = Math.max(0, prevQuantity - 1);
-            updateQuantity(product.id, newQuantity);
-            return newQuantity;
-        });
+        const newQuantity = Math.max(0, quantity - 1);
+        setQuantity(newQuantity);
+        if (newQuantity === 0) {
+            removeFromCart(product.id);
+        } else {
+            addToCart(product, newQuantity);
+        }
     };
 
-    const handleAddToCart = () => {
+    /* const handleAddToCart = () => {
         if(quantity > 0) {
             addToCart(product, quantity)
         }
-    }
+    } */
 
     const handleChangeQuantity = (newQuantity) => {
         setQuantity(newQuantity);
-        updateQuantityInCart(product.id, newQuantity);
+        if (newQuantity === 0) {
+            removeFromCart(product.id);
+        } else {
+            addToCart(product, newQuantity);
+        }
     };
 
-    const updateQuantityInCart = (newQuantity) => {
+    /* const updateQuantityInCart = (newQuantity) => {
         if (newQuantity === 0) {
           removeFromCart(product.id); // Remove item if quantity becomes 0
         } else {
           updateQuantity(product.id, newQuantity); // Update quantity in cart
         }
+    }; */
+
+    const truncateDescription = (text, maxLength = 60) => {
+        return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
     };
 
     return (
