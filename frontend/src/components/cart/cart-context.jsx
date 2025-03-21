@@ -67,7 +67,6 @@ export const CartContextProvider = ({ children }) => {
 				updatedCart = [...prevCart, { ...product, quantity: 1 }];
 			}
 
-			console.log("🛒 Cart after add/update: ", updatedCart);
 			updateUserCart(updatedCart); // Sync cart with user data
 			updateCartOnServer(updatedCart);
 			return updatedCart;
@@ -77,20 +76,17 @@ export const CartContextProvider = ({ children }) => {
   	const removeFromCart = (productId) => {
 		setCart((prevCart) => {
 			const updatedCart = prevCart.map((item) => {
-				if (item.id === productId && item.quantity > 1) {
-					// Decrement the quantity by 1
-					return {
-						...item,
-						quantity: item.quantity - 1
-					};
-				} else if(item.id === productId && item.quantity === 1) {
+				if (item.id === productId) {
+					if(item.quantity > 1) {
+						return {...item, quantity: item.quantity - 1};
+					}
 					return null;
 				}
 				return item;
-			}).filter(item => item !== null);  // Remove items with 0 quantity
+			}).filter(item => item !== null);
 
-			console.log("❌ Cart after removal: ", updatedCart);
-			updateUserCart(updatedCart); // Sync cart with user data
+			console.log("❌ Cart after removal:", updatedCart);
+			updateUserCart(updatedCart); 
 			updateCartOnServer(updatedCart);
 			return updatedCart;
 		});

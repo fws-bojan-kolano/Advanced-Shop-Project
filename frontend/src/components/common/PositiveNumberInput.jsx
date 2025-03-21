@@ -7,10 +7,8 @@ export default function PositiveNumberInput({ value, onChange, onIncrement, onDe
     const { user } = useUser();
 
     const handleChange = (e) => {
-        console.log("handleChange called");  // This log will tell if the handler is firing
         const sanitizedValue = sanitizeNumberInput(e.target.value);
-        console.log("Sanitized value in input:", sanitizedValue);
-        onChange(sanitizedValue);  // Call the onChange handler from Product.jsx
+        onChange(sanitizedValue);
     };
 
     const handleIncrement = () => {
@@ -36,8 +34,8 @@ export default function PositiveNumberInput({ value, onChange, onIncrement, onDe
             <input
                 type="number"
                 className="add-to-cart__input"
-                value={value}  // Ensure this value is updated by the parent
-                onChange={handleChange}  // Make sure this is being called on input change
+                value={value}
+                onChange={handleChange}
                 onKeyDown={preventInvalidNumberInput}
                 min={0}
             />
