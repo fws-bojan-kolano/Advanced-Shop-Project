@@ -1,5 +1,5 @@
 import React from 'react';
-import { preventInvalidNumberInput, sanitizeNumberInput } from "../../utils/inputValidation";
+import { preventInvalidNumberInput } from "../../utils/inputValidation";
 import { useUser } from '../user/user-context';
 import { Link } from 'react-router-dom';
 
@@ -7,8 +7,8 @@ export default function PositiveNumberInput({ value, onChange, onIncrement, onDe
     const { user } = useUser();
 
     const handleChange = (e) => {
-        const sanitizedValue = sanitizeNumberInput(e.target.value);
-        onChange(sanitizedValue);
+        const value = e.target.value;
+        onChange(value);
     };
 
     const handleIncrement = () => {

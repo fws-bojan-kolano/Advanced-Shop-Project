@@ -3,24 +3,29 @@ import { useCart } from '../cart/cart-context';
 import './product.scss';
 import '../cart/listingProductsItemCart.scss';
 import PositiveNumberInput from '../common/PositiveNumberInput';
+import { sanitizeNumberInput } from '../../utils/inputValidation';
 
 export default function Product({ product }) {
     const { cart, addToCart, removeFromCart } = useCart();
 
     const cartItem = cart.find(item => item.id === product.id);
     const quantity = cartItem ? cartItem.quantity : 0;
+
     const handleIncrement = () => addToCart(product, quantity + 1);
 
-    const handleDecrement = () => {
-       removeFromCart(product.id);
-    };
+    const handleDecrement = () => removeFromCart(product.id);
 
     const handleChangeQuantity = (newQuantity) => {
-        const num = parseInt(newQuantity, 10) || 0;
-        if (num === 0) {
+        const sanitizedQuantity = newQuantity;
+
+        if (isNaN(sanitizedQuantity)) {
+            return;
+        }
+
+        if (sanitizedQuantity === 0 || sanitizedQuantity === '0') {
             removeFromCart(product.id);
         } else {
-            addToCart(product, num);
+            addToCart(product, sanitizedQuantity);
         }
     };
 

@@ -73,19 +73,25 @@ export const CartContextProvider = ({ children }) => {
 		});
 	};
 
-  	const removeFromCart = (productId) => {
+  	const removeFromCart = (productId, newQuantity = null) => {
 		setCart((prevCart) => {
-			const updatedCart = prevCart.map((item) => {
-				if (item.id === productId) {
-					if(item.quantity > 1) {
-						return {...item, quantity: item.quantity - 1};
+			let updatedCart;
+			if(newQuantity === 0 || newQuantity === null || newQuantity === undefined) {
+				updatedCart = prevCart.filter(item => item.id !== productId);
+				console.log('new: ' + updatedCart);
+			} else {
+				console.log('new: ' + updatedCart);
+				updatedCart = prevCart.map((item) => {
+					if (item.id === productId) {
+						if(item.quantity > 1) {
+							return {...item, quantity: item.quantity - 1};
+						}
+						return null;
 					}
-					return null;
-				}
-				return item;
-			}).filter(item => item !== null);
+					return item;
+				}).filter(item => item !== null);
+			}
 
-			console.log("❌ Cart after removal:", updatedCart);
 			updateUserCart(updatedCart); 
 			updateCartOnServer(updatedCart);
 			return updatedCart;

@@ -1,6 +1,7 @@
 //Prevent special characters for inputs
 export const preventInvalidNumberInput = (e) => {
-    if(['e', 'E', '+', '-', '.'].includes(e.key)) {
+    const invalidKeys = ['e', 'E', '+', '-', '.']
+    if(invalidKeys.includes(e.key)) {
         e.preventDefault();
     }
 }
@@ -8,6 +9,6 @@ export const preventInvalidNumberInput = (e) => {
 //Parse and sanitize input value
 export const sanitizeNumberInput = (value) => {
     const numericValue = parseInt(value, 10);
-    if (isNaN(numericValue) || numericValue < 0) return 0;
+    if (numericValue < 0) return 0;
     return numericValue;
 }
