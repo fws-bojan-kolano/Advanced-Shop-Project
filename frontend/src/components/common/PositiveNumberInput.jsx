@@ -6,10 +6,7 @@ import { Link } from 'react-router-dom';
 export default function PositiveNumberInput({ value, onChange, onIncrement, onDecrement }) {
     const { user } = useUser();
 
-    const handleChange = (e) => {
-        const value = e.target.value;
-        onChange(value);
-    };
+    const handleChange = (e) => onChange(e.target.value);
 
     const handleIncrement = () => {
         if (onIncrement) onIncrement();
@@ -19,10 +16,15 @@ export default function PositiveNumberInput({ value, onChange, onIncrement, onDe
         if (onDecrement) onDecrement();
     };
 
+    const handleClassChange = (e) => {
+        const clickedItemParent = e.target.parentNode;
+        clickedItemParent.classList.add('active');
+    }
+
     if (!user) {
         return (
             <div className="add-to-cart not-logged-in">
-                <p>Login to add to cart!</p>
+                <p className='add-to-cart__log-in' onClick={handleClassChange}>Login to add to cart!</p>
                 <Link className="hero-banner__link" to="/dashboard/login">Log in</Link>
             </div>
         )
