@@ -17,6 +17,17 @@
         align-items: center;
     }
 
+    &__list {
+        @include mq($md) {
+            width: 160px;
+            justify-content: flex-end;
+        }
+
+        @include mq($sm) {
+            width: 180px;
+        }
+    }
+
     &__logo-wrapper {
         justify-content: space-between;
     }
@@ -26,6 +37,7 @@
         font-size: 20px;
         opacity: 1;
         transition: $dur $ease;
+        position: relative;
 
         @include hover {
             opacity: 0.7;
@@ -37,11 +49,35 @@
         }
     }
 
+    &__total {
+        position: absolute;
+        font-size: 14px;
+        bottom: -15px;
+        right: -20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: $green-brand;
+        border-radius: 50%;
+        min-width: 30px;
+        min-height: 30px;
+
+        @include mq($sm) {
+            right: 0;
+        }
+    }
+
     &__list-item {
         margin-left: 20px;
 
         &:first-child {
             margin-left: 0;
+        }
+
+        &--my-account {
+            @include mq($sm) {
+                padding-right: 15px;
+            }
         }
     }
 
@@ -54,7 +90,22 @@
         }
     }
 
+    &__cart-icon {
+        width: 25px;
+        transform: translateY(5px);
+
+        @include mq($sm) {
+            transform: translateX(-20px) translateY(5px);
+        }
+    }
+
     @include mq($lg) {
         padding: 8px 0;
+    }
+}
+
+.welcome {
+    @include mq($md) {
+        transform: translateX(30px);
     }
 }

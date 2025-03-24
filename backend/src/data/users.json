@@ -24,7 +24,7 @@
         "description": "Second book description goes here.",
         "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
         "recommended": false,
-        "quantity": 3
+        "quantity": 20
       }
     ],
     "orders": []
