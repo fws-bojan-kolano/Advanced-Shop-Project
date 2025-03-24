@@ -9,7 +9,8 @@ export default function SingleProduct() {
     const {id} = useParams();
     const [product, setProduct] = useState(null);
     const { cart, addToCart, removeFromCart } = useCart();
-    const [quantity, setQuantity] = useState(0); // state to track quantity for this product
+    const [newQuantity, setNeqQuantity] = useState(0);
+
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -29,16 +30,16 @@ export default function SingleProduct() {
     }, [id]);
 
     useEffect(() => {
-        if (product) {
-            // Find the product in the cart to get its quantity, use default 0 if not found
-            const cartItem = cart.find(item => item.id === parseInt(id));
-            setQuantity(cartItem ? cartItem.quantity : 0);
+        if(product) {
+            const cartItem = cart.find(item => item.id === product.id);
+            const quantity = cartItem ? cartItem.quantity : 0;
+            setNeqQuantity(quantity);
         }
-    }, [cart, id, product]);
+    }, [product, cart]);
 
-    const handleIncrement = () => addToCart(product, quantity + 1);
+    const handleIncrement = () => addToCart(product, newQuantity + 1);
 
-    const handleDecrement = () => removeFromCart(product.id, quantity - 1);
+    const handleDecrement = () => removeFromCart(product.id, newQuantity - 1);
 
     const handleChangeQuantity = (newQuantity) => {
 
@@ -73,7 +74,7 @@ export default function SingleProduct() {
                         <p className="single-product__description">{product.description}</p>
                         <p className="single-product__price">Price: ${product.price}</p>
                         <PositiveNumberInput
-                            value={quantity}
+                            value={newQuantity}
                             onChange={handleChangeQuantity}
                             onIncrement={handleIncrement}
                             onDecrement={handleDecrement}/>

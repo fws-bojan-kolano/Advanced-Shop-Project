@@ -33,6 +33,13 @@
         display: flex;
         align-items: center;
 
+        @include hover {
+            .cart__item-name {
+                color: $green-brand;
+                transition: $dur $ease;
+            }
+        }
+
         @include mq($sm) {
             margin-bottom: 20px;
         }
@@ -84,6 +91,7 @@
 
     &__item-name {
         margin-bottom: 15px;
+        transition: $dur $ease;
     }
 
     &__item-total-price {
