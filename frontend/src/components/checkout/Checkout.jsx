@@ -51,6 +51,8 @@ export default function Checkout() {
 
         if(place.address && place.address.postcode) {
             setZip(place.address.postcode);
+        } else {
+            setZip('');
         }
     }
 
