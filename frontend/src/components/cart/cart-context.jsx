@@ -55,16 +55,18 @@ export const CartContextProvider = ({ children }) => {
 		}
 	};
 
-  	const addToCart = (product) => {
+  	const addToCart = (product, newQuantity) => {
+		const value = +newQuantity;
 		setCart((prevCart) => {
-			const existingProductIndex = prevCart.findIndex((item) => item.id === product.id);
+			const existingProduct = prevCart.find(item => item.id === product.id);
 			let updatedCart;
 
-			if (existingProductIndex >= 0) {
-				updatedCart = [...prevCart];
-				updatedCart[existingProductIndex].quantity += 1;
+			if (existingProduct) {
+				updatedCart = prevCart.map(item => item.id === product.id ? {
+					...item, quantity: value
+				} : item);
 			} else {
-				updatedCart = [...prevCart, { ...product, quantity: 1 }];
+				updatedCart = [...prevCart, { ...product, quantity: value }];
 			}
 
 			updateUserCart(updatedCart); // Sync cart with user data
@@ -78,9 +80,7 @@ export const CartContextProvider = ({ children }) => {
 			let updatedCart;
 			if(newQuantity === 0 || newQuantity === null || newQuantity === undefined) {
 				updatedCart = prevCart.filter(item => item.id !== productId);
-				console.log('new: ' + updatedCart);
 			} else {
-				console.log('new: ' + updatedCart);
 				updatedCart = prevCart.map((item) => {
 					if (item.id === productId) {
 						if(item.quantity > 1) {

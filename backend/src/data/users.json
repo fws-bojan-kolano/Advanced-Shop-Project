@@ -15,6 +15,16 @@
         "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
         "recommended": false,
         "quantity": 7
+      },
+      {
+        "id": "2",
+        "name": "Product 2",
+        "price": 50,
+        "creator": "Bojan Paz",
+        "description": "Second book description goes here.",
+        "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
+        "recommended": false,
+        "quantity": 3
       }
     ],
     "orders": []
