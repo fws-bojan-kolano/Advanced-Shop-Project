@@ -53,7 +53,7 @@ export default function SingleProduct() {
     };
 
     if(!product) {
-        return <div>Loading...</div>
+        return <div className='single-product__loading'>Loading...</div>
     }
 
     return (

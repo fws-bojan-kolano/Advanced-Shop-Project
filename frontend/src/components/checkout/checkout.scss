@@ -1,0 +1,48 @@
+.checkout {
+    padding: 50px 0;
+
+    &__title {
+        padding-bottom: 50px;
+    }
+
+    &__form-fields {
+        display: flex;
+        flex-wrap: wrap;
+
+        .input-wrapper {
+            width: 50%;
+            padding: 0 10px;
+            margin-bottom: 20px;
+            position: relative;
+
+            &__suggestions {
+                position: absolute;
+                left: 10px;
+                width: calc(100% - 20px);
+                background-color: $white;
+                border-radius: 10px;
+                padding: 15px 0;
+                height: 200px;
+                overflow: auto;
+            }
+
+            &__suggestions-item {
+                text-align: left;
+                cursor: pointer;
+                margin-bottom: 10px;
+                padding: 0 15px;
+                transition: $dur $ease;
+                background-color: $white;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+                
+                @include hover {
+                    background-color: $green-brand;
+                    transition: $dur $ease;
+                }
+            }
+        }
+    }
+}
