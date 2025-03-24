@@ -9,6 +9,7 @@ import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import UserContextProvider from './components/user/user-context';
 import { CartContextProvider } from './components/cart/cart-context';
 import PageProductListing from './pages/PageProductListing';
+import PageCheckout from './pages/pageCheckout';
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
                 <Route path="/dashboard/*" element={<PageDashboard />} />
                 <Route path="/product/:id" element={<PageSingleProduct />} />
                 <Route path="/cart" element={<PageCart />} />
+                <Route path="/checkout" element={<PageCheckout />} />
               </Routes>
               <Footer />
             </BrowserRouter>

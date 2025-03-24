@@ -1,5 +1,4 @@
-
-import Cart from "../components/cart/cart";
+import Cart from "../components/cart/Cart";
 import Recommended from "../components/recommended/Recommended";
 
 const PageCart = () => {

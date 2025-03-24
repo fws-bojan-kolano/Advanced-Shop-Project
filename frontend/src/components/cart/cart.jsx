@@ -59,6 +59,9 @@ export default function Cart() {
                             ))}
                         </ul>
                     )}
+                <div className="cart__checkout-button-wrapper">
+                    <Link className="btn cart__checkout-button" to='/checkout'>Go to Checkout</Link>
+                </div>
             </div>
         </div>
     )
