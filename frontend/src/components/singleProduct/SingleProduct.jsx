@@ -1,6 +1,6 @@
 import './singleProduct.scss';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { SERVER } from '../../utils/utils';
 import PositiveNumberInput from '../common/PositiveNumberInput';
 import { useCart } from '../cart/cart-context';
@@ -78,6 +78,7 @@ export default function SingleProduct() {
                             onChange={handleChangeQuantity}
                             onIncrement={handleIncrement}
                             onDecrement={handleDecrement}/>
+                            <Link className='btn single-product__go-to-cart' to='/cart'>Go to cart</Link>
                     </div>
                 </div>
             </div>
