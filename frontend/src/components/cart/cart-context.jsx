@@ -55,42 +55,44 @@ export const CartContextProvider = ({ children }) => {
 		}
 	};
 
-  	const addToCart = (product) => {
+  	const addToCart = (product, newQuantity) => {
+		const value = +newQuantity;
 		setCart((prevCart) => {
-			const existingProductIndex = prevCart.findIndex((item) => item.id === product.id);
+			const existingProduct = prevCart.find(item => item.id === product.id);
 			let updatedCart;
 
-			if (existingProductIndex >= 0) {
-				updatedCart = [...prevCart];
-				updatedCart[existingProductIndex].quantity += 1;
+			if (existingProduct) {
+				updatedCart = prevCart.map(item => item.id === product.id ? {
+					...item, quantity: value
+				} : item);
 			} else {
-				updatedCart = [...prevCart, { ...product, quantity: 1 }];
+				updatedCart = [...prevCart, { ...product, quantity: value }];
 			}
 
-			console.log("🛒 Cart after add/update: ", updatedCart);
 			updateUserCart(updatedCart); // Sync cart with user data
 			updateCartOnServer(updatedCart);
 			return updatedCart;
 		});
 	};
 
-  	const removeFromCart = (productId) => {
+  	const removeFromCart = (productId, newQuantity = null) => {
 		setCart((prevCart) => {
-			const updatedCart = prevCart.map((item) => {
-				if (item.id === productId && item.quantity > 1) {
-					// Decrement the quantity by 1
-					return {
-						...item,
-						quantity: item.quantity - 1
-					};
-				} else if(item.id === productId && item.quantity === 1) {
-					return null;
-				}
-				return item;
-			}).filter(item => item !== null);  // Remove items with 0 quantity
+			let updatedCart;
+			if(newQuantity === 0 || newQuantity === null || newQuantity === undefined) {
+				updatedCart = prevCart.filter(item => item.id !== productId);
+			} else {
+				updatedCart = prevCart.map((item) => {
+					if (item.id === productId) {
+						if(item.quantity > 1) {
+							return {...item, quantity: item.quantity - 1};
+						}
+						return null;
+					}
+					return item;
+				}).filter(item => item !== null);
+			}
 
-			console.log("❌ Cart after removal: ", updatedCart);
-			updateUserCart(updatedCart); // Sync cart with user data
+			updateUserCart(updatedCart); 
 			updateCartOnServer(updatedCart);
 			return updatedCart;
 		});
