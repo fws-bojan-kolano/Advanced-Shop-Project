@@ -10,11 +10,33 @@ export default function Checkout() {
     const [suggestions, setSuggestions] = useState([]);
     const [error, setError] = useState(null);
     const [showLoaderAddress, setShowLoaderAddress] = useState(false);
+    const [couponCode, setCouponCode] = useState('');
+    const [couponDiscount, setCouponDiscount] = useState(0);
+    const [couponError, setCouponError] = useState('');
+    const [showCoupon, setShowCoupon] = useState(false);
 
     const {cart} = useCart();
     const cartItems = cart.filter(item => item.quantity > 0);
-
     const subtotal = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+
+    const validCoupons = {
+        'DISCOUNT10': 10, // 10% discount
+        'SAVE20': 20 // 20% discount
+    }
+
+    const handleToggleCoupon = () => {
+        setShowCoupon(!showCoupon);
+    }
+
+    const handleApplyCoupon = () => {
+        if(validCoupons[couponCode]) {
+            setCouponDiscount(validCoupons[couponCode]);
+            setCouponError('');
+        } else {
+            setCouponError('Invalid coupon code');
+            setCouponDiscount(0);
+        }
+    }
 
     const debounce = (func, delay) => {
         let timer;
@@ -60,18 +82,19 @@ export default function Checkout() {
 
         if(place.address && place.address.postcode) {
             setZip(place.address.postcode || '');
+        }
+
+        if(place.address && place.address.country) {
             calculateShipping(place.address.country);
         }
     }
 
     const fetchNeighboringCountries = async (selectedCountry) => {
-        console.log(`Fetching neighbors for: ${selectedCountry}`);
         try {
             const response = await fetch(`https://restcountries.com/v3.1/name/${selectedCountry}?fields=borders`);
             if(!response.ok) throw new Error('Failed to fetch neighboring countries');
 
             const data = await response.json();
-            console.log('Fetched data:', data);
             return data[0]?.borders || [];
         } catch (error) {
             console.error('Error fetching neighboring countries: ', error);
@@ -87,7 +110,6 @@ export default function Checkout() {
             cost = 5; //Same country shipping
         } else {
             const neighbors = await fetchNeighboringCountries(selectedCountry);
-            console.log("Neighboring countries:", neighbors);
 
             if(neighbors.includes('SRB')) {
                 cost = 15; // Shipping costs 15$ if Serbian neighbor
@@ -96,6 +118,8 @@ export default function Checkout() {
 
         setShippingCost(cost);
     }
+
+    const totalWithCoupon = subtotal - (subtotal * (couponDiscount / 100));
 
     return (
         <div className="checkout">
@@ -189,6 +213,27 @@ export default function Checkout() {
                                             <span className="checkout__info-sub-total-item-right">${shippingCost}</span>
                                         </li>
                                     </ul>
+                                </div>
+                                <div className="checkout__coupon">
+                                    <span className="checkout__coupon-show" onClick={handleToggleCoupon}>Add coupon</span>
+                                    {showCoupon && <div className="input-wrapper input-wrapper--full-width">
+                                        <input 
+                                            type="text" 
+                                            className="form-input" 
+                                            placeholder="Enter Coupon Code"
+                                            value={couponCode}
+                                            onChange={(e) => setCouponCode(e.target.value)}
+                                        />
+                                        <button 
+                                            type="button" 
+                                            className="btn apply-coupon-btn"
+                                            onClick={handleApplyCoupon}
+                                        >
+                                            Apply Coupon
+                                        </button>
+                                        {couponError && <p className="form-message form-error form-input-error">{couponError}</p>}
+                                        {couponDiscount > 0 && <p className="coupon-success">Coupon Applied: {couponDiscount}% Off</p>}
+                                    </div>}
                                 </div>
                                 <div className="checkout__info-total">
                                     <span className="checkout__info-total-left">Total</span>

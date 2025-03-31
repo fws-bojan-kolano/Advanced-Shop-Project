@@ -133,4 +133,32 @@
         flex-direction: column;
         align-items: flex-end;
     }
+
+    &__coupon-show {
+        cursor: pointer;
+        color: $green-brand;
+        transition: $dur $ease;
+        margin-top: 20px;
+        display: block;
+
+        @include hover {
+            color: $black;
+            transition: $dur $ease;
+        }
+    }
+
+    .input-wrapper--full-width {
+        padding: 5px 0 0;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+}
+
+.apply-coupon-btn {
+    margin: 10px 0;
+}
+
+.coupon-success {
+    color: $green;
 }
