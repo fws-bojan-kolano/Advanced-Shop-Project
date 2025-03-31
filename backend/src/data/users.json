@@ -14,17 +14,7 @@
         "description": "Fourth book description goes here.",
         "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
         "recommended": false,
-        "quantity": 23
-      },
-      {
-        "id": "1",
-        "name": "Product 12232",
-        "price": 30022,
-        "creator": "Marcela Paz22",
-        "description": "2Fennel bamboo shoot pea sprouts rutabaga parsnip green bean gram wattle seed lentil horseradish nori. Grape lettuce turnip greens.",
-        "image": "https://wastesolutionservices.com/wp-content/uploads/2025/02/Frame-13118.jpg",
-        "recommended": false,
-        "quantity": 3
+        "quantity": 25
       },
       {
         "id": "3",
@@ -34,7 +24,7 @@
         "description": "Third book description goes here.",
         "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
         "recommended": false,
-        "quantity": 1
+        "quantity": 2
       },
       {
         "id": "2",
