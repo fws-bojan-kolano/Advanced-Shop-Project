@@ -119,7 +119,6 @@ export default function Checkout() {
     }
 
     const subtotal = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
-    const totalWithCoupon = subtotal - (subtotal * (couponDiscount / 100));
 
     return (
         <div className="checkout">
@@ -237,7 +236,11 @@ export default function Checkout() {
                                 </div>
                                 <div className="checkout__info-total">
                                     <span className="checkout__info-total-left">Total</span>
-                                    <span className="checkout__info-total-right">${subtotal + shippingCost}</span>
+                                    <span className="checkout__info-total-right">
+                                        ${couponDiscount > 0 ? 
+                                            (subtotal + shippingCost) - ((subtotal + shippingCost) * (couponDiscount / 100)) 
+                                            : (subtotal + shippingCost)
+                                    }</span>
                                 </div>
                             </div>
                         </div>
