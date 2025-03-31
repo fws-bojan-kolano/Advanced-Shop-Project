@@ -17,7 +17,6 @@ export default function Checkout() {
 
     const {cart} = useCart();
     const cartItems = cart.filter(item => item.quantity > 0);
-    const subtotal = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
 
     const validCoupons = {
         'DISCOUNT10': 10, // 10% discount
@@ -119,6 +118,7 @@ export default function Checkout() {
         setShippingCost(cost);
     }
 
+    const subtotal = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
     const totalWithCoupon = subtotal - (subtotal * (couponDiscount / 100));
 
     return (
