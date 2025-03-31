@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useCart } from '../cart/cart-context';
 import { Link } from "react-router-dom";
 import './checkout.scss';
@@ -17,6 +17,14 @@ export default function Checkout() {
 
     const {cart} = useCart();
     const cartItems = cart.filter(item => item.quantity > 0);
+
+    useEffect(() => {
+        const submit = document.querySelector('.js-checkout__submit-wrapper');
+        const checkoutInfo = document.querySelector('.js-checkout__info');
+        if(submit && checkoutInfo) {
+            checkoutInfo.appendChild(submit);
+        }
+    }, [])
 
     const validCoupons = {
         'DISCOUNT10': 10, // 10% discount
@@ -182,9 +190,12 @@ export default function Checkout() {
                                         <input type="text" className="form-input" placeholder="Company name" />
                                         <span className="form-message form-error form-input-error">Enter correct company name.</span>
                                     </div>
+                                    <div className="input-wrapper checkout__submit-wrapper js-checkout__submit-wrapper">
+                                        <input className='checkout__form-submit' type="submit" value="Place Order" />
+                                    </div>
                                 </div>
                             </form>
-                            <div className="checkout__info">
+                            <div className="checkout__info js-checkout__info">
                                 <ul className="checkout__info-products">
                                     {cartItems.map(item => (
                                         <li className="checkout__info-product" key={item.id}>
@@ -238,8 +249,8 @@ export default function Checkout() {
                                     <span className="checkout__info-total-left">Total</span>
                                     <span className="checkout__info-total-right">
                                         ${couponDiscount > 0 ? 
-                                            (subtotal + shippingCost) - ((subtotal + shippingCost) * (couponDiscount / 100)) 
-                                            : (subtotal + shippingCost)
+                                        (subtotal + shippingCost) - ((subtotal + shippingCost) * (couponDiscount / 100)) 
+                                        : (subtotal + shippingCost)
                                     }</span>
                                 </div>
                             </div>
