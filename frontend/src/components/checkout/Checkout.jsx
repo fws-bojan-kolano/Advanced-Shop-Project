@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useCart } from '../cart/cart-context';
 import { Link } from "react-router-dom";
 import './checkout.scss';
+import { SERVER } from '../../utils/utils';
 
 export default function Checkout() {
     const [address, setAddress] = useState('');
@@ -10,13 +11,29 @@ export default function Checkout() {
     const [suggestions, setSuggestions] = useState([]);
     const [error, setError] = useState(null);
     const [showLoaderAddress, setShowLoaderAddress] = useState(false);
+    const [showLoaderSubmit, setShowLoaderSubmit] = useState(false);
     const [couponCode, setCouponCode] = useState('');
     const [couponDiscount, setCouponDiscount] = useState(0);
     const [couponError, setCouponError] = useState('');
     const [showCoupon, setShowCoupon] = useState(false);
+    const [formErrors, setFormErrors] = useState({
+        name: '',
+        email: '',
+        phone: '',
+        address: '',
+        zip: '',
+        company: ''
+    })
 
     const {cart} = useCart();
     const cartItems = cart.filter(item => item.quantity > 0);
+    const subtotal = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+    const total = couponDiscount > 0 ? (subtotal + shippingCost) - ((subtotal + shippingCost) * (couponDiscount / 100)) : (subtotal + shippingCost);
+
+    const validCoupons = {
+        'DISCOUNT10': 10, // 10% discount
+        'SAVE20': 20 // 20% discount
+    }
 
     useEffect(() => {
         const submit = document.querySelector('.js-checkout__submit-wrapper');
@@ -25,11 +42,6 @@ export default function Checkout() {
             checkoutInfo.appendChild(submit);
         }
     }, [])
-
-    const validCoupons = {
-        'DISCOUNT10': 10, // 10% discount
-        'SAVE20': 20 // 20% discount
-    }
 
     const handleToggleCoupon = () => {
         setShowCoupon(!showCoupon);
@@ -126,7 +138,64 @@ export default function Checkout() {
         setShippingCost(cost);
     }
 
-    const subtotal = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        setShowLoaderSubmit(true);
+
+        const errors = {};
+        const nameRegex = /^[a-zA-Z]+\s+[a-zA-Z]+$/;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const phoneRegex = /^[0-9\s+()-]{6,}$/;
+
+        !nameRegex.test(e.target.name.value.trim()) ? errors.name = 'Enter correct first and last name.' : null;
+        !emailRegex.test(e.target.email.value.trim()) ? errors.email = 'Enter correct email.' : null;
+        !phoneRegex.test(e.target.phone.value.trim()) ? errors.phone = 'Enter correct phone.' : null;
+        !address.trim() ? errors.address = 'Enter correct address.' : null;
+        !zip.trim() ? errors.zip = 'Enter correct ZIP.' : null;
+        !e.target.company.value.trim() ? errors.company = 'Enter correct company name.' : null;
+
+        setFormErrors(errors);
+
+        if(Object.keys(errors).length === 0) {
+            const order = {
+                firstAndLastName: e.target.name.value,
+                email: e.target.email.value,
+                phone: e.target.phone.value,
+                address: e.target.address.value,
+                zip: e.target.zip.value,
+                company: e.target.company.value
+            }
+
+            try {
+                const response = await fetch(`${SERVER}users/checkout`, {
+                    method: 'PUT',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(order)
+                });
+
+                if(!response) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const result = await response.json();
+                if(result.success) {
+
+                } else {
+                    
+                }
+            } catch (error) {
+                console.error('Error during data update:', error);
+            } finally {
+                setShowLoaderSubmit(false);
+            }
+        } else {
+            const firstErrorField = Object.keys(errors)[0];
+            const el = document.querySelector(`[name="${firstErrorField}"]`);
+            el ? el.scrollIntoView({behavior: 'smooth', block: 'center'}) : null;
+            setShowLoaderSubmit(false);
+        }
+    }
 
     return (
         <div className="checkout">
@@ -138,24 +207,25 @@ export default function Checkout() {
                             <Link to='/shop'>Continue Shopping</Link>
                         </p>) : (
                         <div className="checkout__box">
-                            <form className="checkout__form">
+                            <form className="checkout__form" id='checkout-form' onSubmit={handleSubmit}>
                                 <div className="checkout__form-fields">
                                     <div className="input-wrapper">
-                                        <input type="text" className="form-input" placeholder="First and Last name" />
-                                        <span className="form-message form-error form-input-error">Enter correct first and last name.</span>
+                                        <input type="text" className="form-input" name='name' placeholder="First and Last name" />
+                                        {formErrors.name && <span className="form-message form-error form-input-error">{formErrors.name}</span>}
                                     </div>
                                     <div className="input-wrapper">
-                                        <input type="email" className="form-input" placeholder="Email" />
-                                        <span className="form-message form-error form-input-error">Enter correct email.</span>
+                                        <input type="email" className="form-input" name='email' placeholder="Email" />
+                                        {formErrors.email && <span className="form-message form-error form-input-error">{formErrors.email}</span>}
                                     </div>
                                     <div className="input-wrapper">
-                                        <input type="text" className="form-input" placeholder="Phone" />
-                                        <span className="form-message form-error form-input-error">Enter correct phone.</span>
+                                        <input type="text" className="form-input" name='phone' placeholder="Phone" />
+                                        {formErrors.phone && <span className="form-message form-error form-input-error">{formErrors.phone}</span>}
                                     </div>
                                     <div className="input-wrapper">
                                         <input
                                             type="text"
                                             className="form-input"
+                                            name='address'
                                             placeholder="Enter Address"
                                             value={address}
                                             onChange={e => {
@@ -174,24 +244,30 @@ export default function Checkout() {
                                                 ))}
                                             </ul>
                                         )}
-                                        <span className="form-message form-error form-input-error">Enter correct address.</span>
+                                        {formErrors.address && <span className="form-message form-error form-input-error">{formErrors.address}</span>}
                                     </div>
                                     <div className="input-wrapper">
                                         <input
                                             type="text"
                                             className="form-input"
                                             placeholder="ZIP"
+                                            name='zip'
                                             value={zip}
                                             onChange={(e) => setZip(e.target.value)}
                                             />
-                                        <span className="form-message form-error form-input-error">Enter correct ZIP.</span>
+                                        {formErrors.zip && <span className="form-message form-error form-input-error">{formErrors.zip}</span>}
                                     </div>
                                     <div className="input-wrapper">
-                                        <input type="text" className="form-input" placeholder="Company name" />
-                                        <span className="form-message form-error form-input-error">Enter correct company name.</span>
+                                        <input type="text" className="form-input" name='company' placeholder="Company name" />
+                                        {formErrors.company && <span className="form-message form-error form-input-error">{formErrors.company}</span>}
                                     </div>
                                     <div className="input-wrapper checkout__submit-wrapper js-checkout__submit-wrapper">
-                                        <input className='checkout__form-submit' type="submit" value="Place Order" />
+                                        <input
+                                        className='checkout__form-submit'
+                                        type="submit"
+                                        value="Place Order"
+                                        onClick={() => document.getElementById('checkout-form').requestSubmit()} />
+                                        {showLoaderSubmit && <span className='loader my-account__loader'></span>}
                                     </div>
                                 </div>
                             </form>
@@ -247,11 +323,7 @@ export default function Checkout() {
                                 </div>
                                 <div className="checkout__info-total">
                                     <span className="checkout__info-total-left">Total</span>
-                                    <span className="checkout__info-total-right">
-                                        ${couponDiscount > 0 ? 
-                                        (subtotal + shippingCost) - ((subtotal + shippingCost) * (couponDiscount / 100)) 
-                                        : (subtotal + shippingCost)
-                                    }</span>
+                                    <span className="checkout__info-total-right">${total}</span>
                                 </div>
                             </div>
                         </div>
