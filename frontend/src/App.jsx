@@ -10,6 +10,7 @@ import UserContextProvider from './components/user/user-context';
 import { CartContextProvider } from './components/cart/cart-context';
 import PageProductListing from './pages/PageProductListing';
 import PageCheckout from './pages/pageCheckout';
+import PageThankYou from './pages/PageThankYou';
 
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
                 <Route path="/product/:id" element={<PageSingleProduct />} />
                 <Route path="/cart" element={<PageCart />} />
                 <Route path="/checkout" element={<PageCheckout />} />
+                <Route path="/thank-you" element={<PageThankYou />} />
               </Routes>
               <Footer />
             </BrowserRouter>

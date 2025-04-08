@@ -174,6 +174,7 @@ const usersChangeUser = async (req, res) => {
     }
 }
 
+//Update Cart
 const userUpdateCartController = async (req, res) => {
     try {
         const {id, cart} = req.body;
@@ -203,6 +204,59 @@ const userUpdateCartController = async (req, res) => {
     }
 }
 
+//Checkout
+const usersControllerCheckout = async (req, res) => {
+    try {
+        const {id} = req.params;
+        const info = req.body;
+
+        const usersData = getUsers();
+        const foundIndex = usersData.findIndex(user => user.id === id);
+
+        if(foundIndex === -1) {
+            return res.status(404).send({message: 'User not found!'});
+        }
+
+        if (!id) {
+            return res.status(400).send({ success: false, message: 'User ID is required!' });
+        }
+
+        const user = usersData[foundIndex];
+        
+        if(!Array.isArray(user.cart) || user.cart.length === 0) {
+            return res.status(400).send({ success: false, message: 'Cart is empty!' });
+        }
+
+        const newOrder = {
+            orderId: uuidv4(),
+            date: new Date().toISOString(),
+            items: [...user.cart],
+            total: info.total,
+            name: info.firstAndLastName,
+            email: info.checkoutEmail,
+            phone: info.phone,
+            address: info.address,
+            zip: info.zip,
+            company: info.company
+        }
+
+        user.orders.push(newOrder);
+        user.cart = [];
+
+        fs.writeFileSync('data/users.json', JSON.stringify(usersData, null, 2));
+        return res.send({
+            success: true,
+            message: 'Checkout completed successfully!',
+            order: newOrder,
+            orders: user.orders
+        });
+        
+    } catch (error) {
+        console.error('Error during checkout:', error);
+        return res.status(500).send({ success: false, message: 'Internal Server Error' });
+    }
+}
+
 module.exports = {
     usersController: {
         usersControllerGet,
@@ -211,6 +265,7 @@ module.exports = {
         usersUpdateAccountController,
         usersRemoveController,
         usersChangeUser,
-        userUpdateCartController
+        userUpdateCartController,
+        usersControllerCheckout
     }
 }

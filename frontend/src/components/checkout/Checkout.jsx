@@ -1,6 +1,7 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useContext } from 'react';
 import { useCart } from '../cart/cart-context';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { UserContext } from "../user/user-context";
 import './checkout.scss';
 import { SERVER } from '../../utils/utils';
 
@@ -23,13 +24,12 @@ export default function Checkout() {
         address: '',
         zip: '',
         company: ''
-    })
-
+    });
+    const { user, setUser } = useContext(UserContext);
     const {cart} = useCart();
     const cartItems = cart.filter(item => item.quantity > 0);
     const subtotal = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
     const total = couponDiscount > 0 ? (subtotal + shippingCost) - ((subtotal + shippingCost) * (couponDiscount / 100)) : (subtotal + shippingCost);
-
     const validCoupons = {
         'DISCOUNT10': 10, // 10% discount
         'SAVE20': 20 // 20% discount
@@ -42,6 +42,8 @@ export default function Checkout() {
             checkoutInfo.appendChild(submit);
         }
     }, [])
+
+    const navigate = useNavigate();
 
     const handleToggleCoupon = () => {
         setShowCoupon(!showCoupon);
@@ -160,15 +162,16 @@ export default function Checkout() {
         if(Object.keys(errors).length === 0) {
             const order = {
                 firstAndLastName: e.target.name.value,
-                email: e.target.email.value,
+                checkoutEmail: e.target.email.value,
                 phone: e.target.phone.value,
                 address: e.target.address.value,
                 zip: e.target.zip.value,
-                company: e.target.company.value
+                company: e.target.company.value,
+                total: total
             }
 
             try {
-                const response = await fetch(`${SERVER}users/checkout`, {
+                const response = await fetch(`${SERVER}users/${user.id}/checkout`, {
                     method: 'PUT',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify(order)
@@ -180,7 +183,16 @@ export default function Checkout() {
 
                 const result = await response.json();
                 if(result.success) {
+                    if(result.user) {
+                        setUser(result.user);
+                    } else {
+                        setUser(prevUser => ({
+                            ...prevUser,
+                            order: result.order
+                        }));
+                    }
 
+                    navigate('/thank-you');
                 } else {
                     
                 }

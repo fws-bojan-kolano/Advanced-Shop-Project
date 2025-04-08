@@ -124,4 +124,14 @@
         text-transform: uppercase;
         font-weight: bold;
     }
+
+    &__shop-link {
+        color: $green-brand;
+        transition: $dur $ease;
+
+        @include hover {
+            color: $black;
+            transition: $dur $ease;
+        }
+    }
 }

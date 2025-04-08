@@ -9,7 +9,8 @@ usersRouter
     .put('/users/update', usersController.usersUpdateAccountController)
     .delete('/users/:id', usersController.usersRemoveController)
     .put('/users/:id', usersController.usersChangeUser)
-    .post('/users/cart', usersController.userUpdateCartController);
+    .post('/users/cart', usersController.userUpdateCartController)
+    .put('/users/:id/checkout', usersController.usersControllerCheckout);
 
 module.exports = {
     usersRouter

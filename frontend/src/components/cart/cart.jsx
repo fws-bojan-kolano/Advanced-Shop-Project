@@ -28,9 +28,8 @@ export default function Cart() {
             <div className="container">
                 <h1 className="section-title cart__title">Cart</h1>
                 {cartItems.length === 0 ? (
-                    <p>Your cart is empty! 
-                        <Link to='/shop'>Continue Shopping</Link>
-                    </p>) : (
+                    <p>Your cart is empty! <Link className="cart__shop-link" to='/shop'>Continue Shopping</Link></p>
+                ) : (
                     <ul className="cart__items">
                         {cartItems.map(item => (
                             <li className="cart__item" key={item.id}>
@@ -60,7 +59,7 @@ export default function Cart() {
                 )}
                 <div className="cart__checkout-button-wrapper">
                     <Link className="btn cart__checkout-button" to='/shop'>Shop More</Link>
-                    <Link className="btn cart__checkout-button" to='/checkout'>Go to Checkout</Link>
+                    {cartItems.length > 0 && <Link className="btn cart__checkout-button" to='/checkout'>Go to Checkout</Link>}
                 </div>
             </div>
         </div>

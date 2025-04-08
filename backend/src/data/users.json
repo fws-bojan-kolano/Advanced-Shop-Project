@@ -5,39 +5,515 @@
     "password": "$2b$10$1uJE4m5cCoifyBb/UK4Ea.OPzsr8RTlwNVtLdSNHuR0P/KAATLPV6",
     "role": "admin",
     "email": "email@mail.com",
-    "cart": [
+    "cart": [],
+    "orders": [
       {
-        "id": "4",
-        "name": "Product 4",
-        "price": 50,
-        "creator": "Bojan Paz",
-        "description": "Fourth book description goes here.",
-        "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
-        "recommended": false,
-        "quantity": 25
+        "orderId": "6099da66-1f32-4fa6-9aa5-8b1711c60898",
+        "date": "2025-04-08T07:44:37.572Z",
+        "items": [
+          {
+            "id": "2",
+            "name": "Product 2",
+            "price": 50,
+            "creator": "Bojan Paz",
+            "description": "Second book description goes here.",
+            "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
+            "recommended": false,
+            "quantity": 1
+          },
+          {
+            "id": "1",
+            "name": "Product 12232",
+            "price": 30022,
+            "creator": "Marcela Paz22",
+            "description": "2Fennel bamboo shoot pea sprouts rutabaga parsnip green bean gram wattle seed lentil horseradish nori. Grape lettuce turnip greens.",
+            "image": "https://wastesolutionservices.com/wp-content/uploads/2025/02/Frame-13118.jpg",
+            "recommended": false,
+            "quantity": 1
+          },
+          {
+            "id": "3",
+            "name": "Product 3",
+            "price": 50,
+            "creator": "Bojan Paz",
+            "description": "Third book description goes here.",
+            "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
+            "recommended": false,
+            "quantity": 1
+          }
+        ],
+        "total": 30127,
+        "name": "bojan kol",
+        "email": "bojan@forwardslashny.com",
+        "phone": "123123 123123",
+        "address": "Париске комуне, Student's City, New Belgrade, Belgrade, City of Belgrade, Central Serbia, 11070, Serbia",
+        "zip": "11070",
+        "company": "Company"
       },
       {
-        "id": "3",
-        "name": "Product 3",
-        "price": 50,
-        "creator": "Bojan Paz",
-        "description": "Third book description goes here.",
-        "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
-        "recommended": false,
-        "quantity": 2
+        "orderId": "96a7c13d-cf30-42f3-b63c-893660f90251",
+        "date": "2025-04-08T07:47:05.056Z",
+        "items": [
+          {
+            "id": "4",
+            "name": "Product 4",
+            "price": 50,
+            "creator": "Bojan Paz",
+            "description": "Fourth book description goes here.",
+            "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
+            "recommended": false,
+            "quantity": 1
+          },
+          {
+            "id": "3",
+            "name": "Product 3",
+            "price": 50,
+            "creator": "Bojan Paz",
+            "description": "Third book description goes here.",
+            "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
+            "recommended": false,
+            "quantity": 1
+          },
+          {
+            "id": "1",
+            "name": "Product 12232",
+            "price": 30022,
+            "creator": "Marcela Paz22",
+            "description": "2Fennel bamboo shoot pea sprouts rutabaga parsnip green bean gram wattle seed lentil horseradish nori. Grape lettuce turnip greens.",
+            "image": "https://wastesolutionservices.com/wp-content/uploads/2025/02/Frame-13118.jpg",
+            "recommended": false,
+            "quantity": 1
+          }
+        ],
+        "total": 30147,
+        "name": "asdas adasdad",
+        "email": "bojan@forwardslashny.com",
+        "phone": "+381 691 706 434",
+        "address": "NEW Kunden Center, Richard-Wagner-Straße, Hermges, Dahl, Nord, Mönchengladbach, North Rhine-Westphalia, 41065, Germany",
+        "zip": "41065",
+        "company": "Company Name"
       },
       {
-        "id": "2",
-        "name": "Product 2",
-        "price": 50,
-        "creator": "Bojan Paz",
-        "description": "Second book description goes here.",
-        "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
-        "recommended": false,
-        "quantity": 4
+        "orderId": "3f07a45a-b277-4e46-9759-6794b717dae9",
+        "date": "2025-04-08T07:56:57.291Z",
+        "items": [
+          {
+            "id": "2",
+            "name": "Product 2",
+            "price": 50,
+            "creator": "Bojan Paz",
+            "description": "Second book description goes here.",
+            "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
+            "recommended": false,
+            "quantity": 1
+          },
+          {
+            "id": "4",
+            "name": "Product 4",
+            "price": 50,
+            "creator": "Bojan Paz",
+            "description": "Fourth book description goes here.",
+            "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
+            "recommended": false,
+            "quantity": 1
+          },
+          {
+            "id": "3",
+            "name": "Product 3",
+            "price": 50,
+            "creator": "Bojan Paz",
+            "description": "Third book description goes here.",
+            "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
+            "recommended": false,
+            "quantity": 1
+          }
+        ],
+        "total": 155,
+        "name": "asdas adasdad",
+        "email": "newuser@mail.com",
+        "phone": "+381 691 706 434",
+        "address": "Париске комуне, LC Paris Commune, New Belgrade Urban Municipality, Belgrade, City of Belgrade, Central Serbia, 11070, Serbia",
+        "zip": "11070",
+        "company": "Company Name"
+      },
+      {
+        "orderId": "be431184-0019-49be-9b0a-f4e45f02d8de",
+        "date": "2025-04-08T08:02:51.800Z",
+        "items": [
+          {
+            "id": "2",
+            "name": "Product 2",
+            "price": 50,
+            "creator": "Bojan Paz",
+            "description": "Second book description goes here.",
+            "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
+            "recommended": false,
+            "quantity": 1
+          },
+          {
+            "id": "4",
+            "name": "Product 4",
+            "price": 50,
+            "creator": "Bojan Paz",
+            "description": "Fourth book description goes here.",
+            "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
+            "recommended": false,
+            "quantity": 1
+          },
+          {
+            "id": "3",
+            "name": "Product 3",
+            "price": 50,
+            "creator": "Bojan Paz",
+            "description": "Third book description goes here.",
+            "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
+            "recommended": false,
+            "quantity": 1
+          },
+          {
+            "id": "5",
+            "name": "Product 5",
+            "price": 50,
+            "creator": "Bojan Paz",
+            "description": "Fifth book description goes here.",
+            "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
+            "recommended": true,
+            "quantity": 1
+          },
+          {
+            "id": "6",
+            "name": "Product 6",
+            "price": 50,
+            "creator": "Bojan Paz",
+            "description": "Sixth book description goes here.",
+            "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
+            "recommended": false,
+            "quantity": 1
+          }
+        ],
+        "total": 255,
+        "name": "bojan kol",
+        "email": "nenad@forwardslashny.com",
+        "phone": "+381 691 706 434",
+        "address": "Париске комуне, Student's City, New Belgrade, Belgrade, City of Belgrade, Central Serbia, 11070, Serbia",
+        "zip": "11070",
+        "company": "Company"
+      },
+      {
+        "orderId": "70c3eee6-19be-4f6c-96d5-b02f6d3a99d8",
+        "date": "2025-04-08T08:03:34.938Z",
+        "items": [
+          {
+            "id": "1",
+            "name": "Product 12232",
+            "price": 30022,
+            "creator": "Marcela Paz22",
+            "description": "2Fennel bamboo shoot pea sprouts rutabaga parsnip green bean gram wattle seed lentil horseradish nori. Grape lettuce turnip greens.",
+            "image": "https://wastesolutionservices.com/wp-content/uploads/2025/02/Frame-13118.jpg",
+            "recommended": false,
+            "quantity": 1
+          },
+          {
+            "id": "3",
+            "name": "Product 3",
+            "price": 50,
+            "creator": "Bojan Paz",
+            "description": "Third book description goes here.",
+            "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
+            "recommended": false,
+            "quantity": 1
+          },
+          {
+            "id": "5",
+            "name": "Product 5",
+            "price": 50,
+            "creator": "Bojan Paz",
+            "description": "Fifth book description goes here.",
+            "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
+            "recommended": true,
+            "quantity": 1
+          }
+        ],
+        "total": 30127,
+        "name": "bb bb",
+        "email": "user@mail.com",
+        "phone": "+381 691 706 434",
+        "address": "Париске комуне, LC Paris Commune, New Belgrade Urban Municipality, Belgrade, City of Belgrade, Central Serbia, 11070, Serbia",
+        "zip": "11070",
+        "company": "Company"
+      },
+      {
+        "orderId": "498868e3-cc75-490c-9b9e-8a8d145f5298",
+        "date": "2025-04-08T08:24:00.272Z",
+        "items": [
+          {
+            "id": "6",
+            "name": "Product 6",
+            "price": 50,
+            "creator": "Bojan Paz",
+            "description": "Sixth book description goes here.",
+            "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
+            "recommended": false,
+            "quantity": 1
+          },
+          {
+            "id": "5",
+            "name": "Product 5",
+            "price": 50,
+            "creator": "Bojan Paz",
+            "description": "Fifth book description goes here.",
+            "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
+            "recommended": true,
+            "quantity": 1
+          },
+          {
+            "id": "3",
+            "name": "Product 3",
+            "price": 50,
+            "creator": "Bojan Paz",
+            "description": "Third book description goes here.",
+            "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
+            "recommended": false,
+            "quantity": 1
+          }
+        ],
+        "total": 155,
+        "name": "bb bb",
+        "email": "bokisa@mail.com",
+        "phone": "123123 123123",
+        "address": "Париске комуне, Student's City, New Belgrade, Belgrade, City of Belgrade, Central Serbia, 11070, Serbia",
+        "zip": "11070",
+        "company": "Company"
+      },
+      {
+        "orderId": "e1562f01-b394-4100-a649-d8e3a8c82270",
+        "date": "2025-04-08T09:10:55.050Z",
+        "items": [
+          {
+            "id": "1",
+            "name": "Product 12232",
+            "price": 30022,
+            "creator": "Marcela Paz22",
+            "description": "2Fennel bamboo shoot pea sprouts rutabaga parsnip green bean gram wattle seed lentil horseradish nori. Grape lettuce turnip greens.",
+            "image": "https://wastesolutionservices.com/wp-content/uploads/2025/02/Frame-13118.jpg",
+            "recommended": false,
+            "quantity": 1
+          },
+          {
+            "id": "3",
+            "name": "Product 3",
+            "price": 50,
+            "creator": "Bojan Paz",
+            "description": "Third book description goes here.",
+            "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
+            "recommended": false,
+            "quantity": 1
+          },
+          {
+            "id": "4",
+            "name": "Product 4",
+            "price": 50,
+            "creator": "Bojan Paz",
+            "description": "Fourth book description goes here.",
+            "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
+            "recommended": false,
+            "quantity": 1
+          }
+        ],
+        "total": 30127,
+        "name": "new bob",
+        "email": "newuser@mail.com",
+        "phone": "+381 691 706 434",
+        "address": "Париске комуне, Student's City, New Belgrade, Belgrade, City of Belgrade, Central Serbia, 11070, Serbia",
+        "zip": "11070",
+        "company": "123"
+      },
+      {
+        "orderId": "27fbf7e4-c92c-4f7b-a89b-9327bf0c47fa",
+        "date": "2025-04-08T09:17:53.865Z",
+        "items": [
+          {
+            "id": "6",
+            "name": "Product 6",
+            "price": 50,
+            "creator": "Bojan Paz",
+            "description": "Sixth book description goes here.",
+            "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
+            "recommended": false,
+            "quantity": 1
+          },
+          {
+            "id": "3",
+            "name": "Product 3",
+            "price": 50,
+            "creator": "Bojan Paz",
+            "description": "Third book description goes here.",
+            "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
+            "recommended": false,
+            "quantity": 1
+          },
+          {
+            "id": "5",
+            "name": "Product 5",
+            "price": 50,
+            "creator": "Bojan Paz",
+            "description": "Fifth book description goes here.",
+            "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
+            "recommended": true,
+            "quantity": 1
+          }
+        ],
+        "total": 155,
+        "name": "bb bb",
+        "email": "nenad@forwardslashny.com",
+        "phone": "123123 123123",
+        "address": "Париске комуне, LC Paris Commune, New Belgrade Urban Municipality, Belgrade, City of Belgrade, Central Serbia, 11070, Serbia",
+        "zip": "11070",
+        "company": "123"
+      },
+      {
+        "orderId": "4fe82c51-fd26-44cd-998b-47984c4149a5",
+        "date": "2025-04-08T09:29:20.140Z",
+        "items": [
+          {
+            "id": "1",
+            "name": "Product 12232",
+            "price": 30022,
+            "creator": "Marcela Paz22",
+            "description": "2Fennel bamboo shoot pea sprouts rutabaga parsnip green bean gram wattle seed lentil horseradish nori. Grape lettuce turnip greens.",
+            "image": "https://wastesolutionservices.com/wp-content/uploads/2025/02/Frame-13118.jpg",
+            "recommended": false,
+            "quantity": 1
+          },
+          {
+            "id": "3",
+            "name": "Product 3",
+            "price": 50,
+            "creator": "Bojan Paz",
+            "description": "Third book description goes here.",
+            "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
+            "recommended": false,
+            "quantity": 1
+          },
+          {
+            "id": "4",
+            "name": "Product 4",
+            "price": 50,
+            "creator": "Bojan Paz",
+            "description": "Fourth book description goes here.",
+            "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
+            "recommended": false,
+            "quantity": 1
+          }
+        ],
+        "total": 30127,
+        "name": "bojan kol",
+        "email": "bojan@forwardslashny.com",
+        "phone": "+381 691 706 434",
+        "address": "Париске комуне, Student's City, New Belgrade, Belgrade, City of Belgrade, Central Serbia, 11070, Serbia",
+        "zip": "11070",
+        "company": "1313213"
+      },
+      {
+        "orderId": "e2b7c724-1b92-4d35-a74e-c60e85342881",
+        "date": "2025-04-08T09:34:50.830Z",
+        "items": [
+          {
+            "id": "2",
+            "name": "Product 2",
+            "price": 50,
+            "creator": "Bojan Paz",
+            "description": "Second book description goes here.",
+            "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
+            "recommended": false,
+            "quantity": 1
+          },
+          {
+            "id": "4",
+            "name": "Product 4",
+            "price": 50,
+            "creator": "Bojan Paz",
+            "description": "Fourth book description goes here.",
+            "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
+            "recommended": false,
+            "quantity": 1
+          }
+        ],
+        "total": 105,
+        "name": "asdas adasdad",
+        "email": "bojan@forwardslashny.com",
+        "phone": "+381 691 706 434",
+        "address": "Париске комуне, Student's City, New Belgrade, Belgrade, City of Belgrade, Central Serbia, 11070, Serbia",
+        "zip": "11070",
+        "company": "123"
+      },
+      {
+        "orderId": "c597dc21-61ab-42d9-ae86-a2bffb206d51",
+        "date": "2025-04-08T09:41:40.436Z",
+        "items": [
+          {
+            "id": "1",
+            "name": "Product 12232",
+            "price": 30022,
+            "creator": "Marcela Paz22",
+            "description": "2Fennel bamboo shoot pea sprouts rutabaga parsnip green bean gram wattle seed lentil horseradish nori. Grape lettuce turnip greens.",
+            "image": "https://wastesolutionservices.com/wp-content/uploads/2025/02/Frame-13118.jpg",
+            "recommended": false,
+            "quantity": 1
+          },
+          {
+            "id": "3",
+            "name": "Product 3",
+            "price": 50,
+            "creator": "Bojan Paz",
+            "description": "Third book description goes here.",
+            "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
+            "recommended": false,
+            "quantity": 1
+          }
+        ],
+        "total": 30077,
+        "name": "bojan kol",
+        "email": "bojan@forwardslashny.com",
+        "phone": "+381 691 706 434",
+        "address": "Париске комуне, LC Paris Commune, New Belgrade Urban Municipality, Belgrade, City of Belgrade, Central Serbia, 11070, Serbia",
+        "zip": "11070",
+        "company": "123"
+      },
+      {
+        "orderId": "d85c4a68-0924-4d0a-80eb-74a9ff126965",
+        "date": "2025-04-08T09:46:14.777Z",
+        "items": [
+          {
+            "id": "2",
+            "name": "Product 2",
+            "price": 50,
+            "creator": "Bojan Paz",
+            "description": "Second book description goes here.",
+            "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
+            "recommended": false,
+            "quantity": 1
+          },
+          {
+            "id": "81167c2f-9fa3-43db-b96f-b2f63efeb0db",
+            "name": "Test 2 2 2",
+            "price": 213,
+            "creator": "asd aasd ad ad",
+            "description": "adasd asdad aasdasdasda asdas asd asd asd ",
+            "image": "https://wastesolutionservices.com/wp-content/uploads/2024/10/control4.jpg",
+            "recommended": false,
+            "quantity": 1
+          }
+        ],
+        "total": 268,
+        "name": "bojan kol",
+        "email": "bokisa@mail.com",
+        "phone": "+381 691 706 434",
+        "address": "Париске комуне, Student's City, New Belgrade, Belgrade, City of Belgrade, Central Serbia, 11070, Serbia",
+        "zip": "11070",
+        "company": "Company"
       }
-    ],
-    "orders": []
+    ]
   },
   {
     "id": "78bb261a-bb13-472b-bff5-ab1bdc8e344f",
