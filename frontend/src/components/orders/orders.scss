@@ -1,0 +1,32 @@
+.orders {
+    overflow: auto;
+
+    &__row {
+        border-bottom: 1px solid #e0e1dc;
+    }
+
+    &__table {
+        width: 100%;
+        min-width: 900px;
+    }
+
+    &__column,
+    &__heading {
+        text-align: center;
+        vertical-align: middle;
+
+        &:first-child {
+            text-align: left;
+        }
+
+        &:last-child,
+        &:nth-last-child(2) {
+            text-align: right;
+        }
+    }
+
+    .order__list-btn {
+        padding: 3px;
+        min-width: 80px;
+    }
+}

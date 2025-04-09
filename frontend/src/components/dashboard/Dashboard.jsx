@@ -5,6 +5,7 @@ import ChangeUsers from '../changeUsers/ChangeUsers';
 import { UserContext } from '../user/user-context';
 import AddNewProduct from "../addNewProduct/AddNewProduct";
 import ChangeProduct from "../changeProduct/ChangeProduct";
+import Orders from '../orders/Orders';
 
 export default function Dashboard() {
     const {user, setUser} = useContext(UserContext);
@@ -26,14 +27,11 @@ export default function Dashboard() {
                 <div className="dashboard__content">
                     <ul className="dashboard__content-list">
                         <li className={`dashboard__content-list-item ${activeSection === 'myAccount' ? 'active' : ''}`}>
-                            {/* Napraviti da trenutno izabran ima active clasu sa nekim stilom */}
                             <span className="dashboard__content-list-item-link" onClick={() => handleSectionClick('myAccount')}>My Account</span>
                         </li>
-                        {user.role === 'user' && (
-                            <li className={`dashboard__content-list-item ${activeSection === 'orders' ? 'active' : ''}`}>
-                                <span className="dashboard__content-list-item-link" onClick={() => handleSectionClick('orders')}>Orders</span>
-                            </li>
-                        )}
+                        <li className={`dashboard__content-list-item ${activeSection === 'orders' ? 'active' : ''}`}>
+                            <span className="dashboard__content-list-item-link" onClick={() => handleSectionClick('orders')}>Orders</span>
+                        </li>
                         {user.role === 'admin' && (
                             <li className={`dashboard__content-list-item ${activeSection === 'changeUsers' ? 'active' : ''}`}>
                                 <span className="dashboard__content-list-item-link" onClick={() => handleSectionClick('changeUsers')}>Change Users</span>
@@ -55,7 +53,7 @@ export default function Dashboard() {
                     </ul>
                     <div className="dashboard__content-wrapper">
                         {activeSection === 'myAccount' && <MyAccount />}
-                        {activeSection === 'orders' && <div>Orders Section</div>}
+                        {activeSection === 'orders' && <div><Orders /></div>}
                         {activeSection === 'changeUsers' && <ChangeUsers />}
                         {activeSection === 'addNewProduct' && <AddNewProduct />}
                         {activeSection === 'changeProduct' && <ChangeProduct />}
