@@ -21,18 +21,13 @@ export default function ThankYou() {
         } else {
             navigate('/shop');
         }
-
-        return () => {
-			const updatedUser = { ...user, order: null };
-			setUser(updatedUser);
-        }
-    }, [user, setCart, setUser, navigate]);
+    }, []);
 
     return (
         <div className="thank-you">
             <div className="container">
                 <div className="thank-you__wrapper">
-                    {!user || !user.order ? (
+                    {!orderDetails?.items ? (
                         <p>Loading...</p>
                     ) : (
                         <>
