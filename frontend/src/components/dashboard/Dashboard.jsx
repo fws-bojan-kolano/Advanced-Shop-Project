@@ -5,12 +5,14 @@ import ChangeUsers from '../changeUsers/ChangeUsers';
 import { UserContext } from '../user/user-context';
 import AddNewProduct from "../addNewProduct/AddNewProduct";
 import ChangeProduct from "../changeProduct/ChangeProduct";
+import { useLocation } from 'react-router-dom';
 import Orders from '../orders/Orders';
 
 export default function Dashboard() {
     const {user, setUser} = useContext(UserContext);
 
-    const [activeSection, setActiveSection] = useState('myAccount');
+    const location = useLocation();
+    const [activeSection, setActiveSection] = useState(location.state?.section || 'myAccount');
 
     const handleSectionClick = (section) => {
         setActiveSection(section);

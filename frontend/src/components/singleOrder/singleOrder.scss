@@ -1,8 +1,41 @@
 .single-order {
-    &__details {
+    padding: 100px 0;
+
+    &__item,
+    &__item-list {
+        text-align: left;
+        padding-left: 20px;
     }
 
-    &__details-title,
-    &__details-value {
+    &__item {
+        border-bottom: 1px solid $green-brand;
+    }
+
+    &__item-id {
+
+        strong {
+            color: $green-brand;
+        }
+    }
+
+    &__item-image {
+        width: 60px;
+    }
+
+    &__item-items {
+        padding: 10px 0;
+    }
+
+    &__title {
+        margin-bottom: 50px;
+    }
+
+    &__link-back {
+        transition: $dur $ease;
+
+        @include hover {
+            color: $green-brand;
+            transition: $dur $ease;
+        }
     }
 }
