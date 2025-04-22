@@ -10,6 +10,55 @@
         }
     }
 
+    &__top-content {
+        display: flex;
+        justify-content: space-between;
+
+        @include mq($md) {
+            flex-direction: column;
+            margin-bottom: 50px;
+        }
+    }
+
+    &__sorting {
+        position: relative;
+    }
+
+    &__sorting-list {
+        max-height: 0;
+        overflow: hidden;
+        transition: $dur $ease;
+        background-color: $white;
+        border-radius: 6px;
+        position: absolute;
+        width: 100%;
+        margin-top: 10px;
+        z-index: 1;
+
+        &.open {
+            max-height: 500px;
+        }
+
+        @include mq($md) {
+            max-width: 200px;
+        }
+    }
+
+    &__sorting-list-item {
+        padding: 5px 0;
+    }
+
+    &__sorting-list-item,
+    &__sorting-label {
+        transition: $dur $ease;
+        cursor: pointer;
+
+        @include hover {
+            color: $green-brand;
+            transition: $dur $ease;
+        }
+    }
+
     @include mq($sm) {
         padding: 30px 0 60px;
     }

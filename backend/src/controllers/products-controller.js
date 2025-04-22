@@ -1,5 +1,5 @@
 const fs = require('fs');
-const {v4: uuidv4, validate} = require('uuid');
+const {v4: uuidv4} = require('uuid');
 
 //Load products
 const getProducts = () => {
@@ -17,7 +17,25 @@ const getProductById = (id) => {
 
 //Get all products
 const productsControllerGet = async (req, res) => {
-    const products = getProducts();
+    let products = getProducts();
+
+    const sort = req.query.sort;
+    switch (sort) {
+        case 'asc':
+            products.sort((a, b) => a.name.localeCompare(b.name));
+            break;
+        case 'desc':
+            products.sort((a, b) => b.name.localeCompare(a.name));
+            break;
+        case 'price_low':
+            products.sort((a, b) => a.price - b.price);
+            break;
+        case 'price_high':
+            products.sort((a, b) => b.price - a.price);
+            break;
+        default:
+            break;
+    }
 
     if(req.query.page && req.query.limit) {//Show pagination only if page and limit are added as parameters
         const page = parseInt(req.query.page) || 1;

@@ -8,6 +8,9 @@ export default function Products() {
     const [showLoader, setShowLoader] = useState(false);
     const [currentPage, sectCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
+    const [sortOrder, setSortOrder] = useState('asc');
+    const [presentedOrderValue, setPresentedOrderValue] = useState('Ascending');
+    const [isSortingListOpen, setIsSortingListOpen] = useState(false);
     const productsPerPage = 6;
 
     const productsRef = useRef(null);
@@ -17,7 +20,7 @@ export default function Products() {
             setShowLoader(true);
 
             try {
-                const response = await fetch(`${SERVER}products?page=${currentPage}&limit=${productsPerPage}`);
+                const response = await fetch(`${SERVER}products?page=${currentPage}&limit=${productsPerPage}&sort=${sortOrder}`);
                 if (!response.ok) {
                     throw new Error("Failed to fetch products");
                 }
@@ -33,7 +36,7 @@ export default function Products() {
         };
 
         fetchProducts();
-    }, [currentPage]);
+    }, [currentPage, sortOrder]);
 
     useEffect(() => {
         if(productsRef.current) {
@@ -83,10 +86,48 @@ export default function Products() {
         return pageNumbers;
     };
 
+    const handleSortAndClose = (order) => {
+        setIsSortingListOpen(false);
+        setSortOrder(order);
+        sectCurrentPage(1);
+
+        switch (order) {
+            case 'asc':
+                setPresentedOrderValue('Ascending');
+                break;
+            case 'desc':
+                setPresentedOrderValue('Descending');
+                break;
+            case 'price_low':
+                setPresentedOrderValue('Lowest price');
+                break;
+            case 'price_high':
+                setPresentedOrderValue('Highest price');
+                break;
+            default:
+                break;
+        }
+    };
+
+    const toggleSortingList = () => {
+        setIsSortingListOpen(prev => !prev);
+    };
+
     return (
         <div className="products" ref={productsRef}>
             <div className="container">
-                <h2 className="section-title products__title">Products</h2>
+                <div className="products__top-content">
+                    <h2 className="section-title products__title">Products</h2>
+                    <div className="products__sorting">
+                        <span className="products__sorting-label" onClick={toggleSortingList}>Sorted By: {presentedOrderValue}</span>
+                        <ul className={`products__sorting-list ${isSortingListOpen ? 'open' : ''}`}>
+                            <li className="products__sorting-list-item" onClick={() => handleSortAndClose('asc')}>Ascending</li>
+                            <li className="products__sorting-list-item" onClick={() => handleSortAndClose('desc')}>Descending</li>
+                            <li className="products__sorting-list-item" onClick={() => handleSortAndClose('price_low')}>Lowest price</li>
+                            <li className="products__sorting-list-item" onClick={() => handleSortAndClose('price_high')}>Highest price</li>
+                        </ul>
+                    </div>
+                </div>
                 <div className="row products__wrapper">
                     {showLoader && <span className='loader products__loader'></span>}
                     {products.map(product => (<Product key={product.id} product={product} />))}
