@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 
 export default function Orders() {
     const { user } = useContext(UserContext);
-    console.log(user);
 
     return (
         <div className="orders">

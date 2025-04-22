@@ -11,6 +11,7 @@ import { CartContextProvider } from './components/cart/cart-context';
 import PageProductListing from './pages/PageProductListing';
 import PageCheckout from './pages/pageCheckout';
 import PageThankYou from './pages/PageThankYou';
+import SingleOrder from './components/singleOrder/SingleOrder';
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
                 <Route path="/cart" element={<PageCart />} />
                 <Route path="/checkout" element={<PageCheckout />} />
                 <Route path="/thank-you" element={<PageThankYou />} />
+                <Route path="/order/:orderId" element={<SingleOrder />} />
               </Routes>
               <Footer />
             </BrowserRouter>
