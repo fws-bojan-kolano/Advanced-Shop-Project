@@ -188,7 +188,8 @@ export default function Checkout() {
                     } else {
                         setUser(prevUser => ({
                             ...prevUser,
-                            order: result.order
+                            order: result.order,
+                            orders: result.orders
                         }));
                     }
 
