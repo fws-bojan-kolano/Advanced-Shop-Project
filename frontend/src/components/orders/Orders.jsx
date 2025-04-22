@@ -21,7 +21,7 @@ export default function Orders() {
                         <th className='orders__heading'></th>
                     </tr>
                     {user.orders.map((order, index) => (
-                        <tr className='orders__row'>
+                        <tr className='orders__row' key={order.id}>
                             <td className='orders__column'>
                                 <span className="orders__list-id">{order.name}</span>
                             </td>

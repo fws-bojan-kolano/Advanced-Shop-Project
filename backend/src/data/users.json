@@ -837,7 +837,31 @@
     "role": "user",
     "email": "test@mail.com",
     "cart": [],
-    "orders": []
+    "orders": [
+      {
+        "orderId": "721cb59c-59b4-4600-ae8d-d8820a2d5342",
+        "date": "2025-04-22T09:15:15.337Z",
+        "items": [
+          {
+            "id": "2",
+            "name": "Product 2",
+            "price": 50,
+            "creator": "Bojan Paz",
+            "description": "Second book description goes here.",
+            "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
+            "recommended": false,
+            "quantity": 1
+          }
+        ],
+        "total": 55,
+        "name": "asdas adasdad",
+        "email": "bokisa@mail.com",
+        "phone": "+381 691 706 4213",
+        "address": "Париске комуне, Student's City, New Belgrade, Belgrade, City of Belgrade, Central Serbia, 11070, Serbia",
+        "zip": "11070",
+        "company": "123"
+      }
+    ]
   },
   {
     "id": "8042814f-2b48-47b2-9a1b-d0da4f1e4725",
