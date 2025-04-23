@@ -58,6 +58,7 @@ export default function ThankYou() {
                                                             <p className='thank-you__ordered-item-title'>{item.name}</p>
                                                         </div>
                                                         <div className="thank-you__ordered-item-price-box">
+                                                            <p className='thank-you__ordered-item-category'>Category: {item.category}</p>
                                                             <p className='thank-you__ordered-item-quantity'><strong>Quantity: </strong>{item.quantity}</p>
                                                             <p><strong>Price: </strong>${item.price}</p>
                                                         </div>

@@ -6,7 +6,8 @@
     "creator": "Marcela Paz22",
     "description": "2Fennel bamboo shoot pea sprouts rutabaga parsnip green bean gram wattle seed lentil horseradish nori. Grape lettuce turnip greens.",
     "image": "https://wastesolutionservices.com/wp-content/uploads/2025/02/Frame-13118.jpg",
-    "recommended": false
+    "recommended": false,
+    "category": "Mistery"
   },
   {
     "id": "2",
@@ -15,7 +16,8 @@
     "creator": "Bojan Paz",
     "description": "Second book description goes here.",
     "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
-    "recommended": false
+    "recommended": false,
+    "category": "Science"
   },
   {
     "id": "3",
@@ -24,7 +26,8 @@
     "creator": "Bojan Paz",
     "description": "Third book description goes here.",
     "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
-    "recommended": false
+    "recommended": false,
+    "category": "Comedy"
   },
   {
     "id": "4",
@@ -33,7 +36,8 @@
     "creator": "Bojan Paz",
     "description": "Fourth book description goes here.",
     "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
-    "recommended": false
+    "recommended": false,
+    "category": "Mistery"
   },
   {
     "id": "5",
@@ -42,7 +46,8 @@
     "creator": "Bojan Paz",
     "description": "Fifth book description goes here.",
     "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
-    "recommended": true
+    "recommended": true,
+    "category": "Mistery"
   },
   {
     "id": "6",
@@ -51,7 +56,8 @@
     "creator": "Bojan Paz",
     "description": "Sixth book description goes here.",
     "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
-    "recommended": false
+    "recommended": false,
+    "category": "Comedy"
   },
   {
     "id": "7",
@@ -60,7 +66,8 @@
     "creator": "Bojan Paz",
     "description": "Seventh book description goes here.",
     "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
-    "recommended": false
+    "recommended": false,
+    "category": "Horror"
   },
   {
     "id": "26d4add7-9293-44d3-bab1-b36b1843208a",
@@ -69,7 +76,8 @@
     "creator": "Boksa",
     "description": "This is a new product test....it should work and not be recommended",
     "image": "https://wastesolutionservices.com/wp-content/uploads/2025/02/Frame-13118.jpg",
-    "recommended": true
+    "recommended": true,
+    "category": "Horror"
   },
   {
     "id": "6e36313c-8c5b-45d2-b099-98004831318e",
@@ -78,7 +86,8 @@
     "creator": "asd aasd ad ad",
     "description": "adasd asdad aasdasdasda asdas asd asd asd ",
     "image": "https://wastesolutionservices.com/wp-content/uploads/2024/10/control3.jpg",
-    "recommended": false
+    "recommended": false,
+    "category": "Horror"
   },
   {
     "id": "81167c2f-9fa3-43db-b96f-b2f63efeb0db",
@@ -87,7 +96,8 @@
     "creator": "asd aasd ad ad",
     "description": "adasd asdad aasdasdasda asdas asd asd asd ",
     "image": "https://wastesolutionservices.com/wp-content/uploads/2024/10/control4.jpg",
-    "recommended": false
+    "recommended": false,
+    "category": "Mistery"
   },
   {
     "id": "5356d9bd-8cce-49fb-8d62-1a2ac305e097",
@@ -96,7 +106,8 @@
     "creator": "Me",
     "description": "This is a product description but no lorem ipsum was used here!",
     "image": "https://wastesolutionservices.com/wp-content/uploads/2024/10/control2.jpg",
-    "recommended": true
+    "recommended": true,
+    "category": "Comedy"
   },
   {
     "id": "73f68ea8-64d5-4d26-a78d-1603dfca239b",
@@ -105,7 +116,8 @@
     "creator": "ada asd ad ad ",
     "description": "ad aspoja padjpasdj paspdkajs dpasdjpaso japsdoa paodj aposdj paosdjapsojpaow  pawdj awdokpw",
     "image": "https://wastesolutionservices.com/wp-content/uploads/2024/10/control2.jpg",
-    "recommended": false
+    "recommended": false,
+    "category": "Science"
   },
   {
     "id": "48ba2bd2-2d3a-4635-abef-7e87bd7a7cf4",
@@ -114,7 +126,8 @@
     "creator": "123123 123213 ",
     "description": "123okpasdok 9 92pokas] poadfk aiqjr] qr0i]1 qu4]q9 j]af 9qarju] qr9 j]q",
     "image": "https://wastesolutionservices.com/wp-content/uploads/2024/10/control4.jpg",
-    "recommended": false
+    "recommended": false,
+    "category": "Science"
   },
   {
     "id": "f581d313-1eae-4cf2-b879-3ec09eb27632",
@@ -123,7 +136,8 @@
     "creator": "adasda",
     "description": "asdasdasd",
     "image": "https://wastesolutionservices.com/wp-content/uploads/2024/10/control4.jpg",
-    "recommended": true
+    "recommended": true,
+    "category": "Mistery"
   },
   {
     "id": "e2bda8ab-ace7-422a-a9f5-f118810d7fdf",
@@ -132,7 +146,8 @@
     "creator": "asdasda",
     "description": "asdasdasas",
     "image": "https://wastesolutionservices.com/wp-content/uploads/2024/10/control3.jpg",
-    "recommended": false
+    "recommended": false,
+    "category": "Comedy"
   },
   {
     "id": "a28f2590-15d9-4026-8cf4-70a0fe2283cb",
@@ -141,7 +156,8 @@
     "creator": "sda ad ada asd",
     "description": "asd asasd asd asd asdaad asd asd ad aas dasd a ad ad a da d",
     "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
-    "recommended": false
+    "recommended": false,
+    "category": "Comedy"
   },
   {
     "id": "bd680521-b4dd-47ba-8f47-f57c14d5e0db",
@@ -150,7 +166,8 @@
     "creator": "123",
     "description": "http s://tympanu s.net/Develop ment/AnimatedBook s/img/cover.jpg ",
     "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
-    "recommended": true
+    "recommended": true,
+    "category": "Comedy"
   },
   {
     "id": "3766e17d-5676-4a16-b9af-6371ccbc5127",
@@ -159,7 +176,8 @@
     "creator": "zxczxcz",
     "description": "s zxcas ac asc ascas ascwqqwc asc asc ",
     "image": "https://wastesolutionservices.com/wp-content/uploads/2024/10/control4.jpg",
-    "recommended": false
+    "recommended": false,
+    "category": "Horror"
   },
   {
     "id": "862952ed-764d-465a-813a-27119d3d820f",
@@ -168,7 +186,8 @@
     "creator": "asd asd asasd asd asdasdas asd as",
     "description": "asd asd aasadasasd asd asd asa sd asd asd asd adad ad ",
     "image": "https://wastesolutionservices.com/wp-content/uploads/2024/10/control4.jpg",
-    "recommended": false
+    "recommended": false,
+    "category": "Mistery"
   },
   {
     "id": "71beb98b-68fb-4dfe-b824-73f8b146c400",
@@ -177,7 +196,8 @@
     "creator": "Dusan Kuzmanovic",
     "description": "Ovo je Ducin projekat!",
     "image": "https://wastesolutionservices.com/wp-content/uploads/2024/10/control2.jpg",
-    "recommended": false
+    "recommended": false,
+    "category": "Mistery"
   },
   {
     "id": "a0e3601c-6a91-45ff-9ded-e3ec5bf569f0",
@@ -186,7 +206,8 @@
     "creator": "Jake",
     "description": "This is Jakes product!",
     "image": "https://wastesolutionservices.com/wp-content/uploads/2024/10/control4.jpg",
-    "recommended": false
+    "recommended": false,
+    "category": "Horror"
   },
   {
     "id": "b2a4100c-14ca-4243-a8e0-9cb9f1958cae",
@@ -195,7 +216,8 @@
     "creator": "asp[dkasp okasd poaksd[ k",
     "description": "[asdk a[sdk a[s dkas[dk a[dk a[dk as[dasdasd a[askd [okasd [okas]'\\[odka ]okasd asdasdasda asda",
     "image": "https://wastesolutionservices.com/wp-content/uploads/2024/10/control4.jpg",
-    "recommended": false
+    "recommended": false,
+    "category": "Comedy"
   },
   {
     "id": "c1e5b3f6-7a24-4dbf-bd3e-5e4c35f49d28",
@@ -204,7 +226,8 @@
     "creator": "Elena Ford",
     "description": "A thrilling mystery novel full of unexpected twists.",
     "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
-    "recommended": false
+    "recommended": false,
+    "category": "Comedy"
   },
   {
     "id": "d3a49bf2-1245-4a32-a19f-1bce32f176d2",
@@ -213,7 +236,8 @@
     "creator": "Nathan Blake",
     "description": "A deep dive into a world of shadows and secrets.",
     "image": "https://wastesolutionservices.com/wp-content/uploads/2024/10/control4.jpg",
-    "recommended": false
+    "recommended": false,
+    "category": "Science"
   },
   {
     "id": "e9c1f5aa-bf24-4c2a-8c2c-637b7bffb6cd",
@@ -222,7 +246,8 @@
     "creator": "Samuel Knight",
     "description": "An adventure that takes you through time and space.",
     "image": "https://wastesolutionservices.com/wp-content/uploads/2024/10/control2.jpg",
-    "recommended": false
+    "recommended": false,
+    "category": "Science"
   },
   {
     "id": "f12a3c48-4f8e-4b59-bb29-1c99f673a118",
@@ -231,7 +256,8 @@
     "creator": "Sophia Raines",
     "description": "A futuristic journey into AI and consciousness.",
     "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
-    "recommended": false
+    "recommended": false,
+    "category": "Science"
   },
   {
     "id": "a7e5c9b0-59cd-4701-b0c8-76145b8e6d29",
@@ -240,7 +266,8 @@
     "creator": "Henry Douglas",
     "description": "A historical fiction novel full of intrigue and drama.",
     "image": "https://wastesolutionservices.com/wp-content/uploads/2024/10/control3.jpg",
-    "recommended": false
+    "recommended": false,
+    "category": "Mistery"
   },
   {
     "id": "b9a7f2c3-91e2-4b97-a8c0-23f65d6a9e76",
@@ -249,7 +276,8 @@
     "creator": "Liam Carter",
     "description": "A sci-fi epic that spans galaxies.",
     "image": "https://wastesolutionservices.com/wp-content/uploads/2024/10/control4.jpg",
-    "recommended": false
+    "recommended": false,
+    "category": "Mistery"
   },
   {
     "id": "c4bfa287-3d74-4de8-8417-95b67e1e59a5",
@@ -258,7 +286,8 @@
     "creator": "Olivia Summers",
     "description": "A book exploring the magic of forgotten civilizations.",
     "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
-    "recommended": false
+    "recommended": false,
+    "category": "Horror"
   },
   {
     "id": "d2ef1f5e-0c4d-4c4e-b1b2-bc9a7f627fa1",
@@ -267,7 +296,8 @@
     "creator": "Michael Porter",
     "description": "A thrilling espionage story with unexpected turns.",
     "image": "https://wastesolutionservices.com/wp-content/uploads/2024/10/control3.jpg",
-    "recommended": false
+    "recommended": false,
+    "category": "Science"
   },
   {
     "id": "e98b2e4a-14c6-49d7-85a3-33e4c8f8b098",
@@ -276,7 +306,8 @@
     "creator": "Isabella White",
     "description": "A ghost story that will send chills down your spine.",
     "image": "https://wastesolutionservices.com/wp-content/uploads/2024/10/control2.jpg",
-    "recommended": false
+    "recommended": false,
+    "category": "Mistery"
   },
   {
     "id": "fa872e38-b5a9-4f67-b93b-f7b3e8f84268",
@@ -285,7 +316,8 @@
     "creator": "Benjamin Hart",
     "description": "An inspirational tale of adventure and discovery.",
     "image": "https://wastesolutionservices.com/wp-content/uploads/2024/10/control4.jpg",
-    "recommended": false
+    "recommended": false,
+    "category": "Comedy"
   },
   {
     "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
@@ -294,7 +326,8 @@
     "creator": "Liam Johnson",
     "description": "A high-quality product designed for daily use.",
     "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
-    "recommended": false
+    "recommended": false,
+    "category": "Mistery"
   },
   {
     "id": "b2c3d4e5-f6a1-7890-bcde-ef2345678901",
@@ -303,7 +336,8 @@
     "creator": "Sophia Williams",
     "description": "This product offers the best performance for its category.",
     "image": "https://wastesolutionservices.com/wp-content/uploads/2024/10/control2.jpg",
-    "recommended": false
+    "recommended": false,
+    "category": "Comedy"
   },
   {
     "id": "c3d4e5f6-a1b2-7890-cdef-ef3456789012",
@@ -312,7 +346,8 @@
     "creator": "Noah Brown",
     "description": "Affordable and reliable, ideal for everyday use.",
     "image": "https://wastesolutionservices.com/wp-content/uploads/2024/10/control3.jpg",
-    "recommended": false
+    "recommended": false,
+    "category": "Horror"
   },
   {
     "id": "d4e5f6a1-b2c3-7890-defg-ef4567890123",
@@ -321,7 +356,8 @@
     "creator": "Emma Jones",
     "description": "An innovative product that meets modern needs.",
     "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
-    "recommended": false
+    "recommended": false,
+    "category": "Mistery"
   },
   {
     "id": "e5f6a1b2-c3d4-7890-efgh-ef5678901234",
@@ -330,7 +366,8 @@
     "creator": "Oliver Smith",
     "description": "Great quality with excellent customer reviews.",
     "image": "https://wastesolutionservices.com/wp-content/uploads/2024/10/control4.jpg",
-    "recommended": false
+    "recommended": false,
+    "category": "Science"
   },
   {
     "id": "f6a1b2c3-d4e5-7890-fghi-ef6789012345",
@@ -339,7 +376,8 @@
     "creator": "Ava Martin",
     "description": "Stylish and durable, designed to last.",
     "image": "https://wastesolutionservices.com/wp-content/uploads/2024/10/control2.jpg",
-    "recommended": false
+    "recommended": false,
+    "category": "Horror"
   },
   {
     "id": "a1b2c3d4-e5f6-7890-ghij-ef7890123456",
@@ -348,7 +386,8 @@
     "creator": "Elijah Anderson",
     "description": "Budget-friendly but packed with features.",
     "image": "https://wastesolutionservices.com/wp-content/uploads/2024/10/control3.jpg",
-    "recommended": false
+    "recommended": false,
+    "category": "Horror"
   },
   {
     "id": "b2c3d4e5-f6a1-7890-hijk-ef8901234567",
@@ -357,7 +396,8 @@
     "creator": "Charlotte Thomas",
     "description": "An excellent choice for professionals.",
     "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
-    "recommended": false
+    "recommended": false,
+    "category": "Comedy"
   },
   {
     "id": "c3d4e5f6-a1b2-7890-ijkl-ef9012345678",
@@ -366,6 +406,17 @@
     "creator": "James White",
     "description": "Sleek design and top-tier performance.",
     "image": "https://wastesolutionservices.com/wp-content/uploads/2024/10/control4.jpg",
-    "recommended": false
+    "recommended": false,
+    "category": "Science"
+  },
+  {
+    "id": "e49383e6-9a18-489d-8be9-1b53ba9905cf",
+    "name": "Category product test",
+    "price": "500",
+    "creator": "Bojan",
+    "description": "This is a test for product category",
+    "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
+    "recommended": true,
+    "category": "Horror"
   }
 ]

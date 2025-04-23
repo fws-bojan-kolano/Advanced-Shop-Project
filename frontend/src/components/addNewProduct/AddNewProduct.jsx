@@ -12,6 +12,7 @@ export default function AddNewProduct() {
     const productCreatorRef = useRef(null);
     const productDescriptionRef = useRef(null)
     const productImageRef = useRef(null);
+    const productCategoryRef = useRef(null);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -22,6 +23,7 @@ export default function AddNewProduct() {
         const productImageValue = productImageRef.current.value;
         const productDescriptionValue = productDescriptionRef.current.value;
         const recommendedValue = document.querySelector('input[name=recommended]:checked').value;
+        const productCategoryValue = productCategoryRef.current.value;
 
         setShowLoader(true);
 
@@ -35,7 +37,8 @@ export default function AddNewProduct() {
                     creator: productCreatorValue,
                     description: productDescriptionValue,
                     image: productImageValue,
-                    recommended: recommendedValue
+                    recommended: recommendedValue,
+                    category: productCategoryValue
                 })
             });
 
@@ -53,6 +56,7 @@ export default function AddNewProduct() {
                 productCreatorRef.current.value = '';
                 productImageRef.current.value = '';
                 productDescriptionRef.current.value = '';
+                productCategoryRef.current.value = '';
             } else {
                 setShowLoader(false);
                 setShowError(true);
@@ -99,6 +103,14 @@ export default function AddNewProduct() {
                             className="form-input" 
                             placeholder="Product Description"
                             ref={productDescriptionRef}
+                            />
+                    </div>
+                    <div className="input-wrapper">
+                        <input 
+                            type="text" 
+                            className="form-input" 
+                            placeholder="Product Category"
+                            ref={productCategoryRef}
                             />
                     </div>
                     <div className="input-wrapper">

@@ -67,6 +67,7 @@ export default function SingleProduct() {
                 <div className="single-product__wrapper">
                     <div className="single-product__wrapper-left">
                         <h2 className="section-title single-product__title">{product.name}</h2>
+                        <p className="single-product__category">Category: {product.category}</p>
                         <img src={product.image} alt={product.name} />
                     </div>
                     <div className="single-product__wrapper-right">

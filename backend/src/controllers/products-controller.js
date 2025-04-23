@@ -96,7 +96,7 @@ const productsControllerGetByRecommended = async(req, res) => {
 //Add new product
 const productsControllerAddNew = async(req, res) => {
     try {
-        const { name, price, creator, description, image, recommended } = req.body;
+        const { name, price, creator, description, image, recommended, category } = req.body;
 
         if(!name || !price || !creator || !description || !image || !recommended) {
             return res.status(400).send({success: false, message: "All fields are required!"});
@@ -118,7 +118,8 @@ const productsControllerAddNew = async(req, res) => {
             creator,
             description,
             image,
-            recommended: isRecommended
+            recommended: isRecommended,
+            category,
         }
 
         productsData.push(newProduct);
@@ -134,7 +135,8 @@ const productsControllerAddNew = async(req, res) => {
                 creator: newProduct.creator,
                 description: newProduct.description,
                 image: newProduct.image,
-                recommended: newProduct.recommended
+                recommended: newProduct.recommended,
+                category: newProduct.category
             }
         })
     } catch (error) {

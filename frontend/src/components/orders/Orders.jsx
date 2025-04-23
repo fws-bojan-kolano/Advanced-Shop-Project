@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 
 export default function Orders() {
     const { user } = useContext(UserContext);
-    console.log(user);
 
     return (
         <div className="orders">
@@ -15,7 +14,7 @@ export default function Orders() {
                 <table className="orders__table">
                     <tbody>
                         <tr>
-                            <th className='orders__heading'>Product ID</th>
+                            <th className='orders__heading'>Name</th>
                             <th className='orders__heading'>Date</th>
                             <th className='orders__heading'>Email</th>
                             <th className='orders__heading'>Phone</th>

@@ -74,7 +74,8 @@ export default function ChangeProduct() {
                 creator: product.creator,
                 description: product.description,
                 image: product.image,
-                recommended: product.recommended
+                recommended: product.recommended,
+                category: product.category
             });
         }
     };
@@ -196,6 +197,15 @@ export default function ChangeProduct() {
                                     placeholder="Product Description"
                                     value={editedProduct.description} 
                                     onChange={(e) => handleInputChange("description", e.target.value)} 
+                                    />
+                            </div>
+                            <div className="input-wrapper">
+                                <input 
+                                    type="text" 
+                                    className="form-input" 
+                                    placeholder="Product Category"
+                                    value={editedProduct.category} 
+                                    onChange={(e) => handleInputChange("category", e.target.value)} 
                                     />
                             </div>
                             <div className="input-wrapper">

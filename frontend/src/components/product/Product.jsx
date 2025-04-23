@@ -58,6 +58,7 @@ export default function Product({ product }) {
                     </ul>
                     <figcaption className="figcaption">
                         <h2 className="figcaption__title">{product.name}</h2>
+                        <h2 className="figcaption__category">Category: {product.category}</h2>
                         <span className="figcaption__sub-title">By {product.creator}</span>
                         <p className="figcaption__text">{truncateDescription(product.description)}</p>
                         <span className="figcaption__price">Price: ${product.price}</span>

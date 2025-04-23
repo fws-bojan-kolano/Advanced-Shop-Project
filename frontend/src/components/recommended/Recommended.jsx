@@ -72,6 +72,7 @@ export default function Recommended() {
                                         <img className='recommended__slide-image' src={product.image} alt={product.name} />
                                     </div>
                                     <h3 className="recommended__slide-name">{product.name}</h3>
+                                    <p className="recommended__slide-category">{product.category}</p>
                                     <p className="recommended__slide-creator">By {product.creator}</p>
                                     <p className="recommended__slide-price">${product.price}</p>
                                 </Link>
