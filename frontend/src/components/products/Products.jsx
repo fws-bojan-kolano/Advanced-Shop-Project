@@ -3,6 +3,7 @@ import { SERVER } from '../../utils/utils';
 import Product from "../product/Product";
 import { useParams } from 'react-router-dom';
 import './products.scss';
+import Filters from "../filters/Filters";
 
 export default function Products() {
     const [products, setProducts] = useState([]);
@@ -13,10 +14,19 @@ export default function Products() {
     const [presentedOrderValue, setPresentedOrderValue] = useState('Ascending');
     const [isSortingListOpen, setIsSortingListOpen] = useState(false);
     const productsPerPage = 6;
+    const [filters, setFilters] = useState({
+        categories: [],
+        priceMin: '',
+        priceMax: '',
+        creators: [],
+        recommended: null
+    });
 
     const productsRef = useRef(null);
 
     const {categoryName} = useParams();
+    const allCategories = Array.from(new Set(products.map(p => p.category)));
+    const allCreators = Array.from(new Set(products.map(p => p.creator)));
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -28,17 +38,12 @@ export default function Products() {
                     url += `&category=${encodeURIComponent(categoryName)}`;
                 }
 
-                console.log("Fetching products with URL: ", url);
-
                 const response = await fetch(url);
                 if (!response.ok) {
                     throw new Error("Failed to fetch products");
                 }
 
                 const data = await response.json();
-                if (data.products.length === 0) {
-                    console.log("No products found for this category");
-                }
                 setProducts(data.products);
                 setTotalPages(data.totalPages || 1);
             } catch (error) {
@@ -141,6 +146,7 @@ export default function Products() {
                         </ul>
                     </div>
                 </div>
+                <Filters filters={filters} setFilters={setFilters} categories={allCategories} creators={allCreators} />
                 <div className="row products__wrapper">
                     {showLoader && <span className='loader products__loader'></span>}
                     {products.map(product => (<Product key={product.id} product={product} />))}
