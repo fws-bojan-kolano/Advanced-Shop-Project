@@ -3,7 +3,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 export const UserContext = createContext({
 	user: null,
 	setUser: () => {},
-	updateUserCart: () => {}
+	updateUserCart: () => {},
 });
 
 export const useUser = () => useContext(UserContext);
@@ -15,7 +15,6 @@ export default function UserContextProvider({ children }) {
 	});
 
 	useEffect(() => {
-		// Get user from localStorage
 		const storedUser = JSON.parse(localStorage.getItem("user"));
 		if (storedUser) {
 			setUser(storedUser);
@@ -23,7 +22,6 @@ export default function UserContextProvider({ children }) {
 	}, []);
 
   	useEffect(() => {
-		// When user changes, save it to local storage
 		if (user) {
 			localStorage.setItem("user", JSON.stringify(user));
 		} else {

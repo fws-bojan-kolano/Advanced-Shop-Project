@@ -6,6 +6,7 @@ export default function AddNewProduct() {
     const [showLoader, setShowLoader] = useState(false);
     const [showError, setShowError] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
+    const [recommended, setRecommended] = useState('yes');
 
     const productNameRef = useRef(null);
     const productPriceRef = useRef(null);
@@ -22,7 +23,7 @@ export default function AddNewProduct() {
         const productCreatorValue = productCreatorRef.current.value;
         const productImageValue = productImageRef.current.value;
         const productDescriptionValue = productDescriptionRef.current.value;
-        const recommendedValue = document.querySelector('input[name=recommended]:checked').value;
+        const recommendedValue = recommended;
         const productCategoryValue = productCategoryRef.current.value;
 
         setShowLoader(true);
@@ -122,7 +123,8 @@ export default function AddNewProduct() {
                                     id="yes" 
                                     name="recommended" 
                                     value="yes"
-                                    checked
+                                    checked={recommended === 'yes'}
+                                    onChange={(e) => setRecommended(e.target.value)}
                                     />
                                 <label htmlFor="yes">Yes</label>
                             </div>
@@ -132,6 +134,8 @@ export default function AddNewProduct() {
                                     id="no" 
                                     name="recommended" 
                                     value="no"
+                                    checked={recommended === 'no'}
+                                    onChange={(e) => setRecommended(e.target.value)}
                                     />
                                 <label htmlFor="no">No</label>
                             </div>

@@ -418,5 +418,35 @@
     "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
     "recommended": true,
     "category": "Horror"
+  },
+  {
+    "id": "2982a85a-0635-4341-aaf7-c3a6bf647f72",
+    "name": "New categoryu product",
+    "price": "1234151",
+    "creator": "bojan",
+    "description": "asdpoas apsodk apsdo kasdpo kadp oka",
+    "image": "https://wastesolutionservices.com/wp-content/uploads/2024/10/control3.jpg",
+    "recommended": false,
+    "category": "New"
+  },
+  {
+    "id": "79966564-f9c1-4cd0-bacc-51652323fc2f",
+    "name": "new test",
+    "price": "123",
+    "creator": "bbb",
+    "description": "Ja",
+    "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
+    "recommended": false,
+    "category": "Test"
+  },
+  {
+    "id": "4fe7b5af-0ad8-4c8c-ad86-3fd53ac23518",
+    "name": "Romance product",
+    "price": "123",
+    "creator": "123",
+    "description": "123",
+    "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
+    "recommended": false,
+    "category": "Romance"
   }
 ]

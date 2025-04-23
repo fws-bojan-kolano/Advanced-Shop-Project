@@ -19,7 +19,7 @@ export default function Header() {
     const handleOpenMegamenu = () => {
         const megamenu = document.querySelector('.js-megamenu');
         megamenu?.classList.add('megamenu-open');
-    };
+    }
 
     return (
         <div className='header'>
