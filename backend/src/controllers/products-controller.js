@@ -20,11 +20,32 @@ const getProductById = (id) => {
 const productsControllerGet = async (req, res) => {
     let products = getProducts();
 
-    const sort = req.query.sort;
-    const category = req.query.category;
+    const { sort, category, 'categories[]': categories, 'creators[]': creators, priceMin, priceMax, recommended } = req.query;
 
     if (category) {
         products = products.filter(product => product.category === category);
+    }
+
+    if (categories) {
+        const selectedCategories = Array.isArray(categories) ? categories : [categories];
+        products = products.filter(product => selectedCategories.includes(product.category));
+    }
+
+    if (creators) {
+        const selectedCreators = Array.isArray(creators) ? creators : [creators];
+        products = products.filter(product => selectedCreators.includes(product.creator));
+    }
+
+    if (priceMin !== undefined) {
+        products = products.filter(product => parseFloat(product.price) >= parseFloat(priceMin));
+    }
+    if (priceMax !== undefined) {
+        products = products.filter(product => parseFloat(product.price) <= parseFloat(priceMax));
+    }
+
+    if (recommended !== undefined) {
+        const recommendedBool = String(recommended) === 'true';
+        products = products.filter(product => product.recommended === recommendedBool);
     }
 
     switch (sort) {
@@ -63,7 +84,9 @@ const productsControllerGet = async (req, res) => {
         res.json({
             success: true,
             products: paginatedProducts,
-            totalPages
+            totalPages,
+            totalCount: totalProducts,
+            currentPage: page
         });
     } else {
         return res.json({success: true, products});

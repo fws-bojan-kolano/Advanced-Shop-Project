@@ -59,7 +59,7 @@ export default function Filters({filters, setFilters, categories, creators}) {
                             type="radio"
                             name="recommended"
                             value="recommended"
-                            checked={filters.recommended === "recommended"}
+                            checked={filters.recommended === "true"}
                             onChange={handleChange}
                         />
                         Recommended
@@ -69,7 +69,7 @@ export default function Filters({filters, setFilters, categories, creators}) {
                             type="radio"
                             name="recommended"
                             value="not_recommended"
-                            checked={filters.recommended === "not_recommended"}
+                            checked={filters.recommended === "false"}
                             onChange={handleChange}
                         />
                         Not Recommended

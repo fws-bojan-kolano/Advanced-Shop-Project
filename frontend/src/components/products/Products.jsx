@@ -33,12 +33,37 @@ export default function Products() {
             setShowLoader(true);
 
             try {
-                let url = `${SERVER}products?page=${currentPage}&limit=${productsPerPage}&sort=${sortOrder}`;
-                if(categoryName) {
-                    url += `&category=${encodeURIComponent(categoryName)}`;
+
+                const params = new URLSearchParams();
+                params.append('page', currentPage);
+                params.append('limit', productsPerPage);
+                params.append('sort', sortOrder);
+
+                if (categoryName) {
+                    params.append('category', categoryName);
                 }
 
-                const response = await fetch(url);
+                if (filters.categories.length) {
+                    filters.categories.forEach(cat => params.append('categories[]', cat));
+                }
+
+                if (filters.creators.length) {
+                    filters.creators.forEach(cre => params.append('creators[]', cre));
+                }
+
+                if (filters.priceMin !== '') {
+                    params.append('priceMin', filters.priceMin);
+                }
+
+                if (filters.priceMax !== '') {
+                    params.append('priceMax', filters.priceMax);
+                }
+
+                if (filters.recommended !== null) {
+                    params.append('recommended', filters.recommended);
+                }
+
+                const response = await fetch(`${SERVER}products?${params.toString()}`);
                 if (!response.ok) {
                     throw new Error("Failed to fetch products");
                 }
@@ -54,7 +79,11 @@ export default function Products() {
         };
 
         fetchProducts();
-    }, [currentPage, sortOrder, categoryName]);
+    }, [currentPage, sortOrder, categoryName, filters]);
+
+    useEffect(() => {
+        sectCurrentPage(1);
+    }, [filters, categoryName]);
 
     useEffect(() => {
         if(productsRef.current) {
