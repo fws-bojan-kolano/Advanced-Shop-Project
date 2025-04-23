@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { SERVER } from '../../utils/utils';
 import Product from "../product/Product";
+import { useParams } from 'react-router-dom';
 import './products.scss';
 
 export default function Products() {
@@ -15,19 +16,31 @@ export default function Products() {
 
     const productsRef = useRef(null);
 
+    const {categoryName} = useParams();
+
     useEffect(() => {
         const fetchProducts = async () => {
             setShowLoader(true);
 
             try {
-                const response = await fetch(`${SERVER}products?page=${currentPage}&limit=${productsPerPage}&sort=${sortOrder}`);
+                let url = `${SERVER}products?page=${currentPage}&limit=${productsPerPage}&sort=${sortOrder}`;
+                if(categoryName) {
+                    url += `&category=${encodeURIComponent(categoryName)}`;
+                }
+
+                console.log("Fetching products with URL: ", url);
+
+                const response = await fetch(url);
                 if (!response.ok) {
                     throw new Error("Failed to fetch products");
                 }
 
                 const data = await response.json();
+                if (data.products.length === 0) {
+                    console.log("No products found for this category");
+                }
                 setProducts(data.products);
-                setTotalPages(data.totalPages);
+                setTotalPages(data.totalPages || 1);
             } catch (error) {
                 console.error("Error fetching products:", error);
             } finally {
@@ -36,7 +49,7 @@ export default function Products() {
         };
 
         fetchProducts();
-    }, [currentPage, sortOrder]);
+    }, [currentPage, sortOrder, categoryName]);
 
     useEffect(() => {
         if(productsRef.current) {
@@ -117,7 +130,7 @@ export default function Products() {
         <div className="products" ref={productsRef}>
             <div className="container">
                 <div className="products__top-content">
-                    <h2 className="section-title products__title">Products</h2>
+                    <h2 className="section-title products__title">{categoryName ? `Category: ${categoryName}` : 'All Products'}</h2>
                     <div className="products__sorting">
                         <span className="products__sorting-label" onClick={toggleSortingList}>Sorted By: {presentedOrderValue}</span>
                         <ul className={`products__sorting-list ${isSortingListOpen ? 'open' : ''}`}>

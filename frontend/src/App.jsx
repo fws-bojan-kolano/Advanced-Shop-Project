@@ -12,6 +12,7 @@ import PageProductListing from './pages/PageProductListing';
 import PageCheckout from './pages/pageCheckout';
 import PageThankYou from './pages/PageThankYou';
 import SingleOrder from './components/singleOrder/SingleOrder';
+import Products from './components/products/Products';
 
 function App() {
 
@@ -32,6 +33,7 @@ function App() {
                 <Route path="/checkout" element={<PageCheckout />} />
                 <Route path="/thank-you" element={<PageThankYou />} />
                 <Route path="/order/:orderId" element={<SingleOrder />} />
+                <Route path="/category/:categoryName" element={<Products />} />
               </Routes>
               <Footer />
             </BrowserRouter>

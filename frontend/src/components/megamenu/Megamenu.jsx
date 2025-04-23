@@ -40,7 +40,7 @@ export default function Megamenu() {
             <div className="megamenu__content">
                 <span className="megamenu__close js-megamenu__close" onClick={handleCloseMegamenu}>X</span>
                 {categories.map((category, index) => (
-                    <Link className='megamenu__link' key={index} to={`/category/${category}`}>{category}</Link>
+                    <Link className='megamenu__link' key={index} to={`/category/${encodeURIComponent(category)}`}>{category}</Link>
                 ))}
             </div>
         </div>

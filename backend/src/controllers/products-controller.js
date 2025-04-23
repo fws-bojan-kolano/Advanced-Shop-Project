@@ -21,6 +21,12 @@ const productsControllerGet = async (req, res) => {
     let products = getProducts();
 
     const sort = req.query.sort;
+    const category = req.query.category;
+
+    if (category) {
+        products = products.filter(product => product.category === category);
+    }
+
     switch (sort) {
         case 'asc':
             products.sort((a, b) => a.name.localeCompare(b.name));
