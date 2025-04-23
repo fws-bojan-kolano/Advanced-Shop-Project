@@ -55,7 +55,7 @@ export default function Map() {
                 {markers.map((marker, index) => (
                     <Marker key={marker.id} position={marker.position} icon={index === 0 ? redMarker : blueMarker}>
                         <Popup>
-                            <strong>{marker.title}</strong>
+                            <strong>{marker.title} </strong>
                             {marker.description}
                         </Popup>
                     </Marker>
