@@ -8,7 +8,7 @@ export default function Filters({filters, setFilters, categories, creators}) {
 
         setFilters(prev => ({
             ...prev,
-            [name]: type === 'checkbox' ? checked : value
+            [name]: type === 'checkbox' ? checked : (type === 'radio' ? value === 'true' : value)
         }));
     };
 
@@ -64,7 +64,7 @@ export default function Filters({filters, setFilters, categories, creators}) {
                             type="radio"
                             name="recommended"
                             value="recommended"
-                            checked={filters.recommended === "true"}
+                            checked={filters.recommended === true}
                             onChange={handleChange}
                         />
                         Recommended
@@ -74,7 +74,7 @@ export default function Filters({filters, setFilters, categories, creators}) {
                             type="radio"
                             name="recommended"
                             value="not_recommended"
-                            checked={filters.recommended === "false"}
+                            checked={filters.recommended === false}
                             onChange={handleChange}
                         />
                         Not Recommended
