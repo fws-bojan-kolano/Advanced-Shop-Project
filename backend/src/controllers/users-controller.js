@@ -8,6 +8,7 @@ const getUsers = () => {
     try {
         return JSON.parse(fs.readFileSync('data/users.json', {encoding: 'utf-8'}));
     } catch (error) {
+        console.error('Error loading users.json:', error);
         return [];
     }
 }

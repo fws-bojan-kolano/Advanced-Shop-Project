@@ -6,6 +6,7 @@ const getProducts = () => {
     try {
         return JSON.parse(fs.readFileSync('data/products.json', {encoding: 'utf-8'}));
     } catch (error) {
+        console.error('Error loading products.json:', error);
         return [];
     }
 }
