@@ -20,7 +20,7 @@ const getProductById = (id) => {
 const productsControllerGet = async (req, res) => {
     let products = getProducts();
 
-    const { sort, category, 'categories[]': categories, 'creators[]': creators, priceMin, priceMax, recommended } = req.query;
+    const { sort, category, categories, creators, priceMin, priceMax, recommended } = req.query;
 
     if (category) {
         products = products.filter(product => product.category === category);
@@ -39,6 +39,7 @@ const productsControllerGet = async (req, res) => {
     if (priceMin !== undefined) {
         products = products.filter(product => parseFloat(product.price) >= parseFloat(priceMin));
     }
+
     if (priceMax !== undefined) {
         products = products.filter(product => parseFloat(product.price) <= parseFloat(priceMax));
     }

@@ -1,4 +1,5 @@
 import './filters.scss';
+import { useEffect, useRef, useState } from "react";
 
 export default function Filters({filters, setFilters, categories, creators}) {
 
@@ -10,6 +11,10 @@ export default function Filters({filters, setFilters, categories, creators}) {
             [name]: type === 'checkbox' ? checked : value
         }));
     };
+
+    useEffect(() => {
+        console.log("Filters updated:", filters);
+    }, [filters]);
 
     const toggleCheckboxValue = (key, value) => {
         const updatedArray = filters[key].includes(value)
