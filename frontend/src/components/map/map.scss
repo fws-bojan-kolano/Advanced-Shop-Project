@@ -1,3 +1,15 @@
 .map {
-    height: 500px;
+    height: 700px;
+
+    @include mq($xl) {
+        height: 500px;
+    }
+
+    @include mq($lg) {
+        height: 400px;
+    }
+
+    @include mq($md) {
+        height: 300px;
+    }
 }
