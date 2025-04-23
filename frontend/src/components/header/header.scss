@@ -81,6 +81,29 @@
         }
     }
 
+    &__logo-link {
+        margin-right: 20px;
+    }
+
+    &__megamenu-label {
+        cursor: pointer;
+        color: $dark-brand;
+        border: 1px solid $green-brand;
+        padding: 5px 10px;
+        transition: $dur $ease;
+
+        @include hover {
+            color: $green-brand;
+            transition: $dur $ease;
+            border-color: $dark-brand;
+        }
+    }
+
+    &__logo-megamenu-wrapper {
+        display: flex;
+        align-items: center;
+    }
+
     &__logo {
         max-width: 80px;
         transition: $dur $ease;

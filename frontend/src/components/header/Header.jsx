@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { UserContext } from '../user/user-context';
 import './header.scss';
 import { useCart } from '../cart/cart-context';
+import Megamenu from '../megamenu/Megamenu';
 
 export default function Header() {
     const {user} = useContext(UserContext);
@@ -15,11 +16,20 @@ export default function Header() {
         console.log(user);
     }, [user]);
 
+    const handleOpenMegamenu = () => {
+        const megamenu = document.querySelector('.js-megamenu');
+        megamenu?.classList.add('megamenu-open');
+    };
+
     return (
         <div className='header'>
+            <Megamenu />
             <div className="container">
                 <div className="header__logo-wrapper">
-                    <a className="header__logo-link" href="/"><img className="header__logo" src='../../src/assets/images/logo.png' alt='Logo' /></a>
+                    <div className="header__logo-megamenu-wrapper">
+                        <a className="header__logo-link" href="/"><img className="header__logo" src='../../src/assets/images/logo.png' alt='Logo' /></a>
+                        <span className="header__megamenu-label" onClick={handleOpenMegamenu}>Categories</span>
+                    </div>
                     {user ? (
                         <>
                             <span className="welcome">Welcome {user.username}</span>

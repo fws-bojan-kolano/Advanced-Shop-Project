@@ -1,0 +1,48 @@
+.megamenu {
+    width: 250px;
+    transform: translateX(-250px);
+    transition: $dur $ease;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    background-color: $white;
+    padding: 100px 20px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.34);
+
+    &.megamenu-open {
+        transform: translateX(0);
+        transition: $dur $ease;
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__close {
+        position: absolute;
+        top: 30px;
+        right: 30px;
+        font-size: 30px;
+        text-transform: uppercase;
+        transition: $dur $ease;
+        cursor: pointer;
+
+        @include hover {
+            color: $red;
+            transition: $dur $ease;
+        }
+    }
+
+    &__link {
+        font-size: 20px;
+        margin: 5px 0;
+        transition: $dur $ease;
+
+        @include hover {
+            color: $green-brand;
+            transition: $dur $ease;
+        }
+    }
+}
