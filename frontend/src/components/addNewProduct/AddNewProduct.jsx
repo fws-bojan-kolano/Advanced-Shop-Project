@@ -1,12 +1,14 @@
 import { SERVER } from '../../utils/utils';
 import './addNewProduct.scss';
 import { useRef, useState } from 'react';
+import { useUser } from '../user/user-context';
 
 export default function AddNewProduct() {
     const [showLoader, setShowLoader] = useState(false);
     const [showError, setShowError] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
     const [recommended, setRecommended] = useState('yes');
+    const {setProductsMegamenu} = useUser();
 
     const productNameRef = useRef(null);
     const productPriceRef = useRef(null);
@@ -52,6 +54,10 @@ export default function AddNewProduct() {
                 setShowLoader(false);
                 setShowError(false);
                 setShowSuccess(true);
+
+                const updatedProducts = await fetch(`${SERVER}products`).then(res => res.json());
+                setProductsMegamenu(updatedProducts);
+
                 productNameRef.current.value = '';
                 productPriceRef.current.value = '';
                 productCreatorRef.current.value = '';

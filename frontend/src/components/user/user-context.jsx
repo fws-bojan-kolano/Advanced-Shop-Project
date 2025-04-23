@@ -4,6 +4,8 @@ export const UserContext = createContext({
 	user: null,
 	setUser: () => {},
 	updateUserCart: () => {},
+	productsMegamenu: [],
+	setProducts: () => {}
 });
 
 export const useUser = () => useContext(UserContext);
@@ -13,6 +15,8 @@ export default function UserContextProvider({ children }) {
 		const storedUser = localStorage.getItem('user');
 		return storedUser ? JSON.parse(storedUser) : null;
 	});
+
+	const [productsMegamenu, setProductsMegamenu] = useState([]);
 
 	useEffect(() => {
 		const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -41,7 +45,9 @@ export default function UserContextProvider({ children }) {
   	const contextValue = {
 		user,
 		setUser,
-		updateUserCart
+		updateUserCart,
+		productsMegamenu,
+		setProductsMegamenu
 	};
 
   return <UserContext.Provider value={contextValue}>{children}</UserContext.Provider>;

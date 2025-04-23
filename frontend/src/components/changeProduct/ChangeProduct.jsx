@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { SERVER } from '../../utils/utils';
 import './changeProduct.scss';
+import { useUser } from '../user/user-context';
 
 export default function ChangeProduct() {
     const [showError, setShowError] = useState(false);
@@ -11,6 +12,7 @@ export default function ChangeProduct() {
     const [editingProductId, setEditingProductId] = useState(null);
     const [editedProduct, setEditedProduct] = useState(null);
     const [products, setProducts] = useState([]);
+    const {setProductsMegamenu} = useUser();
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -36,6 +38,11 @@ export default function ChangeProduct() {
         fetchProducts();
     }, []);
 
+    const updateProductsInMegamenu = async () => {
+        const updatedProducts = await fetch(`${SERVER}products`).then(res => res.json());
+        setProductsMegamenu(updatedProducts);
+    }
+
     const handleRemove = async (productId) => {
         setEditingProductId(null);
         setEditedProduct(null);
@@ -48,6 +55,7 @@ export default function ChangeProduct() {
             if(response.ok) {
                 setProducts(prevProducts => prevProducts.filter(product => product.id !== productId));
                 setSuccessRemove(true);
+                updateProductsInMegamenu();
                 setTimeout(() => {
                     setSuccessRemove(false);
                 }, 1000);
@@ -126,6 +134,7 @@ export default function ChangeProduct() {
 
             setShowSuccess(true);
             setShowLoader(false);
+            updateProductsInMegamenu();
             setTimeout(() => {
                 setShowSuccess(false);
                 setEditingProductId(null);

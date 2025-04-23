@@ -1,14 +1,16 @@
 
 import './megamenu.scss';
 import { SERVER } from '../../utils/utils';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import {Link} from 'react-router-dom';
+import { useUser } from '../user/user-context';
 
 export default function Megamenu() {
-    const [products, setProducts] = useState([]);
+    const { productsMegamenu, setProductsMegamenu } = useUser();
 
     useEffect(() => {
         const fetchProducts = async () => {
+            if(productsMegamenu.length > 0) return;
 
             try {
                 const response = await fetch(`${SERVER}products`);
@@ -17,16 +19,16 @@ export default function Megamenu() {
                 }
 
                 const data = await response.json();
-                setProducts(data.products || []);
+                setProductsMegamenu(data.products || []);
             } catch (error) {
                 console.error("Error fetching products:", error);
             }
         };
 
         fetchProducts();
-    }, []);
+    }, [productsMegamenu, setProductsMegamenu]);
 
-    const categories = [...new Set(products.map(product => product.category))];
+    const categories = Array.isArray(productsMegamenu) ? [...new Set(productsMegamenu.map(product => product.category))] : [];
 
     const handleCloseMegamenu = () => {
         const megamenu = document.querySelector('.js-megamenu');
