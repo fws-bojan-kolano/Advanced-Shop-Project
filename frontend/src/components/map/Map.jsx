@@ -9,22 +9,22 @@ import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 import { useEffect, useState } from 'react';
 import { SERVER } from '../../utils/utils';
 
-const blueMarker = new L.Icon({
-    iconUrl: markerIcon,
+const markerConfiguration = {
     shadowUrl: markerShadow,
     iconSize: [25, 41],
     iconAnchor: [12, 41],
     popupAnchor: [1, -34],
     shadowSize: [41, 41],
+}
+
+const blueMarker = new L.Icon({
+    iconUrl: markerIcon,
+    ...markerConfiguration
 });
 
 const redMarker = new L.Icon({
     iconUrl: markerIcon2x,
-    shadowUrl: markerShadow,
-    iconSize: [25, 41],
-    iconAnchor: [12, 41],
-    popupAnchor: [1, -34],
-    shadowSize: [41, 41],
+    ...markerConfiguration
 });
 
 export default function Map() {
@@ -36,7 +36,6 @@ export default function Map() {
                 const response = await fetch(`${SERVER}locations`);
                 if(!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
                 const data = await response.json();
-                console.log(data);
                 setMarkers(data.locations)
             } catch (error) {
                 console.error('Error loading locations:', error);
