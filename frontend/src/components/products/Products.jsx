@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { SERVER } from '../../utils/utils';
 import Product from "../product/Product";
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import './products.scss';
 import Filters from "../filters/Filters";
 
@@ -23,8 +23,11 @@ export default function Products() {
     });
 
     const productsRef = useRef(null);
-
     const {categoryName} = useParams();
+    const location = useLocation();
+    const query = new URLSearchParams(location.search);
+    const searchQuery = query.get('search');
+
     const allCategories = Array.from(new Set(products.map(p => p.category)));
     const allCreators = Array.from(new Set(products.map(p => p.creator)));
 
@@ -33,6 +36,16 @@ export default function Products() {
             setShowLoader(true);
 
             try {
+
+                if(searchQuery && searchQuery.trim() !== '') {
+                    sectCurrentPage(1);
+
+                    const res = await fetch(`${SERVER}search?query=${encodeURIComponent(searchQuery)}`);
+                    const data = await res.json();
+                    setProducts(data.products || data);
+                    setTotalPages(1);
+                    return;
+                }
 
                 const params = new URLSearchParams();
                 params.append('page', currentPage);
@@ -79,7 +92,7 @@ export default function Products() {
         };
 
         fetchProducts();
-    }, [currentPage, sortOrder, categoryName, filters]);
+    }, [currentPage, sortOrder, categoryName, filters, location.search]);
 
     useEffect(() => {
         sectCurrentPage(1);

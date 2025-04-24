@@ -1,6 +1,7 @@
-import { useContext, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useContext, useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { UserContext } from '../user/user-context';
+import { SERVER } from '../../utils/utils';
 import './header.scss';
 import { useCart } from '../cart/cart-context';
 import Megamenu from '../megamenu/Megamenu';
@@ -9,12 +10,40 @@ export default function Header() {
     const {user} = useContext(UserContext);
     const {cart} = useCart();
     const location = useLocation();
+    const [searchTerm, setSearchTerm] = useState('');
+    const [results, setResults] = useState([]);
+    const [showDropdown, setShowDropdown] = useState(false);
+    const navigate = useNavigate();
 
     const totalCartItems = cart.reduce((total, item) => total + item.quantity, 0);
 
     useEffect(() => {
-        console.log(user);
-    }, [user]);
+        const delay = setTimeout(() => {
+            if (searchTerm.trim()) {
+                fetch(`${SERVER}search?query=${encodeURIComponent(searchTerm)}&limit=50`)
+                .then(res => res.json())
+                .then(data => {
+                    console.log('Full API Response:', data);
+                    setResults(data || []);
+                    setShowDropdown(true);
+                });
+            } else {
+                setShowDropdown(false);
+                setResults([]);
+            }
+        }, 300);
+        return () => clearTimeout(delay);
+    }, [searchTerm]);
+
+    const handleSeeAll = () => {
+        navigate(`/products?search=${encodeURIComponent(searchTerm)}`);
+        setShowDropdown(false);
+    }
+
+    const handleResultClick = (id) => {
+        navigate(`/product/${id}`);
+        setShowDropdown(false);
+    }
 
     const handleOpenMegamenu = () => {
         const megamenu = document.querySelector('.js-megamenu');
@@ -39,6 +68,33 @@ export default function Header() {
                         <li className='header__list-item'>
                             {!user ? <a className='header__link' href="/dashboard">Login</a> : null}
                         </li>
+                        
+                        <div className="header__search">
+                            <input
+                                type="text"
+                                placeholder="Search products..."
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                            />
+                            {showDropdown && results.length > 0 && (
+                                <div className="header__search-dropdown">
+                                    {results.map((product) => (
+                                        <div
+                                            key={product.id}
+                                            className="header__search-item"
+                                            onClick={() => handleResultClick(product.id)}
+                                        >
+                                            {product.name}
+                                        </div>
+                                    ))}
+                                    {results.length === 3 && (
+                                        <div className="header__search-see-all" onClick={handleSeeAll}>
+                                            See All
+                                        </div>
+                                    )}
+                                </div>
+                            )}
+                        </div>
                         {user && location.pathname !== '/dashboard' && (
                             <li className='header__list-item header__list-item--my-account'><a className='header__link' href="/dashboard">My account</a></li>)
                         }

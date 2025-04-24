@@ -234,6 +234,38 @@ const productsControllerChange = async(req, res) => {
     }
 }
 
+const productsControllerSearch = async(req, res) => {
+    try {
+        const {query, limit} = req.query;
+
+        if(!query || query.trim() === '') {
+            return res.status(400).json({ error: 'Search query is required' });
+        }
+
+        const product = getProducts();
+        const filteredProducts = product.filter(p => 
+            p.name.toLowerCase().includes(query.toLowerCase()) || p.description.toLowerCase().includes(query.toLowerCase())
+        )
+
+        const total = filteredProducts.length;
+
+        if(limit) {
+            return res.json({
+                products: filteredProducts.slice(0, parseInt(limit)),
+                total
+            });
+        }
+
+        res.json({
+            products: filteredProducts,
+            total
+        });
+    } catch (error) {
+        console.error('Error fetching products:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
+
 module.exports = {
     productsController: {
         productsControllerGet,
@@ -241,6 +273,7 @@ module.exports = {
         productsControllerGetByRecommended,
         productsControllerAddNew,
         productsControllerRemove,
-        productsControllerChange
+        productsControllerChange,
+        productsControllerSearch
     }
 }

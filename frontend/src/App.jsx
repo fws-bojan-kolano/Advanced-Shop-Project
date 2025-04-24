@@ -34,6 +34,7 @@ function App() {
                 <Route path="/thank-you" element={<PageThankYou />} />
                 <Route path="/order/:orderId" element={<SingleOrder />} />
                 <Route path="/category/:categoryName" element={<Products />} />
+                <Route path="/products" element={<Products />} />
               </Routes>
               <Footer />
             </BrowserRouter>

@@ -17,6 +17,44 @@
         align-items: center;
     }
 
+    .header__search {
+        position: relative;
+        margin-left: 20px;
+
+        input {
+            padding: 6px 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 0;
+        }
+
+        .header__search-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: white;
+            border: 1px solid #ccc;
+            z-index: 10;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .header__search-item,
+        .header__search-see-all {
+            padding: 8px 10px;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #f3f3f3;
+            }
+        }
+
+        .header__search-see-all {
+            font-weight: bold;
+            color: #007bff;
+        }
+    }
+
     &__list {
         @include mq($md) {
             width: 160px;
