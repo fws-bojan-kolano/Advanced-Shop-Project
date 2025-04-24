@@ -20,7 +20,7 @@ export default function Header() {
     useEffect(() => {
         const delay = setTimeout(() => {
             if (searchTerm.trim()) {
-                fetch(`${SERVER}search?query=${encodeURIComponent(searchTerm)}&limit=50`)
+                fetch(`${SERVER}search?query=${encodeURIComponent(searchTerm)}`)
                 .then(res => res.json())
                 .then(data => {
                     console.log('Full API Response:', data);
