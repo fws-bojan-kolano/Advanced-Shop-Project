@@ -175,7 +175,12 @@ export default function Products() {
                         </ul>
                     </div>
                 </div>
-                <Filters filters={filters} setFilters={setFilters} categories={allCategories} creators={allCreators} />
+                <Filters
+                    filters={filters}
+                    setFilters={setFilters}
+                    categories={allCategories}
+                    creators={allCreators}
+                />
                 <div className="row products__wrapper">
                     {showLoader && <span className='loader products__loader'></span>}
                     {products.map(product => (<Product key={product.id} product={product} />))}

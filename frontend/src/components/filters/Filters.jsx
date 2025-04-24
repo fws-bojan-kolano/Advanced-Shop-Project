@@ -1,5 +1,5 @@
 import './filters.scss';
-import { useEffect, useRef, useState } from "react";
+import { useEffect } from "react";
 
 export default function Filters({filters, setFilters, categories, creators}) {
 
@@ -8,7 +8,7 @@ export default function Filters({filters, setFilters, categories, creators}) {
 
         setFilters(prev => ({
             ...prev,
-            [name]: type === 'checkbox' ? checked : (type === 'radio' ? value === 'true' : value)
+            [name]: type === 'checkbox' ? checked : value
         }));
     };
 
@@ -57,28 +57,6 @@ export default function Filters({filters, setFilters, categories, creators}) {
                             {cre}
                         </label>
                     ))}
-                </div>
-                <div className="filters__recommended">
-                    <label>
-                        <input
-                            type="radio"
-                            name="recommended"
-                            value="recommended"
-                            checked={filters.recommended === true}
-                            onChange={handleChange}
-                        />
-                        Recommended
-                    </label>
-                    <label>
-                        <input
-                            type="radio"
-                            name="recommended"
-                            value="not_recommended"
-                            checked={filters.recommended === false}
-                            onChange={handleChange}
-                        />
-                        Not Recommended
-                    </label>
                 </div>
             </div>
         </div>

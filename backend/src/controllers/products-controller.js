@@ -72,6 +72,16 @@ const productsControllerGet = async (req, res) => {
     
         const totalProducts = products.length;
         const totalPages = Math.ceil(totalProducts / limit);
+
+        if (totalPages === 0) {
+            return res.json({
+                success: true,
+                products: [],
+                totalPages: 0,
+                totalCount: 0,
+                currentPage: 1
+            });
+        }
     
         //Page needs to be in range
         if(page < 1 || page > totalPages) {
