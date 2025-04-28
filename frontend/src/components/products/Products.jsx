@@ -40,12 +40,12 @@ export default function Products() {
                 if(searchQuery && searchQuery.trim() !== '') {
                     sectCurrentPage(1);
 
-                    const res = await fetch(`${SERVER}search?query=${encodeURIComponent(searchQuery)}`);
+                    const res = await fetch(`${SERVER}search?query=${encodeURIComponent(searchQuery)}&page=${currentPage}&limit=${productsPerPage}`);
                     const data = await res.json();
                     setProducts(data.products || data);
 
                     const total = data.total || (data.products ? data.products.length: 0);
-                    setTotalPages(Math.ceil(total/productsPerPage));
+                    setTotalPages(data.totalPages || 1);
                     return;
                 }
 

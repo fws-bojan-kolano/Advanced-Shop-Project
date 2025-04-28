@@ -236,7 +236,7 @@ const productsControllerChange = async(req, res) => {
 
 const productsControllerSearch = async(req, res) => {
     try {
-        const {query} = req.query;
+        const {query, page = 1, limit = 6} = req.query;
 
         if(!query || query.trim() === '') {
             return res.status(400).json({ error: 'Search query is required' });
@@ -249,9 +249,17 @@ const productsControllerSearch = async(req, res) => {
 
         const total = filteredProducts.length;
 
+        const pageInt = parseInt(page, 10);
+        const limitInt = parseInt(limit, 10);
+        const startIndex = (pageInt - 1) * limitInt;
+        const endIndex = startIndex + limitInt;
+        const paginatedProducts = filteredProducts.slice(startIndex, endIndex);
+
         res.json({
             products: filteredProducts,
-            total
+            total,
+            totalPages: Math.ceil(total/limitInt),
+            currentPage: pageInt
         });
     } catch (error) {
         console.error('Error fetching products:', error);
