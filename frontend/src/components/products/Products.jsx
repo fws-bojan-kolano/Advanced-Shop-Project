@@ -43,7 +43,9 @@ export default function Products() {
                     const res = await fetch(`${SERVER}search?query=${encodeURIComponent(searchQuery)}`);
                     const data = await res.json();
                     setProducts(data.products || data);
-                    setTotalPages(1);
+
+                    const total = data.total || (data.products ? data.products.length: 0);
+                    setTotalPages(Math.ceil(total/productsPerPage));
                     return;
                 }
 
