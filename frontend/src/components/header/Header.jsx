@@ -24,7 +24,7 @@ export default function Header() {
                 .then(res => res.json())
                 .then(data => {
                     console.log('Full API Response:', data);
-                    setResults(data || []);
+                    setResults(data.products || []);
                     setShowDropdown(true);
                 });
             } else {
@@ -87,7 +87,7 @@ export default function Header() {
                                             {product.name}
                                         </div>
                                     ))}
-                                    {results.length === 3 && (
+                                    {results.length >= 3 && (
                                         <div className="header__search-see-all" onClick={handleSeeAll}>
                                             See All
                                         </div>
