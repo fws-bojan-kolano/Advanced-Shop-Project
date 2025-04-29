@@ -14,6 +14,8 @@ export default function Products() {
     const [presentedOrderValue, setPresentedOrderValue] = useState('Ascending');
     const [isSortingListOpen, setIsSortingListOpen] = useState(false);
     const [noResultsMessage, setNoResultsMessage] = useState('');
+    const [allCategories, setAllCategories] = useState([]);
+    const [allCreators, setAllCreators] = useState([]);
     const productsPerPage = 6;
     const [filters, setFilters] = useState({
         categories: [],
@@ -29,8 +31,20 @@ export default function Products() {
     const query = new URLSearchParams(location.search);
     const searchQuery = query.get('search');
 
-    const allCategories = Array.from(new Set(products.map(p => p.category)));
-    const allCreators = Array.from(new Set(products.map(p => p.creator)));
+    useEffect(() => {
+        const fetchFilters = async () => {
+            try {
+                const res = await fetch(`${SERVER}filters`);
+                const data = await res.json();
+                setAllCategories(data.categories);
+                setAllCreators(data.creators);
+            } catch (error) {
+                console.error("Error fetching filters:", error);
+            }
+        };
+    
+        fetchFilters();
+    }, []);
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -83,7 +97,11 @@ export default function Products() {
                 setProducts(data.products);
                 setTotalPages(data.totalPages || 1);
                 data.total === 0 ? setNoResultsMessage(data.message) : setNoResultsMessage('');
-                
+
+                if (searchQuery) {
+                    setAllCategories(data.categories || []);
+                    setAllCreators(data.creators || []);
+                }
             } catch (error) {
                 console.error("Error fetching products:", error);
             } finally {

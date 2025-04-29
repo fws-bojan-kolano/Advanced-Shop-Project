@@ -9,7 +9,8 @@ productsRouter
     .post('/products/new', productsController.productsControllerAddNew)
     .delete('/products/:id', productsController.productsControllerRemove)
     .put('/products/:id', productsController.productsControllerChange)
-    .get('/search', productsController.productsControllerSearch);
+    .get('/search', productsController.productsControllerSearch)
+    .get('/filters', productsController.productsControllerFilters);
 
 module.exports = {
     productsRouter

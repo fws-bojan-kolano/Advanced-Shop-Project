@@ -266,6 +266,8 @@ const productsControllerSearch = async(req, res) => {
         }
 
         const total = filteredProducts.length;
+        const availableCategories = Array.from(new Set(filteredProducts.map(p => p.category)));
+        const availableCreators = Array.from(new Set(filteredProducts.map(p => p.creator)));
 
         if (total === 0) {
             return res.json({
@@ -273,7 +275,9 @@ const productsControllerSearch = async(req, res) => {
                 total: 0,
                 totalPages: 0,
                 currentPage: parseInt(page, 10),
-                message: 'No products found matching your criteria.'
+                message: 'No products found matching your criteria.',
+                categories: [],
+                creators: []
             });
         }
 
@@ -287,10 +291,24 @@ const productsControllerSearch = async(req, res) => {
             products: paginatedProducts,
             total,
             totalPages: Math.ceil(total/limitInt),
-            currentPage: pageInt
+            currentPage: pageInt,
+            categories: availableCategories,
+            creators: availableCreators
         });
     } catch (error) {
         console.error('Error fetching products:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
+
+const productsControllerFilters = (req, res) => {
+    try {
+        const products = getProducts();
+        const categories = Array.from(new Set(products.map(p => p.category)));
+        const creators = Array.from(new Set(products.map(p => p.creator)));
+        res.json({ categories, creators });
+    } catch (error) {
+        console.error('Error fetching filter data:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
 }
@@ -303,6 +321,7 @@ module.exports = {
         productsControllerAddNew,
         productsControllerRemove,
         productsControllerChange,
-        productsControllerSearch
+        productsControllerSearch,
+        productsControllerFilters
     }
 }
