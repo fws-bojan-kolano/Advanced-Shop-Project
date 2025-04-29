@@ -16,6 +16,7 @@ export default function ThankYou() {
             setOrderDetails({...order});
 			localStorage.removeItem('cart');
             setCart([]);
+
 			const updatedUser = { ...user, cart: [], order: null };
 			setUser(updatedUser);
         } else {

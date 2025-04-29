@@ -15,7 +15,6 @@ export default function Product({ product }) {
     const handleDecrement = () => removeFromCart(product.id, quantity - 1);
 
     const handleChangeQuantity = (newQuantity) => {
-
         if (isNaN(newQuantity) || newQuantity === '') return;
 
         if (newQuantity === 0 || newQuantity === '0') {
