@@ -301,7 +301,7 @@ const productsControllerSearch = async(req, res) => {
     }
 }
 
-const productsControllerFilters = (req, res) => {
+const productsControllerFilters = (res) => {
     try {
         const products = getProducts();
         const categories = Array.from(new Set(products.map(p => p.category)));

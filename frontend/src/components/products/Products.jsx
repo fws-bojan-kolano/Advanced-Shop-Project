@@ -55,7 +55,6 @@ export default function Products() {
                 const params = new URLSearchParams();
                 params.append('page', currentPage);
                 params.append('limit', productsPerPage);
-                params.append('sort', sortOrder);
 
                 if (searchQuery && searchQuery.trim() !== '') {
                     params.append('query', searchQuery);
