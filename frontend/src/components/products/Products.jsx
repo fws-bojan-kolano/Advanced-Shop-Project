@@ -13,6 +13,7 @@ export default function Products() {
     const [sortOrder, setSortOrder] = useState('asc');
     const [presentedOrderValue, setPresentedOrderValue] = useState('Ascending');
     const [isSortingListOpen, setIsSortingListOpen] = useState(false);
+    const [noResultsMessage, setNoResultsMessage] = useState('');
     const productsPerPage = 6;
     const [filters, setFilters] = useState({
         categories: [],
@@ -34,36 +35,30 @@ export default function Products() {
     useEffect(() => {
         const fetchProducts = async () => {
             setShowLoader(true);
+            setNoResultsMessage('');
 
             try {
-
-                if(searchQuery && searchQuery.trim() !== '') {
-                    sectCurrentPage(1);
-
-                    const res = await fetch(`${SERVER}search?query=${encodeURIComponent(searchQuery)}&page=${currentPage}&limit=${productsPerPage}`);
-                    const data = await res.json();
-                    setProducts(data.products || data);
-
-                    const total = data.total || (data.products ? data.products.length: 0);
-                    setTotalPages(data.totalPages || 1);
-                    return;
-                }
-
                 const params = new URLSearchParams();
                 params.append('page', currentPage);
                 params.append('limit', productsPerPage);
                 params.append('sort', sortOrder);
+
+                if (searchQuery && searchQuery.trim() !== '') {
+                    params.append('query', searchQuery);
+                } else {
+                    params.append('sort', sortOrder);
+                }
 
                 if (categoryName) {
                     params.append('category', categoryName);
                 }
 
                 if (filters.categories.length) {
-                    filters.categories.forEach(cat => params.append('categories[]', cat));
+                    filters.categories.forEach(cat => params.append('category', cat));
                 }
 
                 if (filters.creators.length) {
-                    filters.creators.forEach(cre => params.append('creators[]', cre));
+                    filters.creators.forEach(cre => params.append('creators', cre));
                 }
 
                 if (filters.priceMin !== '') {
@@ -78,7 +73,8 @@ export default function Products() {
                     params.append('recommended', filters.recommended);
                 }
 
-                const response = await fetch(`${SERVER}products?${params.toString()}`);
+                const endpoint = searchQuery ? 'search' : 'products';
+                const response = await fetch(`${SERVER}${endpoint}?${params.toString()}`);
                 if (!response.ok) {
                     throw new Error("Failed to fetch products");
                 }
@@ -86,6 +82,8 @@ export default function Products() {
                 const data = await response.json();
                 setProducts(data.products);
                 setTotalPages(data.totalPages || 1);
+                data.total === 0 ? setNoResultsMessage(data.message) : setNoResultsMessage('');
+                
             } catch (error) {
                 console.error("Error fetching products:", error);
             } finally {
@@ -98,7 +96,7 @@ export default function Products() {
 
     useEffect(() => {
         sectCurrentPage(1);
-    }, [filters, categoryName]);
+    }, [filters, categoryName, searchQuery]);
 
     useEffect(() => {
         if(productsRef.current) {
@@ -198,6 +196,7 @@ export default function Products() {
                 />
                 <div className="row products__wrapper">
                     {showLoader && <span className='loader products__loader'></span>}
+                    {noResultsMessage && <div className="products__no-results-message">{noResultsMessage}</div>}
                     {products.map(product => (<Product key={product.id} product={product} />))}
                 </div>
                 <div className="pagination">

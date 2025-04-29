@@ -236,18 +236,46 @@ const productsControllerChange = async(req, res) => {
 
 const productsControllerSearch = async(req, res) => {
     try {
-        const {query, page = 1, limit = 6} = req.query;
+        const { query, page = 1, limit = 6, category, creators, priceMin, priceMax } = req.query;
 
         if(!query || query.trim() === '') {
             return res.status(400).json({ error: 'Search query is required' });
         }
 
         const product = getProducts();
-        const filteredProducts = product.filter(p => 
+        let  filteredProducts = product.filter(p => 
             p.name.toLowerCase().includes(query.toLowerCase()) || p.description.toLowerCase().includes(query.toLowerCase())
         );
 
+        if (category) {
+            const categoryArray = Array.isArray(category) ? category : [category];
+            filteredProducts = filteredProducts.filter(p => categoryArray.includes(p.category));
+        }
+    
+        if (creators) {
+            const creatorArray = Array.isArray(creators) ? creators : [creators];
+            filteredProducts = filteredProducts.filter(p => creatorArray.includes(p.creator));
+        }
+    
+        if (priceMin) {
+            filteredProducts = filteredProducts.filter(p => p.price >= Number(priceMin));
+        }
+
+        if (priceMax) {
+            filteredProducts = filteredProducts.filter(p => p.price <= Number(priceMax));
+        }
+
         const total = filteredProducts.length;
+
+        if (total === 0) {
+            return res.json({
+                products: [],
+                total: 0,
+                totalPages: 0,
+                currentPage: parseInt(page, 10),
+                message: 'No products found matching your criteria.'
+            });
+        }
 
         const pageInt = parseInt(page, 10);
         const limitInt = parseInt(limit, 10);
@@ -256,7 +284,7 @@ const productsControllerSearch = async(req, res) => {
         const paginatedProducts = filteredProducts.slice(startIndex, endIndex);
 
         res.json({
-            products: filteredProducts,
+            products: paginatedProducts,
             total,
             totalPages: Math.ceil(total/limitInt),
             currentPage: pageInt

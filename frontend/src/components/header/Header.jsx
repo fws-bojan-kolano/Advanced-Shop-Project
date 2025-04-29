@@ -23,7 +23,6 @@ export default function Header() {
                 fetch(`${SERVER}search?query=${encodeURIComponent(searchTerm)}`)
                 .then(res => res.json())
                 .then(data => {
-                    console.log('Full API Response:', data);
                     setResults(data.products || []);
                     setShowDropdown(true);
                 });

@@ -10,6 +10,12 @@
         }
     }
 
+    &__no-results-message {
+        color: $red;
+        padding-left: 15px;
+        font-size: 20px;
+    }
+
     &__top-content {
         display: flex;
         justify-content: space-between;
