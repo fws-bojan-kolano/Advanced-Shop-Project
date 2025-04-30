@@ -55,11 +55,10 @@ export default function Products() {
                 const params = new URLSearchParams();
                 params.append('page', currentPage);
                 params.append('limit', productsPerPage);
+                params.append('sort', sortOrder);
 
                 if (searchQuery && searchQuery.trim() !== '') {
                     params.append('query', searchQuery);
-                } else {
-                    params.append('sort', sortOrder);
                 }
 
                 if (categoryName) {
@@ -167,6 +166,7 @@ export default function Products() {
         setIsSortingListOpen(false);
         setSortOrder(order);
         sectCurrentPage(1);
+        console.log(order);
 
         switch (order) {
             case 'asc':

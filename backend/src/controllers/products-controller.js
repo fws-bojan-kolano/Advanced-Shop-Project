@@ -265,6 +265,23 @@ const productsControllerSearch = async(req, res) => {
             filteredProducts = filteredProducts.filter(p => p.price <= Number(priceMax));
         }
 
+        switch (req.query.sort) {
+            case 'asc':
+                filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
+                break;
+            case 'desc':
+                filteredProducts.sort((a, b) => b.name.localeCompare(a.name));
+                break;
+            case 'price_low':
+                filteredProducts.sort((a, b) => a.price - b.price);
+                break;
+            case 'price_high':
+                filteredProducts.sort((a, b) => b.price - a.price);
+                break;
+            default:
+                break;
+        }
+
         const total = filteredProducts.length;
         const availableCategories = Array.from(new Set(filteredProducts.map(p => p.category)));
         const availableCreators = Array.from(new Set(filteredProducts.map(p => p.creator)));
@@ -301,11 +318,11 @@ const productsControllerSearch = async(req, res) => {
     }
 }
 
-const productsControllerFilters = (res) => {
+const productsControllerFilters = (req, res) => {
     try {
         const products = getProducts();
-        const categories = Array.from(new Set(products.map(p => p.category)));
-        const creators = Array.from(new Set(products.map(p => p.creator)));
+        const categories = [...new Set(products.map(p => p.category))].filter(Boolean);
+        const creators = [...new Set(products.map(p => p.creator))].filter(Boolean);
         res.json({ categories, creators });
     } catch (error) {
         console.error('Error fetching filter data:', error);

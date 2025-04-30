@@ -33,7 +33,7 @@ export default function Filters({filters, setFilters, categories, creators}) {
             <div className="filters__content">
                 <div className="filters__category">
                     Categories:<br/>
-                    {categories.map(cat => (
+                    {Array.isArray(categories) && categories.map(cat => (
                         <label key={cat}>
                             <input type="checkbox" value={cat} checked={filters.categories.includes(cat)} onChange={() => handleCategoryChange(cat)} />
                             {cat}
@@ -46,7 +46,7 @@ export default function Filters({filters, setFilters, categories, creators}) {
                 </div>
                 <div className="filters__creator">
                     Creators:<br/>
-                    {creators.map(cre => (
+                    {Array.isArray(creators) && creators.map(cre => (
                         <label key={cre}>
                             <input
                                 type="checkbox"
