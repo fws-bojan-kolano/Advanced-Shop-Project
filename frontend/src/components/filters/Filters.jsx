@@ -1,5 +1,4 @@
 import './filters.scss';
-import { useEffect } from "react";
 
 export default function Filters({filters, setFilters, categories, creators}) {
 

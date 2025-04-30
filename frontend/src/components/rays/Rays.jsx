@@ -2,7 +2,6 @@ import { useState } from 'react';
 import './rays.scss';
 
 export default function Rays() {
-
     const [isChecked, setIsChecked] = useState(false);
 
     const handleToggle = () => {

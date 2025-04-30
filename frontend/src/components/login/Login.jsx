@@ -9,22 +9,18 @@ export default function Login() {
     const [showError, setShowError] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
     const [showLoader, setShowLoader] = useState(false);
-
     const {setUser} = useUser();
     const {setCart} = useCart();
-
     const navigate = useNavigate();
-
     const usernameRef = useRef(null);
     const passwordRef = useRef(null);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setShowLoader(true);
 
         const inputUsernameValue = usernameRef.current.value;
         const inputPasswordValue = passwordRef.current.value;
-
-        setShowLoader(true);
 
         try {
             const response = await fetch(`${SERVER}users/login`, {

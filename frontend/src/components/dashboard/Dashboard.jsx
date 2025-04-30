@@ -10,7 +10,6 @@ import Orders from '../orders/Orders';
 
 export default function Dashboard() {
     const {user, setUser} = useContext(UserContext);
-
     const location = useLocation();
     const [activeSection, setActiveSection] = useState(location.state?.section || 'myAccount');
 

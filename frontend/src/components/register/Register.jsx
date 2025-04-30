@@ -9,21 +9,17 @@ export default function Register() {
     const [showLoader, setShowLoader] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
     const [role, setRole] = useState('admin');
-
     const {setUser} = useContext(UserContext);
-
     const navigate = useNavigate();
-
     const usernameRef = useRef(null);
     const passwordRef = useRef(null);
     const emailRef = useRef(null);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
         setShowLoader(true);
 
-        if(usernameRef.current.value.trim() === '' || passwordRef.current.value.trim() === '' || emailRef.current.value.trim() == '') {
+        if(usernameRef?.current.value.trim() === '' || passwordRef?.current.value.trim() === '' || emailRef?.current.value.trim() == '') {
             setShowLoader(false);
             setShowError(true);
             return;

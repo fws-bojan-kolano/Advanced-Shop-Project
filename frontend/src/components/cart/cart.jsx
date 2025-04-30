@@ -6,7 +6,7 @@ import './cart.scss';
 export default function Cart() {
 
     const {cart, addToCart, removeFromCart} = useCart();
-    const cartItems = cart.filter(item => item.quantity > 0);
+    const cartItems = cart?.filter(item => item.quantity > 0);
 
     const handleIncrement = (product) => addToCart(product, product.quantity + 1);
 

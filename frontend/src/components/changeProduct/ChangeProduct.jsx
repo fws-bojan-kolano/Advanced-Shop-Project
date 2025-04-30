@@ -97,7 +97,6 @@ export default function ChangeProduct() {
 
     const handleUpdate = async (event) => {
         event.preventDefault();
-
         setShowLoader(true);
 
         const payload = {};
@@ -127,11 +126,8 @@ export default function ChangeProduct() {
             }
 
             const updatedProduct = {...products.find(product => product.id === editingProductId), ...payload};
-
             setProducts(products.map(product => product.id === editingProductId ? {...product, ...payload} : product));
-
             setEditedProduct(updatedProduct);//update input fields after succesfull change
-
             setShowSuccess(true);
             setShowLoader(false);
             updateProductsInMegamenu();

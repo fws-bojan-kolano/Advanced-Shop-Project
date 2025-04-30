@@ -7,7 +7,7 @@ import PositiveNumberInput from '../common/PositiveNumberInput';
 export default function Product({ product }) {
     const { cart, addToCart, removeFromCart } = useCart();
 
-    const cartItem = cart.find(item => item.id === product.id);
+    const cartItem = cart?.find(item => item.id === product.id);
     const quantity = cartItem ? cartItem.quantity : 0;
 
     const handleIncrement = () => addToCart(product, quantity + 1);

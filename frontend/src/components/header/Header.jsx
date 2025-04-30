@@ -14,7 +14,6 @@ export default function Header() {
     const [results, setResults] = useState([]);
     const [showDropdown, setShowDropdown] = useState(false);
     const navigate = useNavigate();
-
     const totalCartItems = cart.reduce((total, item) => total + item.quantity, 0);
 
     useEffect(() => {

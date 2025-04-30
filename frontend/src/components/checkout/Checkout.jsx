@@ -101,13 +101,8 @@ export default function Checkout() {
         setAddress(place.display_name);
         setSuggestions([]);
 
-        if(place.address && place.address.postcode) {
-            setZip(place.address.postcode || '');
-        }
-
-        if(place.address && place.address.country) {
-            calculateShipping(place.address.country);
-        }
+        if(place.address && place.address.postcode) setZip(place.address.postcode || '');
+        if(place.address && place.address.country) calculateShipping(place.address.country);
     }
 
     const fetchNeighboringCountries = async (selectedCountry) => {
@@ -142,7 +137,6 @@ export default function Checkout() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         setShowLoaderSubmit(true);
 
         const errors = {};
@@ -323,13 +317,7 @@ export default function Checkout() {
                                             value={couponCode}
                                             onChange={(e) => setCouponCode(e.target.value)}
                                         />
-                                        <button 
-                                            type="button" 
-                                            className="btn apply-coupon-btn"
-                                            onClick={handleApplyCoupon}
-                                        >
-                                            Apply Coupon
-                                        </button>
+                                        <button type="button" className="btn apply-coupon-btn" onClick={handleApplyCoupon}>Apply Coupon</button>
                                         {couponError && <p className="form-message form-error form-input-error">{couponError}</p>}
                                         {couponDiscount > 0 && <p className="coupon-success">Coupon Applied: {couponDiscount}% Off</p>}
                                     </div>}

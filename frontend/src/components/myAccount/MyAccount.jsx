@@ -10,16 +10,13 @@ export default function MyAccount() {
     const [showErrorEmail, setShowErrorEmail] = useState(false);
     const [showErrorPassword, setShowErrorPassword] = useState(false);
     const { user, setUser } = useContext(UserContext);
-
     const [username, setUsername] = useState(user ? user.username : '');
     const [email, setEmail] = useState(user ? user.email : '');
-
     const passwordRef = useRef(null);
     const passwordRepeatRef = useRef(null);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
         setShowLoader(true);
         setShowSuccess(false);
 
@@ -43,7 +40,6 @@ export default function MyAccount() {
 
         const passwordValue = passwordRef.current.value;
         const passwordRepeatValue = passwordRepeatRef.current.value;
-
         let updatedData = {id: user.id};
         if(username !== user.username) updatedData.username = username;
         if(email !== user.email) updatedData.email = email;
@@ -104,7 +100,6 @@ export default function MyAccount() {
             } else {
                 setShowLoader(false);
             }
-
         } catch (error) {
             console.error('Error during data update:', error);
             setShowLoader(false);

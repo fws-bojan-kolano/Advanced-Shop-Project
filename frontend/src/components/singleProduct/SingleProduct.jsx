@@ -31,7 +31,7 @@ export default function SingleProduct() {
 
     useEffect(() => {
         if(product) {
-            const cartItem = cart.find(item => item.id === product.id);
+            const cartItem = cart?.find(item => item.id === product.id);
             const quantity = cartItem ? cartItem.quantity : 0;
             setNeqQuantity(quantity);
         }
@@ -79,7 +79,7 @@ export default function SingleProduct() {
                             onChange={handleChangeQuantity}
                             onIncrement={handleIncrement}
                             onDecrement={handleDecrement}/>
-                            <Link className='btn single-product__go-to-cart' to='/cart'>Go to cart</Link>
+                        <Link className='btn single-product__go-to-cart' to='/cart'>Go to cart</Link>
                     </div>
                 </div>
             </div>

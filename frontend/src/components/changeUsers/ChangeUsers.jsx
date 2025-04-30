@@ -90,7 +90,6 @@ export default function ChangeUsers() {
 
     const handleUpdate = async (event) => {
         event.preventDefault();
-
         setShowLoader(true);
 
         const payload = {};
@@ -118,11 +117,8 @@ export default function ChangeUsers() {
             }
 
             const updatedUser = {...users.find(user => user.id === editingUserId), ...payload};
-
             setUsers(users.map(user => user.id === editingUserId ? {...user, ...payload} : user));
-
             setEditedUser(updatedUser);//update input fields after succesfull change
-
             setShowSuccess(true);
             setShowLoader(false);
             setTimeout(() => {

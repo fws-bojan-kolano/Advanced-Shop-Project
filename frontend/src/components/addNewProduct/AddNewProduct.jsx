@@ -9,7 +9,6 @@ export default function AddNewProduct() {
     const [showSuccess, setShowSuccess] = useState(false);
     const [recommended, setRecommended] = useState('yes');
     const {setProductsMegamenu} = useUser();
-
     const productNameRef = useRef(null);
     const productPriceRef = useRef(null);
     const productCreatorRef = useRef(null);
@@ -19,6 +18,7 @@ export default function AddNewProduct() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setShowLoader(true);
 
         const productNameValue = productNameRef.current.value;
         const productPriceValue = productPriceRef.current.value;
@@ -27,8 +27,6 @@ export default function AddNewProduct() {
         const productDescriptionValue = productDescriptionRef.current.value;
         const recommendedValue = recommended;
         const productCategoryValue = productCategoryRef.current.value;
-
-        setShowLoader(true);
 
         try {
             const response = await fetch(`${SERVER}products/new`, {
