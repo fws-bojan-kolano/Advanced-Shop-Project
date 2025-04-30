@@ -1,14 +1,15 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { SERVER } from '../../utils/utils';
 import Product from "../product/Product";
 import { useParams, useLocation } from 'react-router-dom';
+import { SORT_OPTIONS } from "../../utils/utils";
 import './products.scss';
 import Filters from "../filters/Filters";
 
 export default function Products() {
     const [products, setProducts] = useState([]);
     const [showLoader, setShowLoader] = useState(false);
-    const [currentPage, sectCurrentPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [sortOrder, setSortOrder] = useState('asc');
     const [presentedOrderValue, setPresentedOrderValue] = useState('Ascending');
@@ -31,6 +32,23 @@ export default function Products() {
     const query = new URLSearchParams(location.search);
     const searchQuery = query.get('search');
 
+    const buildQueryParams = () => {
+        const params = new URLSearchParams();
+        params.append('page', currentPage);
+        params.append('limit', productsPerPage);
+        params.append('sort', sortOrder);
+
+        if (searchQuery?.trim() !== '') params.append('query', searchQuery);
+        if (categoryName) params.append('category', categoryName);
+        filters?.categories?.forEach(cat => params.append('category', cat));
+        filters?.creators?.forEach(cre => params.append('creators', cre));
+        if (filters.priceMin !== '') params.append('priceMin', filters.priceMin);
+        if (filters.priceMax !== '') params.append('priceMax', filters.priceMax);
+        if (filters.recommended !== null) params.append('recommended', filters.recommended);
+
+        return params;
+    };
+
     useEffect(() => {
         const fetchFilters = async () => {
             try {
@@ -52,39 +70,7 @@ export default function Products() {
             setNoResultsMessage('');
 
             try {
-                const params = new URLSearchParams();
-                params.append('page', currentPage);
-                params.append('limit', productsPerPage);
-                params.append('sort', sortOrder);
-
-                if (searchQuery && searchQuery.trim() !== '') {
-                    params.append('query', searchQuery);
-                }
-
-                if (categoryName) {
-                    params.append('category', categoryName);
-                }
-
-                if (filters.categories.length) {
-                    filters.categories.forEach(cat => params.append('category', cat));
-                }
-
-                if (filters.creators.length) {
-                    filters.creators.forEach(cre => params.append('creators', cre));
-                }
-
-                if (filters.priceMin !== '') {
-                    params.append('priceMin', filters.priceMin);
-                }
-
-                if (filters.priceMax !== '') {
-                    params.append('priceMax', filters.priceMax);
-                }
-
-                if (filters.recommended !== null) {
-                    params.append('recommended', filters.recommended);
-                }
-
+                const params = buildQueryParams();
                 const endpoint = searchQuery ? 'search' : 'products';
                 const response = await fetch(`${SERVER}${endpoint}?${params.toString()}`);
                 if (!response.ok) {
@@ -111,7 +97,7 @@ export default function Products() {
     }, [currentPage, sortOrder, categoryName, filters, location.search]);
 
     useEffect(() => {
-        sectCurrentPage(1);
+        setCurrentPage(1);
     }, [filters, categoryName, searchQuery]);
 
     useEffect(() => {
@@ -122,21 +108,17 @@ export default function Products() {
     }, [currentPage]);
 
     //Change page
-    const paginate = pageNumber => sectCurrentPage(pageNumber);
+    const paginate = pageNumber => setCurrentPage(pageNumber);
 
     const handleNext = () => {
-        if(currentPage < totalPages) {
-            sectCurrentPage(currentPage + 1);
-        }
+        if(currentPage < totalPages) setCurrentPage(currentPage + 1);
     };
 
     const handlePrevious = () => {
-        if(currentPage > 1) {
-            sectCurrentPage(currentPage - 1);
-        }
+        if(currentPage > 1) setCurrentPage(currentPage - 1);
     };
 
-    const generatePageNumbers = () => {
+    const generatePageNumbers = useMemo(() => {
         const pageNumbers = [];
         let startpage, endpage;
 
@@ -160,30 +142,14 @@ export default function Products() {
             pageNumbers.push(i);
         }
         return pageNumbers;
-    };
+    }, [totalPages, currentPage]);
 
     const handleSortAndClose = (order) => {
-        setIsSortingListOpen(false);
+        const selected = SORT_OPTIONS.find(opt => opt.value === order);
+        setPresentedOrderValue(selected?.label || 'Sort')
         setSortOrder(order);
-        sectCurrentPage(1);
-        console.log(order);
-
-        switch (order) {
-            case 'asc':
-                setPresentedOrderValue('Ascending');
-                break;
-            case 'desc':
-                setPresentedOrderValue('Descending');
-                break;
-            case 'price_low':
-                setPresentedOrderValue('Lowest price');
-                break;
-            case 'price_high':
-                setPresentedOrderValue('Highest price');
-                break;
-            default:
-                break;
-        }
+        setCurrentPage(1);
+        setIsSortingListOpen(false);
     };
 
     const toggleSortingList = () => {
@@ -198,10 +164,9 @@ export default function Products() {
                     <div className="products__sorting">
                         <span className="products__sorting-label" onClick={toggleSortingList}>Sorted By: {presentedOrderValue}</span>
                         <ul className={`products__sorting-list ${isSortingListOpen ? 'open' : ''}`}>
-                            <li className="products__sorting-list-item" onClick={() => handleSortAndClose('asc')}>Ascending</li>
-                            <li className="products__sorting-list-item" onClick={() => handleSortAndClose('desc')}>Descending</li>
-                            <li className="products__sorting-list-item" onClick={() => handleSortAndClose('price_low')}>Lowest price</li>
-                            <li className="products__sorting-list-item" onClick={() => handleSortAndClose('price_high')}>Highest price</li>
+                            {SORT_OPTIONS.map(opt => (
+                                <li key={opt.value} className="products__sorting-list-item" onClick={() => handleSortAndClose(opt.value)}>{opt.label}</li>
+                            ))}
                         </ul>
                     </div>
                 </div>
@@ -217,17 +182,13 @@ export default function Products() {
                     {products.map(product => (<Product key={product.id} product={product} />))}
                 </div>
                 <div className="pagination">
-                    <button 
-                        className="pagination__button" 
-                        onClick={handlePrevious} 
-                        disabled={currentPage === 1}
-                    >
+                    <button className="pagination__button" onClick={handlePrevious} disabled={currentPage === 1}>
                         &laquo; Prev
                     </button>
 
                     {currentPage > 3 && totalPages > 5 && (<span className="pagination__dots">...</span>)}
 
-                    {generatePageNumbers().map(pageNumber => (
+                    {generatePageNumbers.map(pageNumber => (
                         <button 
                             key={pageNumber} 
                             className={`pagination__number ${currentPage === pageNumber ? 'active' : ''}`}
@@ -239,11 +200,7 @@ export default function Products() {
 
                     {currentPage < totalPages - 2 && totalPages > 5 && (<span className="pagination__dots">...</span>)}
 
-                    <button 
-                        className="pagination__button" 
-                        onClick={handleNext} 
-                        disabled={currentPage === totalPages}
-                    >
+                    <button className="pagination__button" onClick={handleNext} disabled={currentPage === totalPages}>
                         Next &raquo;
                     </button>
                 </div>
