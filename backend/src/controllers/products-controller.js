@@ -209,7 +209,6 @@ const productsControllerChange = async(req, res) => {
     try {
         const {id} = req.params;
         const updates = req.body;
-
         const productsData = getProducts();
         const foundIndex = productsData.findIndex(product => product.id === id);
 

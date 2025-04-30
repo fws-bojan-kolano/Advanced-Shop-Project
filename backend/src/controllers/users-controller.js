@@ -59,7 +59,6 @@ const usersRegisterController = async (req, res) => {
         }
 
         const usersData = getUsers();
-        
         const existingUser = usersData.find(user => user.username === username || user.email === email);
         if (existingUser) {
             return res.status(400).send({ success: false, message: 'Username or email already exists!' });
@@ -147,7 +146,6 @@ const usersChangeUser = async (req, res) => {
     try {
         const {id} = req.params;
         const updates = req.body;//get fields to update
-
         const usersData = getUsers();
         const foundIndex = usersData.findIndex(user => user.id === id);
 
@@ -210,7 +208,6 @@ const usersControllerCheckout = async (req, res) => {
     try {
         const {id} = req.params;
         const info = req.body;
-
         const usersData = getUsers();
         const foundIndex = usersData.findIndex(user => user.id === id);
 
