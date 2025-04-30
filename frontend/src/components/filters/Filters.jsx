@@ -12,10 +12,6 @@ export default function Filters({filters, setFilters, categories, creators}) {
         }));
     };
 
-    useEffect(() => {
-        console.log("Filters updated:", filters);
-    }, [filters]);
-
     const toggleCheckboxValue = (key, value) => {
         const updatedArray = filters[key].includes(value)
             ? filters[key].filter(item => item !== value)
