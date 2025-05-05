@@ -2,6 +2,8 @@
     margin-bottom: 80px;
     border: 1px solid $green-brand;
     padding: 20px 20px 10px;
+    border-radius: 6px;
+    background-color: rgba($color: $black, $alpha: .02);
 
     &__category,
     &__creator,

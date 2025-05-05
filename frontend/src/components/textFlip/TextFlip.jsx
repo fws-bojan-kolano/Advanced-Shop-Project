@@ -1,4 +1,4 @@
-import './text-flip.scss';
+import './textFlip.scss';
 
 export default function TextFlip () {
     return (
