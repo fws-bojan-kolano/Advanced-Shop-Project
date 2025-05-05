@@ -15,7 +15,6 @@ import SingleOrder from './components/singleOrder/SingleOrder';
 import Products from './components/products/Products';
 
 function App() {
-
   return (
     <>
       <UserContextProvider>

@@ -69,7 +69,6 @@ const productsControllerGet = async (req, res) => {
     if(req.query.page && req.query.limit) {//Show pagination only if page and limit are added as parameters
         const page = parseInt(req.query.page) || 1;
         const limit = parseInt(req.query.limit) || 6;
-    
         const totalProducts = products.length;
         const totalPages = Math.ceil(totalProducts / limit);
 
@@ -143,14 +142,12 @@ const productsControllerAddNew = async(req, res) => {
         }
 
         const productsData = getProducts();
-
         const existingProduct = productsData.find(product => product.name === name);
         if(existingProduct) {
             return res.status(400).send({success: false, message: 'Product with this name already exists!'});
         }
 
         const isRecommended = recommended === "no" ? false : true;
-
         const newProduct = {
             id: uuidv4(),
             name,
@@ -226,7 +223,6 @@ const productsControllerChange = async(req, res) => {
 
         fs.writeFileSync('data/products.json', JSON.stringify(productsData, null, 2));
         return res.send({success: true, message: 'Product updated!', product: productsData[foundIndex]});
-
     } catch (error) {
         console.error('Error changing product:', error);
         return res.status(500).send({ success: false, message: 'Internal Server Error' });

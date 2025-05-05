@@ -88,7 +88,6 @@ const usersRegisterController = async (req, res) => {
                 role: newUser.role
             } 
         });
-
     } catch (error) {
         console.error('Error during registration:', error);
         res.status(500).send({ success: false, message: 'Internal Server Error' });
@@ -166,7 +165,6 @@ const usersChangeUser = async (req, res) => {
 
         fs.writeFileSync('data/users.json', JSON.stringify(usersData, null, 2));
         return res.send({success: true, message: 'User updated!', user: usersData[foundIndex]});
-        
     } catch (error) {
         console.error('Error changing user:', error);
         return res.status(500).send({ success: false, message: 'Internal Server Error' });
@@ -248,7 +246,6 @@ const usersControllerCheckout = async (req, res) => {
             order: newOrder,
             orders: user.orders
         });
-        
     } catch (error) {
         console.error('Error during checkout:', error);
         return res.status(500).send({ success: false, message: 'Internal Server Error' });
