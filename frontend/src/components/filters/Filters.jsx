@@ -30,14 +30,33 @@ export default function Filters({filters, setFilters, categories, creators}) {
                     Categories:<br/>
                     {Array.isArray(categories) && categories.map(cat => (
                         <label key={cat}>
-                            <input type="checkbox" value={cat} checked={filters.categories.includes(cat)} onChange={() => handleCategoryChange(cat)} />
+                            <input
+                                type="checkbox"
+                                value={cat}
+                                checked={filters.categories.includes(cat)}
+                                onChange={() => handleCategoryChange(cat)}
+                            />
                             {cat}
                         </label>
                     ))}
                 </div>
                 <div className="filters__price">
-                    From price: <input type="number" name='priceMin' placeholder='Min' value={filters.priceMin} onChange={handleChange} />
-                    To: <input type="number" name='priceMax' placeholder='Max' value={filters.priceMax} onChange={handleChange} />
+                    From price: 
+                    <input
+                        type="number"
+                        name='priceMin'
+                        placeholder='Min'
+                        value={filters.priceMin}
+                        onChange={handleChange}
+                    />
+                    To: 
+                    <input
+                        type="number"
+                        name='priceMax'
+                        placeholder='Max'
+                        value={filters.priceMax}
+                        onChange={handleChange}
+                    />
                 </div>
                 <div className="filters__creator">
                     Creators:<br/>

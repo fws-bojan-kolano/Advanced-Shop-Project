@@ -12,19 +12,13 @@ export default function ChangeUsers() {
     const [users, setUsers] = useState([]);
     const [editingUserId, setEditingUserId] = useState(null);
     const [editedUser, setEditedUser] = useState(null);
-
     const {user} = useContext(UserContext);
 
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await fetch(`${SERVER}users`, {
-                    method: "GET",
-                });
-
-                if(!response.ok) {
-                    throw new Error("Failed to fetch users!");
-                }
+                const response = await fetch(`${SERVER}users`, {method: "GET"});
+                if(!response.ok) throw new Error("Failed to fetch users!");
 
                 const data = await response.json();
                 const filteredUsers = data.users.filter(u => u.id !== user.id);//Omit the current logged in user
@@ -45,10 +39,7 @@ export default function ChangeUsers() {
         setEditedUser(null);
 
         try {
-            const response = await fetch(`${SERVER}users/${userId}`, {
-                method: 'DELETE',
-            });
-
+            const response = await fetch(`${SERVER}users/${userId}`, {method: 'DELETE'});
             if(response.ok) {
                 setUsers(users.filter(user => user.id !== userId));
                 setSuccessRemove(true);
@@ -112,9 +103,7 @@ export default function ChangeUsers() {
                 body: JSON.stringify(payload)
             });
 
-            if (!response.ok) {
-                throw new Error("Failed to update user!");
-            }
+            if (!response.ok) throw new Error("Failed to update user!");
 
             const updatedUser = {...users.find(user => user.id === editingUserId), ...payload};
             setUsers(users.map(user => user.id === editingUserId ? {...user, ...payload} : user));

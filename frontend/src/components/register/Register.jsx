@@ -66,21 +66,54 @@ export default function Register() {
                 <form className="register__form form" onSubmit={handleSubmit}>
                     {showError && <span className="form-message form-error register__error">Some fields are empty!</span>}
                     {showSuccess && <span className='form-message form-success my-account__success'>Account created successfully!</span>}
-                    <input type="text" name="username" placeholder="Username" ref={usernameRef} />
-                    <input type="email" name="email" placeholder="Email" ref={emailRef} />
-                    <input type="password" name="password" placeholder="Password" ref={passwordRef} />
+                    <input
+                        type="text"
+                        name="username"
+                        placeholder="Username"
+                        ref={usernameRef}
+                    />
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                        ref={emailRef}
+                    />
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Password"
+                        ref={passwordRef}
+                    />
                     <div className="register__radio-wrapper">
                         <p>Select the role:</p>
                         <div className="register__radio-wrapper-item">
-                            <input type="radio" id="admin" name="role" value="admin" checked={role === 'admin'} onChange={(e) => setRole(e.target.value)} />
+                            <input
+                                type="radio"
+                                id="admin"
+                                name="role"
+                                value="admin"
+                                checked={role === 'admin'}
+                                onChange={(e) => setRole(e.target.value)}
+                            />
                             <label for="admin">Admin</label>
                         </div>
                         <div className="register__radio-wrapper-item">
-                            <input type="radio" id="user" name="role" value="user" checked={role === 'user'} onChange={(e) => setRole(e.target.value)} />
+                            <input
+                                type="radio"
+                                id="user"
+                                name="role"
+                                value="user"
+                                checked={role === 'user'}
+                                onChange={(e) => setRole(e.target.value)}
+                            />
                             <label for="user">User</label>
                         </div>
                     </div>
-                    <input className="register__form-submit" type="submit" value="Register" />
+                    <input
+                        className="register__form-submit"
+                        type="submit"
+                        value="Register"
+                    />
                 </form>
             </div>
         </div>

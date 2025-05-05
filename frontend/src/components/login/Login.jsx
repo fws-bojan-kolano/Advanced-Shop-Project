@@ -32,9 +32,7 @@ export default function Login() {
                 })
             });
 
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
             const result = await response.json();
             if(result.success) {
@@ -65,9 +63,21 @@ export default function Login() {
                 <form className="login__form form" onSubmit={handleSubmit}>
                     {showError && <span className='form-message form-error login__error'>Enter correct username and password!</span>}
                     {showSuccess && <span className='form-message form-success login__success'>Login successful!</span>}
-                    <input type="text" placeholder="Username" ref={usernameRef} />
-                    <input type="text" placeholder="Password" ref={passwordRef} />
-                    <input className='login__form-submit' type="submit" value="Login" />
+                    <input
+                        type="text"
+                        placeholder="Username"
+                        ref={usernameRef}
+                    />
+                    <input
+                        type="text"
+                        placeholder="Password"
+                        ref={passwordRef}
+                    />
+                    <input
+                        className='login__form-submit'
+                        type="submit"
+                        value="Login"
+                    />
                 </form>
                 <a className='btn btn--reverse login__form-button' href="/dashboard/register">Register</a>
             </div>

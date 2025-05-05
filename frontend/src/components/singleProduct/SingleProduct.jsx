@@ -11,7 +11,6 @@ export default function SingleProduct() {
     const { cart, addToCart, removeFromCart } = useCart();
     const [newQuantity, setNeqQuantity] = useState(0);
 
-
     useEffect(() => {
         window.scrollTo(0, 0);
 

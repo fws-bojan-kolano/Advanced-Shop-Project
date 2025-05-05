@@ -25,7 +25,6 @@ export default function Products() {
         creators: [],
         recommended: null
     });
-
     const productsRef = useRef(null);
     const {categoryName} = useParams();
     const location = useLocation();
@@ -73,9 +72,7 @@ export default function Products() {
                 const params = buildQueryParams();
                 const endpoint = searchQuery ? 'search' : 'products';
                 const response = await fetch(`${SERVER}${endpoint}?${params.toString()}`);
-                if (!response.ok) {
-                    throw new Error("Failed to fetch products");
-                }
+                if (!response.ok) throw new Error("Failed to fetch products");
 
                 const data = await response.json();
                 setProducts(data.products);

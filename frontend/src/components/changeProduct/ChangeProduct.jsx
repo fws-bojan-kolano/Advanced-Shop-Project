@@ -21,12 +21,9 @@ export default function ChangeProduct() {
                     method: "GET",
                 });
 
-                if(!response.ok) {
-                    throw new Error("Failed to fetch products!");
-                }
+                if(!response.ok) throw new Error("Failed to fetch products!");
 
                 const data = await response.json();
-
                 setProducts(Array.isArray(data.products) ? data.products : []);
                 setShowError(false);
             } catch (error) {

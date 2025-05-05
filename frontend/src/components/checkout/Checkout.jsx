@@ -38,9 +38,7 @@ export default function Checkout() {
     useEffect(() => {
         const submit = document.querySelector('.js-checkout__submit-wrapper');
         const checkoutInfo = document.querySelector('.js-checkout__info');
-        if(submit && checkoutInfo) {
-            checkoutInfo.appendChild(submit);
-        }
+        if(submit && checkoutInfo) checkoutInfo.appendChild(submit);
     }, [])
 
     const navigate = useNavigate();
@@ -80,10 +78,8 @@ export default function Checkout() {
         try {
             const url = `https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&q=${encodeURIComponent(query)}`;
             const response = await fetch(url);
+            if(!response.ok) throw new Error("Failed to fetch!");
 
-            if(!response.ok) {
-                throw new Error("Failed to fetch!");
-            }
             const data = await response.json();
             setSuggestions(data);
             setError(null);
@@ -126,10 +122,7 @@ export default function Checkout() {
             cost = 5; //Same country shipping
         } else {
             const neighbors = await fetchNeighboringCountries(selectedCountry);
-
-            if(neighbors.includes('SRB')) {
-                cost = 15; // Shipping costs 15$ if Serbian neighbor
-            }
+            if(neighbors.includes('SRB')) cost = 15; // Shipping costs 15$ if Serbian neighbor
         }
 
         setShippingCost(cost);
@@ -247,7 +240,8 @@ export default function Checkout() {
                                                     <li
                                                         key={place.place_id}
                                                         className="input-wrapper__suggestions-item"
-                                                        onClick={() => handleSelectAddress(place)}>{place.display_name}</li>
+                                                        onClick={() => handleSelectAddress(place)}>{place.display_name}
+                                                    </li>
                                                 ))}
                                             </ul>
                                         )}

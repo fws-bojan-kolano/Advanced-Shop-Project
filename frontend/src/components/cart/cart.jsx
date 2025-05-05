@@ -4,16 +4,13 @@ import PositiveNumberInput from "../common/PositiveNumberInput";
 import './cart.scss';
 
 export default function Cart() {
-
     const {cart, addToCart, removeFromCart} = useCart();
     const cartItems = cart?.filter(item => item.quantity > 0);
 
     const handleIncrement = (product) => addToCart(product, product.quantity + 1);
-
     const handleDecrement = (product) => removeFromCart(product.id, product.quantity - 1);
 
     const handleChangeQuantity = (product, newQuantity) => {
-
         if (isNaN(newQuantity) || newQuantity === '') return;
 
         if (newQuantity === 0 || newQuantity === '0') {
@@ -49,7 +46,8 @@ export default function Cart() {
                                             value={item.quantity}
                                             onChange={newQuantity => (handleChangeQuantity(item, newQuantity))}
                                             onIncrement={() => handleIncrement(item)}
-                                            onDecrement={() => handleDecrement(item)}/>
+                                            onDecrement={() => handleDecrement(item)}
+                                        />
                                         <button className="btn cart__remove-item" onClick={() => removeFromCart(item.id)}>Remove</button>
                                     </div>
                                 </div>

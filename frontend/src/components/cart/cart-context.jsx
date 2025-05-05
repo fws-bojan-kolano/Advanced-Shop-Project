@@ -15,9 +15,7 @@ export const CartContextProvider = ({ children }) => {
 			setCart(user.cart);
 		} else {
 			const storedCart = JSON.parse(localStorage.getItem('cart'));
-			if(storedCart) {
-				setCart(storedCart);//Load cart from localstorage if no cart is in user data
-			}
+			if(storedCart) setCart(storedCart);//Load cart from localstorage if no cart is in user data
 		}
 	}, [user]);
 

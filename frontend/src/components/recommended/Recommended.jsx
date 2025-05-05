@@ -9,7 +9,6 @@ import {Link, useParams} from 'react-router-dom';
 export default function Recommended() {
     const {id} = useParams();
     const [recommendedProducts, setRecommendedProducts] = useState([]);
-
     const settings = {
         dots: true,
         infinite: true,
@@ -41,9 +40,7 @@ export default function Recommended() {
     useEffect(() => {
         const fetchRecommendedProducts = async () => {
             const response = await fetch(`${SERVER}products/recommended?id=${id}`);
-            if (!response.ok) {
-                throw new Error("Failed to fetch recommended products");
-            }
+            if (!response.ok) throw new Error("Failed to fetch recommended products");
 
             const data = await response.json();
             setRecommendedProducts(data);

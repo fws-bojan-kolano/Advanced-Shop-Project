@@ -79,9 +79,7 @@ export default function MyAccount() {
                 body: JSON.stringify(updatedData)
             });
 
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
             const result = await response.json();
             if(result.success) {
@@ -111,19 +109,41 @@ export default function MyAccount() {
             <form className="my-account__form" onSubmit={handleSubmit}>
                 <div className="my-account__form-fields">
                     <div className="input-wrapper">
-                        <input type="text" className="form-input" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
+                        <input
+                            type="text"
+                            className="form-input"
+                            placeholder="Username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                        />
                         {showErrorUsername && <span className="form-message form-error form-input-error">Enter correct username.</span>}
                     </div>
                     <div className="input-wrapper">
-                        <input type="email" className="form-input" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                        <input
+                            type="email"
+                            className="form-input"
+                            placeholder="Email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
                         {showErrorEmail && <span className="form-message form-error form-input-error">Enter correct email.</span>}
                     </div>
                     <div className="input-wrapper">
-                        <input type="text" className="form-input" placeholder="Password" ref={passwordRef} />
+                        <input
+                            type="text"
+                            className="form-input"
+                            placeholder="Password"
+                            ref={passwordRef}
+                        />
                         {showErrorPassword && <span className="form-message form-error form-input-error">Enter old or new matching password.</span>}
                     </div>
                     <div className="input-wrapper">
-                        <input type="text" className="form-input" placeholder="Repeat Password" ref={passwordRepeatRef} />
+                        <input
+                            type="text"
+                            className="form-input"
+                            placeholder="Repeat Password"
+                            ref={passwordRepeatRef}
+                        />
                     </div>
                 </div>
                 <input className='my-account__form-submit' type="submit" value="Update" />
