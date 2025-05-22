@@ -52,7 +52,7 @@
   {
     "id": "6",
     "name": "Product 6",
-    "price": 50,
+    "price": "150",
     "creator": "Bojan Paz",
     "description": "Sixth book description goes here.",
     "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
