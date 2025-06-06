@@ -11,8 +11,10 @@ html {
 body {
 	background: url('../../assets/images/body.jpg');
 	background-repeat: repeat;
-	background-size: 100% 100%;
+	background-size: contain;
 	font-family: $font-main;
+	overflow-x: hidden;
+	overflow-y: scroll;
 }
 
 .container {
