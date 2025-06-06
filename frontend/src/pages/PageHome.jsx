@@ -4,6 +4,7 @@ import BasicText from "../components/basicText/BasicText";
 import TextFlip from "../components/textFlip/TextFlip";
 import Gallery from "../components/gallery/Gallery";
 import Map from "../components/map/Map";
+import PopSlide from "../components/popSlide/PopSlide";
 
 const PageHome = () => {
     return (
@@ -12,6 +13,7 @@ const PageHome = () => {
             <BookFlip />
             <TextFlip />
             <BasicText />
+            <PopSlide />
             <Gallery />
             <Map />
         </>

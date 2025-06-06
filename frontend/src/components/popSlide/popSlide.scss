@@ -1,0 +1,68 @@
+.pop-slide {
+    padding: 150px 0 120px;
+    overflow: hidden;
+
+    &__slider {
+        position: relative;
+        width: 300px;
+        height: 200px;
+
+        @include mq($lg) {
+            width: 250px;
+            height: 150px;
+        }
+
+        @include mq($md) {
+            margin: 150px auto 0;
+        }
+    }
+
+    &__item {
+        position: absolute;
+        width: 300px;
+        height: 300px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 10px;
+        transition: transform 0.3s ease;
+        user-select: none;
+        opacity: 0.9;
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.34);
+
+        @include mq($lg) {
+            width: 250px;
+            height: 250px;
+        }
+    }
+
+    &__left-text {
+        font-size: 40px;
+        max-width: 500px;
+        
+        @include mq($lg) {
+            font-size: 32px;
+            max-width: 350px;
+        }
+
+        @include mq($md) {
+            width: 100%;
+            text-align: center;
+            margin: 0 auto;
+        }
+    }
+
+    &__item-text {
+        font-size: 20px;
+        font-weight: bold;
+        text-transform: uppercase;
+
+        @include mq($lg) {
+            font-size: 16px;
+        }
+    }
+
+    @include mq($md) {
+        padding: 40px 0 120px;
+    }
+}
