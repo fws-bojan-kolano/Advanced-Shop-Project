@@ -1,5 +1,5 @@
 .pop-slide {
-    padding: 150px 0 250px;
+    padding: 180px;
     overflow: hidden;
 
     &__slider {
@@ -63,6 +63,6 @@
     }
 
     @include mq($md) {
-        padding: 40px 0 120px;
+        padding: 120 0px;
     }
 }

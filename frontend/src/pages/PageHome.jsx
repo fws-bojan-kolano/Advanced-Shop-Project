@@ -12,10 +12,10 @@ const PageHome = () => {
         <>
             <HeroBanner />
             <BookFlip />
+            <Horizontal />
+            <PopSlide />
             <TextFlip />
             <BasicText />
-            <PopSlide />
-            <Horizontal />
             <Gallery />
             <Map />
         </>
