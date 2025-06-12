@@ -51,7 +51,6 @@ export default function Horizontal() {
         return () => {
             clearTimeout(timeoutId);
             ScrollTrigger.getAll().forEach(st => st.kill());
-	        panels.current = [];
         };
     }, []);
 
