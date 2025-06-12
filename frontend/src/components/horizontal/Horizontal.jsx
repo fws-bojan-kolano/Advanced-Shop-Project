@@ -12,7 +12,9 @@ export default function Horizontal() {
     const panelsContainer = useRef();
 
     const createPanelsRefs = (panel, index) => {
-        panels.current[index] = panel;
+        if (panel) {
+            panels.current[index] = panel;
+        }
     };
 
     useEffect(() => {
@@ -49,6 +51,7 @@ export default function Horizontal() {
         return () => {
             clearTimeout(timeoutId);
             ScrollTrigger.getAll().forEach(st => st.kill());
+	        panels.current = [];
         };
     }, []);
 

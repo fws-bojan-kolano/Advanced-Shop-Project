@@ -6,12 +6,14 @@ import Gallery from "../components/gallery/Gallery";
 import Map from "../components/map/Map";
 import PopSlide from "../components/popSlide/PopSlide";
 import Horizontal from "../components/horizontal/Horizontal";
+import Reveal from "../components/reveal/Reveal";
 
 const PageHome = () => {
     return (
         <>
             <HeroBanner />
             <BookFlip />
+            <Reveal />
             <Horizontal />
             <PopSlide />
             <TextFlip />
