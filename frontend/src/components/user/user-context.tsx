@@ -1,5 +1,4 @@
 import { createContext, useContext, useEffect, useState } from "react";
-
 import type { UserContextType } from "../../interfaces/UserContextType";
 import type { User } from "../../interfaces/User";
 import type { UserContextProviderProps } from "../../interfaces/UserContextProviderProps";
@@ -7,17 +6,16 @@ import type { UserContextProviderProps } from "../../interfaces/UserContextProvi
 export const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const useUser = () => {
-  const context = useContext(UserContext);
-  if (!context) {
-    throw new Error("useUser must be used within a UserContextProvider");
-  }
-  return context;
+	const context = useContext(UserContext);
+	if (!context) {
+		throw new Error("useUser must be used within a UserContextProvider");
+	}
+	return context;
 };
-
 
 export default function UserContextProvider({ children }: UserContextProviderProps) {
 	const [user, setUser] = useState<User | null>(() => {
-		const storedUser = localStorage.getItem('user');
+		const storedUser = localStorage.getItem("user");
 		return storedUser ? (JSON.parse(storedUser) as User) : null;
 	});
 
