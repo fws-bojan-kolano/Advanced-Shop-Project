@@ -4,4 +4,5 @@ export interface User {
     password: string;
     role: string;
     email: string;
+    cart: any[]; // TODO: replace any[] with Product[]
 }

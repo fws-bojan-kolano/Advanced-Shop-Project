@@ -1,30 +1,32 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
-import { UserContextType } from "../../interfaces/UserContextType";
-import User from "../../interfaces/User";
+import type { UserContextType } from "../../interfaces/UserContextType";
+import type { User } from "../../interfaces/User";
+import type { UserContextProviderProps } from "../../interfaces/UserContextProviderProps";
 
-export const UserContext = createContext({
-	user: null,
-	setUser: () => {},
-	updateUserCart: () => {},
-	productsMegamenu: [],
-	setProducts: () => {}
-});
+export const UserContext = createContext<UserContextType | undefined>(undefined);
 
-export const useUser = () => useContext(UserContext);
+export const useUser = () => {
+  const context = useContext(UserContext);
+  if (!context) {
+    throw new Error("useUser must be used within a UserContextProvider");
+  }
+  return context;
+};
 
-export default function UserContextProvider({ children }) {
-	const [user, setUser] = useState(() => {
+
+export default function UserContextProvider({ children }: UserContextProviderProps) {
+	const [user, setUser] = useState<User | null>(() => {
 		const storedUser = localStorage.getItem('user');
-		return storedUser ? JSON.parse(storedUser) : null;
+		return storedUser ? (JSON.parse(storedUser) as User) : null;
 	});
 
-	const [productsMegamenu, setProductsMegamenu] = useState([]);
+	const [productsMegamenu, setProductsMegamenu] = useState<any[]>([]);
 
 	useEffect(() => {
-		const storedUser = JSON.parse(localStorage.getItem("user"));
+		const storedUser = localStorage.getItem("user");
 		if (storedUser) {
-			setUser(storedUser);
+			setUser(JSON.parse(storedUser) as User);
 		}
 	}, []);
 
@@ -36,7 +38,7 @@ export default function UserContextProvider({ children }) {
 		}
 	}, [user]);
 
-	const updateUserCart = (updatedCart) => {
+	const updateUserCart = (updatedCart: User["cart"]) => {
 		if(user) {
 			const updatedUser = { ...user, cart: updatedCart };
 			setUser(updatedUser); // Only update if the cart has changed
