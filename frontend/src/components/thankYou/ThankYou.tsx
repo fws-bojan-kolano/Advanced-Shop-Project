@@ -1,11 +1,11 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { UserContext } from "../user/user-context";
+import { UserContext, UserContextType } from "../user/user-context";
 import { useCart } from '../cart/cart-context';
 import './thankYou.scss';
 import { useEffect, useContext, useState } from 'react';
 
 export default function ThankYou() {
-    const { user, setUser } = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext) as UserContextType;
     const {setCart} = useCart();
     const navigate = useNavigate();
     const [orderDetails, setOrderDetails] = useState({});

@@ -9,24 +9,24 @@ export default function AddNewProduct() {
     const [showSuccess, setShowSuccess] = useState(false);
     const [recommended, setRecommended] = useState('yes');
     const {setProductsMegamenu} = useUser();
-    const productNameRef = useRef(null);
-    const productPriceRef = useRef(null);
-    const productCreatorRef = useRef(null);
-    const productDescriptionRef = useRef(null)
-    const productImageRef = useRef(null);
-    const productCategoryRef = useRef(null);
+    const productNameRef = useRef<HTMLInputElement>(null);
+    const productPriceRef = useRef<HTMLInputElement>(null);
+    const productCreatorRef = useRef<HTMLInputElement>(null);
+    const productDescriptionRef = useRef<HTMLInputElement>(null);
+    const productImageRef = useRef<HTMLInputElement>(null);
+    const productCategoryRef = useRef<HTMLInputElement>(null);
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setShowLoader(true);
 
-        const productNameValue = productNameRef.current.value;
-        const productPriceValue = productPriceRef.current.value;
-        const productCreatorValue = productCreatorRef.current.value;
-        const productImageValue = productImageRef.current.value;
-        const productDescriptionValue = productDescriptionRef.current.value;
+        const productNameValue = productNameRef.current ? productNameRef.current.value : '';
+        const productPriceValue = productPriceRef.current ? productPriceRef.current.value : '';
+        const productCreatorValue = productCreatorRef.current ? productCreatorRef.current.value : '';
+        const productImageValue = productImageRef.current ? productImageRef.current.value : '';
+        const productDescriptionValue = productDescriptionRef.current ? productDescriptionRef.current.value : '';
         const recommendedValue = recommended;
-        const productCategoryValue = productCategoryRef.current.value;
+        const productCategoryValue = productCategoryRef.current ? productCategoryRef.current.value : '';
 
         try {
             const response = await fetch(`${SERVER}products/new`, {
@@ -54,12 +54,12 @@ export default function AddNewProduct() {
                 const updatedProducts = await fetch(`${SERVER}products`).then(res => res.json());
                 setProductsMegamenu(updatedProducts);
 
-                productNameRef.current.value = '';
-                productPriceRef.current.value = '';
-                productCreatorRef.current.value = '';
-                productImageRef.current.value = '';
-                productDescriptionRef.current.value = '';
-                productCategoryRef.current.value = '';
+                if (productNameRef.current) productNameRef.current.value = '';
+                if (productPriceRef.current) productPriceRef.current.value = '';
+                if (productCreatorRef.current) productCreatorRef.current.value = '';
+                if (productImageRef.current) productImageRef.current.value = '';
+                if (productDescriptionRef.current) productDescriptionRef.current.value = '';
+                if (productCategoryRef.current) productCategoryRef.current.value = '';
             } else {
                 setShowLoader(false);
                 setShowError(true);

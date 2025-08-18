@@ -6,9 +6,9 @@ import './reveal.scss';
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Reveal() {
-    const revealContainer = useRef()
-    const leftBox = useRef();;
-    const rightBox = useRef();
+    const revealContainer = useRef<HTMLDivElement>(null);
+    const leftBox = useRef<HTMLDivElement>(null);
+    const rightBox = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const setupGSAP = () => {

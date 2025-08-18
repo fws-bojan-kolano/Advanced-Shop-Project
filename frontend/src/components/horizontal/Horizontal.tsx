@@ -8,10 +8,10 @@ import "./horizontal.scss";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Horizontal() {
-    const panels = useRef([]);
-    const panelsContainer = useRef();
+    const panels = useRef<Array<HTMLElement | null>>([]);
+    const panelsContainer = useRef<HTMLDivElement>(null);
 
-    const createPanelsRefs = (panel, index) => {
+    const createPanelsRefs = (panel: HTMLElement | null, index: number) => {
         if (panel) {
             panels.current[index] = panel;
         }
@@ -42,7 +42,7 @@ export default function Horizontal() {
                         delay: 0.1,
                         ease: "power1.inOut"
                     },
-                    end: () => "+=" + panelsContainer.current.offsetWidth,
+                    end: () => "+=" + (panelsContainer.current?.offsetWidth ?? 0),
                 }
             });
         };
