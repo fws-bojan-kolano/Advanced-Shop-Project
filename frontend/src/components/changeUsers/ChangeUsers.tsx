@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from 'react';
 import { SERVER } from '../../utils/utils';
 import './changeUsers.scss';
-import { UserContext } from '../user/user-context';
+import { UserContext, UserContextType } from '../user/user-context';
 
 export default function ChangeUsers() {
     const [showError, setShowError] = useState(false);
@@ -12,7 +12,7 @@ export default function ChangeUsers() {
     const [users, setUsers] = useState([]);
     const [editingUserId, setEditingUserId] = useState(null);
     const [editedUser, setEditedUser] = useState(null);
-    const {user} = useContext(UserContext);
+    const {user} = useContext(UserContext) as UserContextType;
 
     useEffect(() => {
         const fetchUsers = async () => {

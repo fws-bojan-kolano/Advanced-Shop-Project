@@ -1,13 +1,13 @@
 import { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { UserContext } from '../user/user-context';
+import { UserContext, UserContextType } from '../user/user-context';
 import { SERVER } from '../../utils/utils';
 import './header.scss';
 import { useCart } from '../cart/cart-context';
 import Megamenu from '../megamenu/Megamenu';
 
 export default function Header() {
-    const {user} = useContext(UserContext);
+    const {user} = useContext(UserContext) as UserContextType;
     const {cart} = useCart();
     const location = useLocation();
     const [searchTerm, setSearchTerm] = useState('');

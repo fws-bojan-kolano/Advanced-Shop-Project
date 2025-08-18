@@ -1,5 +1,8 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
+import { UserContextType } from "../../interfaces/UserContextType";
+import User from "../../interfaces/User";
+
 export const UserContext = createContext({
 	user: null,
 	setUser: () => {},
