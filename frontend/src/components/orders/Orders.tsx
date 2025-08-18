@@ -1,10 +1,10 @@
 import { useContext } from 'react';
-import { UserContext } from '../user/user-context';
+import { UserContext, UserContextType } from '../user/user-context';
 import './orders.scss';
 import { Link } from 'react-router-dom';
 
 export default function Orders() {
-    const { user } = useContext(UserContext);
+    const { user } = useContext(UserContext) as UserContextType;
 
     return (
         <div className="orders">

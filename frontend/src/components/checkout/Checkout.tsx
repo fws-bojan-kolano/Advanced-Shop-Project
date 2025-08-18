@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState, useContext } from 'react';
 import { useCart } from '../cart/cart-context';
 import { Link, useNavigate } from "react-router-dom";
-import { UserContext } from "../user/user-context";
+import { UserContext, UserContextType } from "../user/user-context";
 import './checkout.scss';
 import { SERVER } from '../../utils/utils';
 
@@ -25,7 +25,7 @@ export default function Checkout() {
         zip: '',
         company: ''
     });
-    const { user, setUser } = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext) as UserContextType;
     const {cart} = useCart();
     const cartItems = cart.filter(item => item.quantity > 0);
     const subtotal = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);

@@ -25,7 +25,7 @@ export default function Products() {
         creators: [],
         recommended: null
     });
-    const productsRef = useRef(null);
+    const productsRef = useRef<HTMLInputElement>(null);
     const {categoryName} = useParams();
     const location = useLocation();
     const query = new URLSearchParams(location.search);

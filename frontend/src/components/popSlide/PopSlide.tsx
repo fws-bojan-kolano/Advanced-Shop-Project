@@ -5,7 +5,7 @@ import './popSlide.scss';
 const offset = 20;
 
 export default function PopSlide() {
-    const sliderRef = useRef(null);
+    const sliderRef = useRef<HTMLUListElement>(null);
     const [items, setItems] = useState([
         { text: 'Click Here!', color: '#FF6B6B' },
         { text: 'Click Again!', color: '#6BCB77' },
@@ -22,13 +22,17 @@ export default function PopSlide() {
         const currentItems = sliderRef.current.children;
         const firstEl = currentItems[0];
 
+        if(!firstEl) return;
+
         gsap.to(firstEl, {
             opacity: 0,
             y: 100,
             duration: 0.4,
             ease: "power2.out",
             onComplete: () => {
-                sliderRef.current.appendChild(firstEl);
+                if (sliderRef.current) {
+                    sliderRef.current.appendChild(firstEl);
+                }
 
                 gsap.set(firstEl, {
                     opacity: 0,
@@ -41,13 +45,16 @@ export default function PopSlide() {
 
                 for (let i = 0; i < items.length; i++) {
                     const el = currentItems[i];
-                    gsap.to(el, {
-                        left: `${i * offset}px`,
-                        top: `${-i * offset}px`,
-                        zIndex: items.length - i,
-                        duration: 0.8,
-                        ease: "bounce.out",
-                    });
+
+                    if(el) {
+                        gsap.to(el, {
+                            left: `${i * offset}px`,
+                            top: `${-i * offset}px`,
+                            zIndex: items.length - i,
+                            duration: 0.8,
+                            ease: "bounce.out",
+                        });
+                    }
                 }
 
                 gsap.to(firstEl, {
@@ -56,7 +63,7 @@ export default function PopSlide() {
                     duration: 0.4,
                     ease: "power2.out",
                     onComplete: () => {
-                        setItems(prev => [...prev.slice(1), prev[0]]);
+                        setItems(prev => [...prev.slice(1), prev[0]!]);
                         setIsAnimating(false);
                     }
                 });

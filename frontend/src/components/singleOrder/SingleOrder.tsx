@@ -2,11 +2,11 @@
 import { Link, useParams } from 'react-router-dom';
 import './singleOrder.scss';
 import { useContext } from 'react';
-import { UserContext } from '../user/user-context';
+import { UserContext, UserContextType } from '../user/user-context';
 
 export default function SingleOrder() {
     const {orderId} = useParams();
-    const {user} = useContext(UserContext);
+    const {user} = useContext(UserContext) as UserContextType;
     const order = user?.orders?.find(order => order.orderId === orderId);
 
     return (

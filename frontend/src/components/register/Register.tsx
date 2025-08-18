@@ -1,6 +1,6 @@
 import { useState, useRef, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from '../user/user-context';
+import { UserContext, UserContextType } from '../user/user-context';
 import { SERVER } from "../../utils/utils";
 import "./register.scss";
 
@@ -9,13 +9,13 @@ export default function Register() {
     const [showLoader, setShowLoader] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
     const [role, setRole] = useState('admin');
-    const {setUser} = useContext(UserContext);
+    const {setUser} = useContext(UserContext) as UserContextType;
     const navigate = useNavigate();
-    const usernameRef = useRef(null);
-    const passwordRef = useRef(null);
-    const emailRef = useRef(null);
+    const usernameRef = useRef<HTMLInputElement>(null);
+    const passwordRef = useRef<HTMLInputElement>(null);
+    const emailRef = useRef<HTMLInputElement>(null);
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setShowLoader(true);
 

@@ -1,5 +1,5 @@
 import { useContext, useState, useRef } from "react";
-import { UserContext } from "../user/user-context";
+import { UserContext, UserContextType } from "../user/user-context";
 import './myAccount.scss';
 import { SERVER } from "../../utils/utils";
 
@@ -9,13 +9,13 @@ export default function MyAccount() {
     const [showErrorUsername, setShowErrorUsername] = useState(false);
     const [showErrorEmail, setShowErrorEmail] = useState(false);
     const [showErrorPassword, setShowErrorPassword] = useState(false);
-    const { user, setUser } = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext) as UserContextType;
     const [username, setUsername] = useState(user ? user.username : '');
     const [email, setEmail] = useState(user ? user.email : '');
-    const passwordRef = useRef(null);
-    const passwordRepeatRef = useRef(null);
+    const passwordRef = useRef<HTMLInputElement>(null);
+    const passwordRepeatRef = useRef<HTMLInputElement>(null);
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setShowLoader(true);
         setShowSuccess(false);
@@ -38,8 +38,8 @@ export default function MyAccount() {
             setShowLoader(false);
         }
 
-        const passwordValue = passwordRef.current.value;
-        const passwordRepeatValue = passwordRepeatRef.current.value;
+        const passwordValue = passwordRef.current ? passwordRef.current.value : '';
+        const passwordRepeatValue = passwordRepeatRef.current ? passwordRepeatRef.current.value : '';
         let updatedData = {id: user.id};
         if(username !== user.username) updatedData.username = username;
         if(email !== user.email) updatedData.email = email;
@@ -89,8 +89,8 @@ export default function MyAccount() {
                     email: result.user.email,
                     password: result.user.password
                 }));
-                passwordRef.current.value = '';
-                passwordRepeatRef.current.value = '';
+                if(passwordRef.current) passwordRef.current.value = '';
+                if(passwordRepeatRef.current) passwordRepeatRef.current.value = '';
                 setShowLoader(false);
                 setShowErrorUsername(false);
                 setShowErrorEmail(false);

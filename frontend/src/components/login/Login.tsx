@@ -12,15 +12,15 @@ export default function Login() {
     const {setUser} = useUser();
     const {setCart} = useCart();
     const navigate = useNavigate();
-    const usernameRef = useRef(null);
-    const passwordRef = useRef(null);
+    const usernameRef = useRef<HTMLInputElement>(null);
+    const passwordRef = useRef<HTMLInputElement>(null);
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setShowLoader(true);
 
-        const inputUsernameValue = usernameRef.current.value;
-        const inputPasswordValue = passwordRef.current.value;
+        const inputUsernameValue = usernameRef.current ? usernameRef.current.value : '';
+        const inputPasswordValue = passwordRef.current ? passwordRef.current.value : '';
 
         try {
             const response = await fetch(`${SERVER}users/login`, {
@@ -40,8 +40,8 @@ export default function Login() {
                 setCart(result.user.cart || []);
                 setShowError(false);
                 setShowSuccess(true);
-                usernameRef.current.value = '';
-                passwordRef.current.value = '';
+                if (usernameRef.current) usernameRef.current.value = '';
+                if (passwordRef.current) passwordRef.current.value = '';
                 setShowLoader(false);
                 navigate('/dashboard');
             } else {
