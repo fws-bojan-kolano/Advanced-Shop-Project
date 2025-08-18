@@ -2,18 +2,25 @@ import './dashboard.scss';
 import { useContext, useState } from "react";
 import MyAccount from '../myAccount/MyAccount';
 import ChangeUsers from '../changeUsers/ChangeUsers';
-import { UserContext } from '../user/user-context';
+import { UserContext, UserContextType } from '../user/user-context';
 import AddNewProduct from "../addNewProduct/AddNewProduct";
 import ChangeProduct from "../changeProduct/ChangeProduct";
-import { useLocation } from 'react-router-dom';
+import { useLocation, Location } from 'react-router-dom';
 import Orders from '../orders/Orders';
 
 export default function Dashboard() {
-    const {user, setUser} = useContext(UserContext);
-    const location = useLocation();
-    const [activeSection, setActiveSection] = useState(location.state?.section || 'myAccount');
+    type Section = 'myAccount' | 'orders' | 'changeUsers' | 'addNewProduct' | 'changeProduct';
+    type DashboardLocationState = {
+        section?: Section;
+    }
 
-    const handleSectionClick = (section) => {
+    const {user, setUser} = useContext(UserContext) as UserContextType;
+    const location = useLocation() as Location & { state?: DashboardLocationState };
+
+    const initialSection: Section = location.state?.section || 'myAccount';
+    const [activeSection, setActiveSection] = useState<Section>(initialSection);
+
+    const handleSectionClick = (section: Section) => {
         setActiveSection(section);
     }
 
