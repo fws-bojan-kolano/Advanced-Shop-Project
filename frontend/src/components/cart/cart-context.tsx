@@ -2,7 +2,7 @@ import { createContext, useState, useContext, useEffect } from "react";
 import { useUser } from "../user/user-context";
 import { SERVER } from "../../utils/utils";
 
-const CartContext = createContext();
+export const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const useCart = () => useContext(CartContext);
 
