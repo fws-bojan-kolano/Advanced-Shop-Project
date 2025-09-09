@@ -5,9 +5,10 @@ import ChangeUsers from '../changeUsers/ChangeUsers';
 import { UserContext } from '../user/user-context';
 import AddNewProduct from "../addNewProduct/AddNewProduct";
 import ChangeProduct from "../changeProduct/ChangeProduct";
-import { useLocation, Location } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import Orders from '../orders/Orders';
-import type { UserContextType } from '../user/user-context';
+import type { UserContextType } from '../../interfaces/UserContextType';
+import type { Location } from 'react-router-dom';
 
 export default function Dashboard() {
     type Section = 'myAccount' | 'orders' | 'changeUsers' | 'addNewProduct' | 'changeProduct';
@@ -41,17 +42,17 @@ export default function Dashboard() {
                         <li className={`dashboard__content-list-item ${activeSection === 'orders' ? 'active' : ''}`}>
                             <span className="dashboard__content-list-item-link" onClick={() => handleSectionClick('orders')}>Orders</span>
                         </li>
-                        {user.role === 'admin' && (
+                        {user?.role === 'admin' && (
                             <li className={`dashboard__content-list-item ${activeSection === 'changeUsers' ? 'active' : ''}`}>
                                 <span className="dashboard__content-list-item-link" onClick={() => handleSectionClick('changeUsers')}>Change Users</span>
                             </li>
                         )}
-                        {user.role === 'admin' && (
+                        {user?.role === 'admin' && (
                             <li className={`dashboard__content-list-item ${activeSection === 'addNewProduct' ? 'active' : ''}`}>
                                 <span className="dashboard__content-list-item-link" onClick={() => handleSectionClick('addNewProduct')}>Add New Product</span>
                             </li>
                         )}
-                        {user.role === 'admin' && (
+                        {user?.role === 'admin' && (
                             <li className={`dashboard__content-list-item ${activeSection === 'changeProduct' ? 'active' : ''}`}>
                                 <span className="dashboard__content-list-item-link" onClick={() => handleSectionClick('changeProduct')}>Change Product</span>
                             </li>

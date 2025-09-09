@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useState, useContext } from 'react';
 import { useCart } from '../cart/cart-context';
 import { Link, useNavigate } from "react-router-dom";
-import { UserContext, UserContextType } from "../user/user-context";
+import { UserContext } from "../user/user-context";
 import './checkout.scss';
 import { SERVER } from '../../utils/utils';
 import type { User } from '../../interfaces/User';
+import type { UserContextType } from '../../interfaces/UserContextType';
 
 export default function Checkout() {
     const [address, setAddress] = useState('');
