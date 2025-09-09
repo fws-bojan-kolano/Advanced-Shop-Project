@@ -1,9 +1,11 @@
 import { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { UserContext, UserContextType } from '../user/user-context';
+import { UserContext } from '../user/user-context';
+import type { UserContextType } from '../../interfaces/UserContextType';
 import { SERVER } from '../../utils/utils';
 import './header.scss';
 import { useCart } from '../cart/cart-context';
+import type { Product } from '../../interfaces/Product';
 import Megamenu from '../megamenu/Megamenu';
 
 export default function Header() {
@@ -11,7 +13,7 @@ export default function Header() {
     const {cart} = useCart();
     const location = useLocation();
     const [searchTerm, setSearchTerm] = useState('');
-    const [results, setResults] = useState([]);
+    const [results, setResults] = useState<Product[]>([]);
     const [showDropdown, setShowDropdown] = useState(false);
     const navigate = useNavigate();
     const totalCartItems = cart.reduce((total, item) => total + item.quantity, 0);
@@ -38,7 +40,7 @@ export default function Header() {
         setShowDropdown(false);
     }
 
-    const handleResultClick = (id) => {
+    const handleResultClick = (id: string | number) => {
         navigate(`/product/${id}`);
         setShowDropdown(false);
     }
@@ -73,7 +75,7 @@ export default function Header() {
                             />
                             {showDropdown && results.length > 0 && (
                                 <div className="header__search-dropdown">
-                                    {results.map((product) => (
+                                    {results.map((product: Product) => (
                                         <div
                                             key={product.id}
                                             className="header__search-item"

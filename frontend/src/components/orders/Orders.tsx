@@ -1,5 +1,6 @@
 import { useContext } from 'react';
-import { UserContext, UserContextType } from '../user/user-context';
+import { UserContext } from '../user/user-context';
+import type { UserContextType } from '../../interfaces/UserContextType';
 import './orders.scss';
 import { Link } from 'react-router-dom';
 

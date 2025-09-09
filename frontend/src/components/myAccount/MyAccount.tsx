@@ -1,5 +1,6 @@
 import { useContext, useState, useRef } from "react";
-import { UserContext, UserContextType } from "../user/user-context";
+import { UserContext } from "../user/user-context";
+import type { UserContextType } from "../../interfaces/UserContextType";
 import './myAccount.scss';
 import { SERVER } from "../../utils/utils";
 
@@ -40,9 +41,9 @@ export default function MyAccount() {
 
         const passwordValue = passwordRef.current ? passwordRef.current.value : '';
         const passwordRepeatValue = passwordRepeatRef.current ? passwordRepeatRef.current.value : '';
-        let updatedData = {id: user.id};
-        if(username !== user.username) updatedData.username = username;
-        if(email !== user.email) updatedData.email = email;
+        let updatedData = {id: user?.id};
+        if(username !== user?.username) updatedData.username = username;
+        if(email !== user?.email) updatedData.email = email;
 
         if(!passwordValue.trim()) {
             setShowErrorPassword(true);

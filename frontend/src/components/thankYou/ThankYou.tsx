@@ -1,19 +1,22 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { UserContext, UserContextType } from "../user/user-context";
+import { UserContext } from "../user/user-context";
 import { useCart } from '../cart/cart-context';
+import type { UserContextType } from '../../interfaces/UserContextType';
 import './thankYou.scss';
 import { useEffect, useContext, useState } from 'react';
+import type { Order } from '../../interfaces/Order';
 
 export default function ThankYou() {
     const { user, setUser } = useContext(UserContext) as UserContextType;
     const {setCart} = useCart();
     const navigate = useNavigate();
-    const [orderDetails, setOrderDetails] = useState({});
+    const [orderDetails, setOrderDetails] = useState<Order | null>(null);
 
     useEffect(() => {
-        if(user?.order) {
-            const {order} = user;
-            setOrderDetails({...order});
+        if(user?.orders && user.orders.length > 0) {
+            const latestOrder = user.orders[user.orders.length - 1];
+            if (!latestOrder) return;
+            setOrderDetails(latestOrder);
 			localStorage.removeItem('cart');
             setCart([]);
 
