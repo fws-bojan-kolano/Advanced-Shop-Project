@@ -1,12 +1,19 @@
 import React from 'react';
-import { preventInvalidNumberInput } from "../../utils/inputValidation";
+import { preventInvalidNumberInput } from '../../utils/inputValidation';
 import { useUser } from '../user/user-context';
 import { Link } from 'react-router-dom';
 
-export default function PositiveNumberInput({ value, onChange, onIncrement, onDecrement }) {
+interface PositiveNumberInputProps {
+    value: number;
+    onChange: (newValue: number | string) => void;
+    onIncrement?: () => void;
+    onDecrement?: () => void;
+}
+
+export default function PositiveNumberInput({ value, onChange, onIncrement, onDecrement }: PositiveNumberInputProps) {
     const { user } = useUser();
 
-    const handleChange = (e) => onChange(e.target.value);
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => onChange(e.target.value);
 
     const handleIncrement = () => {
         if (onIncrement) onIncrement();
@@ -16,9 +23,11 @@ export default function PositiveNumberInput({ value, onChange, onIncrement, onDe
         if (onDecrement) onDecrement();
     };
 
-    const handleClassChange = (e) => {
-        const clickedItemParent = e.target.parentNode;
-        clickedItemParent.classList.add('active');
+    const handleClassChange = (e: React.MouseEvent<HTMLParagraphElement>) => {
+        const clickedItemParent = e.currentTarget.parentNode;
+        if (clickedItemParent instanceof HTMLElement) {
+            clickedItemParent.classList.add('active');
+        }
     }
 
     if (!user) {

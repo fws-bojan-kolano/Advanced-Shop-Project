@@ -17,6 +17,7 @@ export default function AddNewProduct() {
 
         const formData = new FormData(event.currentTarget);
         const newProduct: Product = {
+            id: '',
             name: formData.get('name') as string,
             price: Number(formData.get('price') as string),
             creator: formData.get('creator') as string,

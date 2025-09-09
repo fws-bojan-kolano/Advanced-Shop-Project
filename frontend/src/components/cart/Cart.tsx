@@ -1,22 +1,24 @@
 import { useCart } from "./cart-context";
 import { Link } from "react-router-dom";
 import PositiveNumberInput from "../common/PositiveNumberInput";
+import type { CartItem } from "../../interfaces/CartItem";
 import './cart.scss';
 
 export default function Cart() {
     const {cart, addToCart, removeFromCart} = useCart();
-    const cartItems = cart?.filter(item => item.quantity > 0);
+    const cartItems: CartItem[] = cart.filter(item => item.quantity > 0);
 
-    const handleIncrement = (product) => addToCart(product, product.quantity + 1);
-    const handleDecrement = (product) => removeFromCart(product.id, product.quantity - 1);
+    const handleIncrement = (product: CartItem) => addToCart(product, product.quantity + 1);
+    const handleDecrement = (product: CartItem) => removeFromCart(product.id, product.quantity - 1);
 
-    const handleChangeQuantity = (product, newQuantity) => {
-        if (isNaN(newQuantity) || newQuantity === '') return;
+    const handleChangeQuantity = (product: CartItem, newQuantity: number | string) => {
+        const value = Number(newQuantity);
+        if (isNaN(value) || newQuantity === '') return;
 
         if (newQuantity === 0 || newQuantity === '0') {
             removeFromCart(product.id);
         } else {
-            addToCart(product, newQuantity);
+            addToCart(product, value);
         }
     };
 

@@ -2,11 +2,11 @@ import { createContext, useState, useContext, useEffect } from "react";
 import { useUser } from "../user/user-context";
 import { SERVER } from "../../utils/utils";
 import type { CartContextType } from "../../interfaces/CartContextType";
-import type { Cart } from "../../interfaces/Cart";
+import type { CartItem } from "../../interfaces/CartItem";
 
 export const CartContext = createContext<CartContextType | undefined>(undefined);
 
-export const useCart = () => {
+export const useCart = (): CartContextType => {
     const context = useContext(CartContext);
     if (!context) {
         throw new Error("useCart must be used within a CartContextProvider");
@@ -20,14 +20,21 @@ interface CartContextProviderProps {
 
 export const CartContextProvider = ({ children }: CartContextProviderProps) => {
 	const { user, updateUserCart } = useUser();
-	const [cart, setCart] = useState<Cart>(user?.cart || []);
+	const [cart, setCart] = useState<CartItem[]>(user?.cart || []);
 
 	useEffect(() => {
 		if (user?.cart) {
-			setCart(user.cart);
+			setCart(user?.cart);
 		} else {
-			const storedCart = JSON.parse(localStorage.getItem('cart'));
-			if(storedCart) setCart(storedCart);//Load cart from localstorage if no cart is in user data
+			const storedCart = localStorage.getItem('cart');
+			if(storedCart) {
+				try {
+					const parsed: CartItem[] = JSON.parse(storedCart);
+					setCart(parsed);
+				} catch (error) {
+    				console.error("Failed to parse cart from localStorage");
+				}
+			}
 		}
 	}, [user]);
 
@@ -39,7 +46,7 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
 		}
 	});
 
-	const updateCartOnServer = async (cart: Cart[]) => {
+	const updateCartOnServer = async (cart: CartItem[]) => {
 		if(user) {
 			try {
 				const response = await fetch(`${SERVER}users/cart`, {
@@ -49,7 +56,7 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
 					},
 					body: JSON.stringify({
 						id: user.id,
-						cart
+						cart: cart
 					})
 				})
 
@@ -65,11 +72,11 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
 		}
 	};
 
-  	const addToCart = (product: Cart, newQuantity: number) => {
+  	const addToCart = (product: CartItem, newQuantity: number) => {
 		const value = +newQuantity;
 		setCart((prevCart) => {
 			const existingProduct = prevCart.find(item => item.id === product.id);
-			let updatedCart: Cart[];
+			let updatedCart: CartItem[];
 
 			if (existingProduct) {
 				updatedCart = prevCart.map(item => item.id === product.id ? {
@@ -87,7 +94,7 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
 
   	const removeFromCart = (productId: string | number, newQuantity? :number | null) => {
 		setCart((prevCart) => {
-			let updatedCart: Cart[];
+			let updatedCart: CartItem[];
 			if(newQuantity === 0 || newQuantity === null || newQuantity === undefined) {
 				updatedCart = prevCart.filter(item => item.id !== productId);
 			} else {
