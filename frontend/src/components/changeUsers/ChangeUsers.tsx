@@ -17,12 +17,14 @@ export default function ChangeUsers() {
     const {user} = useContext(UserContext) as UserContextType;
 
     useEffect(() => {
+        if(!user) return;
+
         const fetchUsers = async () => {
             try {
                 const response = await fetch(`${SERVER}users`, {method: "GET"});
                 if(!response.ok) throw new Error("Failed to fetch users!");
 
-                const data = await response.json();
+                const data: { users: User[] } = await response.json();
                 const filteredUsers = data.users.filter(u => u.id !== user.id);//Omit the current logged in user
 
                 setUsers(filteredUsers);
@@ -34,7 +36,7 @@ export default function ChangeUsers() {
         };
 
         fetchUsers();
-    }, [user.id]);
+    }, [user?.id]);
 
     const handleRemove = async (userId: string) => {
         setEditingUserId(null);
@@ -85,12 +87,21 @@ export default function ChangeUsers() {
         event.preventDefault();
         setShowLoader(true);
 
-        const payload: Partial<User> = {};
-        Object.entries(editedUser).forEach(([key, value]) => {
-            if(value.trim() !== "") {
-                payload[key] = value;
+        function assignIfValid<T extends object>(
+            target: Partial<T>,
+            key: keyof T,
+            value: unknown
+        ) {
+            if (typeof value === "string" && value.trim() === "") return;
+            if (typeof value === "string" || typeof value === "number" || typeof value === "boolean") {
+            target[key] = value as T[keyof T];
             }
-        });
+        }
+
+        const payload: Partial<User> = {};
+        if(editedUser) {
+            (Object.entries(editedUser) as [keyof User, User[keyof User]][]).forEach(([key, value]) => assignIfValid(payload, key, value));
+        }
 
         if(Object.keys(payload).length === 0) {
             setShowErrorChange(true);
