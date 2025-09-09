@@ -1,7 +1,8 @@
 import { useState, useRef, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { UserContext, UserContextType } from '../user/user-context';
-import { SERVER } from "../../utils/utils";
+import { UserContext } from '../user/user-context';
+import { SERVER } from '../../utils/utils';
+import type { UserContextType } from '../../interfaces/UserContextType';
 import "./register.scss";
 
 export default function Register() {
@@ -19,7 +20,7 @@ export default function Register() {
         event.preventDefault();
         setShowLoader(true);
 
-        if(usernameRef?.current.value.trim() === '' || passwordRef?.current.value.trim() === '' || emailRef?.current.value.trim() == '') {
+        if(usernameRef.current?.value.trim() === '' || passwordRef.current?.value.trim() === '' || emailRef.current?.value.trim() === '') {
             setShowLoader(false);
             setShowError(true);
             return;
@@ -30,9 +31,9 @@ export default function Register() {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    username: usernameRef.current.value,
-                    email: emailRef.current.value,
-                    password: passwordRef.current.value,
+                    username: usernameRef.current?.value,
+                    email: emailRef.current?.value,
+                    password: passwordRef.current?.value,
                     role: role
                 }),
             });
@@ -95,7 +96,7 @@ export default function Register() {
                                 checked={role === 'admin'}
                                 onChange={(e) => setRole(e.target.value)}
                             />
-                            <label for="admin">Admin</label>
+                            <label htmlFor="admin">Admin</label>
                         </div>
                         <div className="register__radio-wrapper-item">
                             <input
@@ -106,7 +107,7 @@ export default function Register() {
                                 checked={role === 'user'}
                                 onChange={(e) => setRole(e.target.value)}
                             />
-                            <label for="user">User</label>
+                            <label htmlFor="user">User</label>
                         </div>
                     </div>
                     <input

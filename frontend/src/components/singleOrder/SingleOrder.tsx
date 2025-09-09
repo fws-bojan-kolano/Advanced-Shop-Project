@@ -2,7 +2,8 @@
 import { Link, useParams } from 'react-router-dom';
 import './singleOrder.scss';
 import { useContext } from 'react';
-import { UserContext, UserContextType } from '../user/user-context';
+import { UserContext } from '../user/user-context';
+import type { UserContextType } from '../../interfaces/UserContextType';
 
 export default function SingleOrder() {
     const {orderId} = useParams();
@@ -37,7 +38,7 @@ export default function SingleOrder() {
                                                                                 className={`single-order__item-list ${itemKey === 'id' ? 'single-order__item-id' : ''}`}
                                                                                 key={itemKey}>
                                                                                     <strong>{itemKey.replace(/^./, str => str.toUpperCase())}: </strong>
-                                                                                    {itemKey.toLocaleLowerCase().includes('image') ? (
+                                                                                    {itemKey.toLocaleLowerCase().includes('image') && typeof itemValue === 'string' ? (
                                                                                         <Link to={`/product/${item.id}`}>
                                                                                             <img src={itemValue} alt={itemKey} className='single-order__item-image' />
                                                                                         </Link>
