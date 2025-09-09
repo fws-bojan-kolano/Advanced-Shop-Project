@@ -1,14 +1,26 @@
 import { createContext, useState, useContext, useEffect } from "react";
 import { useUser } from "../user/user-context";
 import { SERVER } from "../../utils/utils";
+import type { CartContextType } from "../../interfaces/CartContextType";
+import type { Cart } from "../../interfaces/Cart";
 
 export const CartContext = createContext<CartContextType | undefined>(undefined);
 
-export const useCart = () => useContext(CartContext);
+export const useCart = () => {
+    const context = useContext(CartContext);
+    if (!context) {
+        throw new Error("useCart must be used within a CartContextProvider");
+    }
+    return context;
+};
 
-export const CartContextProvider = ({ children }) => {
+interface CartContextProviderProps {
+	children: React.ReactNode;
+}
+
+export const CartContextProvider = ({ children }: CartContextProviderProps) => {
 	const { user, updateUserCart } = useUser();
-	const [cart, setCart] = useState(user?.cart || []);
+	const [cart, setCart] = useState<Cart>(user?.cart || []);
 
 	useEffect(() => {
 		if (user?.cart) {
@@ -27,7 +39,7 @@ export const CartContextProvider = ({ children }) => {
 		}
 	});
 
-	const updateCartOnServer = async (cart) => {
+	const updateCartOnServer = async (cart: Cart[]) => {
 		if(user) {
 			try {
 				const response = await fetch(`${SERVER}users/cart`, {
@@ -53,11 +65,11 @@ export const CartContextProvider = ({ children }) => {
 		}
 	};
 
-  	const addToCart = (product, newQuantity) => {
+  	const addToCart = (product: Cart, newQuantity: number) => {
 		const value = +newQuantity;
 		setCart((prevCart) => {
 			const existingProduct = prevCart.find(item => item.id === product.id);
-			let updatedCart;
+			let updatedCart: Cart[];
 
 			if (existingProduct) {
 				updatedCart = prevCart.map(item => item.id === product.id ? {
@@ -73,9 +85,9 @@ export const CartContextProvider = ({ children }) => {
 		});
 	};
 
-  	const removeFromCart = (productId, newQuantity = null) => {
+  	const removeFromCart = (productId: string | number, newQuantity? :number | null) => {
 		setCart((prevCart) => {
-			let updatedCart;
+			let updatedCart: Cart[];
 			if(newQuantity === 0 || newQuantity === null || newQuantity === undefined) {
 				updatedCart = prevCart.filter(item => item.id !== productId);
 			} else {

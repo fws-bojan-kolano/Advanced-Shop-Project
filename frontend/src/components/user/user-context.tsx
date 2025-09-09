@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import type { UserContextType } from "../../interfaces/UserContextType";
 import type { User } from "../../interfaces/User";
 import type { UserContextProviderProps } from "../../interfaces/UserContextProviderProps";
+import type { Product } from "../../interfaces/Product";
 
 export const UserContext = createContext<UserContextType | undefined>(undefined);
 
@@ -19,7 +20,7 @@ export default function UserContextProvider({ children }: UserContextProviderPro
 		return storedUser ? (JSON.parse(storedUser) as User) : null;
 	});
 
-	const [productsMegamenu, setProductsMegamenu] = useState<any[]>([]);
+	const [productsMegamenu, setProductsMegamenu] = useState<Product[]>([]);
 
 	useEffect(() => {
 		const storedUser = localStorage.getItem("user");

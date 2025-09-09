@@ -1,8 +1,7 @@
-import type { User } from "./User";
-
-export interface Cart extends User {
+export interface Cart {
     id: string | number;
     name: string;
     price: number;
+    image?: string;
     quantity: number;
 }
