@@ -1,7 +1,9 @@
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState, useContext, type FormEvent } from 'react';
 import { SERVER } from '../../utils/utils';
 import './changeUsers.scss';
-import { UserContext, UserContextType } from '../user/user-context';
+import { UserContext } from '../user/user-context';
+import type { User } from '../../interfaces/User';
+import type { UserContextType } from '../../interfaces/UserContextType';
 
 export default function ChangeUsers() {
     const [showError, setShowError] = useState(false);
@@ -9,9 +11,9 @@ export default function ChangeUsers() {
     const [showSuccessRemove, setSuccessRemove] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
     const [showLoader, setShowLoader] = useState(false);
-    const [users, setUsers] = useState([]);
-    const [editingUserId, setEditingUserId] = useState(null);
-    const [editedUser, setEditedUser] = useState(null);
+    const [users, setUsers] = useState<User[]>([]);
+    const [editingUserId, setEditingUserId] = useState<String | null>(null);
+    const [editedUser, setEditedUser] = useState<Partial<User> | null>(null);
     const {user} = useContext(UserContext) as UserContextType;
 
     useEffect(() => {
@@ -34,7 +36,7 @@ export default function ChangeUsers() {
         fetchUsers();
     }, [user.id]);
 
-    const handleRemove = async (userId) => {
+    const handleRemove = async (userId: string) => {
         setEditingUserId(null);
         setEditedUser(null);
 
@@ -53,11 +55,11 @@ export default function ChangeUsers() {
 
         } catch (error) {
             setShowError(true);
-            throw new Error("Error removing user: ", error);
+            throw new Error("Error removing user: " + (error instanceof Error ? error.message : String(error)));
         }
     };
 
-    const handleDropdown = (user) => {
+    const handleDropdown = (user: User) => {
         if(editingUserId === user.id) {
             setEditingUserId(null);
             setEditedUser(null);
@@ -72,18 +74,18 @@ export default function ChangeUsers() {
         }
     };
     
-    const handleInputChange = (field, value) => {
+    const handleInputChange = (field: keyof User, value: string) => {
         setEditedUser(prev => ({
             ...prev,
             [field]: value,
         }));
     };
 
-    const handleUpdate = async (event) => {
+    const handleUpdate = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setShowLoader(true);
 
-        const payload = {};
+        const payload: Partial<User> = {};
         Object.entries(editedUser).forEach(([key, value]) => {
             if(value.trim() !== "") {
                 payload[key] = value;

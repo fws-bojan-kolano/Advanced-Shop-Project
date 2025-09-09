@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type ChangeEvent, type FormEvent } from 'react';
 import { SERVER } from '../../utils/utils';
 import './changeProduct.scss';
 import { useUser } from '../user/user-context';
+import type { Product } from '../../interfaces/Product';
 
 export default function ChangeProduct() {
     const [showError, setShowError] = useState(false);
@@ -9,9 +10,9 @@ export default function ChangeProduct() {
     const [showSuccessRemove, setSuccessRemove] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
     const [showLoader, setShowLoader] = useState(false);
-    const [editingProductId, setEditingProductId] = useState(null);
-    const [editedProduct, setEditedProduct] = useState(null);
-    const [products, setProducts] = useState([]);
+    const [editingProductId, setEditingProductId] = useState<String | number | null>(null);
+    const [editedProduct, setEditedProduct] = useState<Partial<Product> | null>(null);
+    const [products, setProducts] = useState<Product[]>([]);
     const {setProductsMegamenu} = useUser();
 
     useEffect(() => {
@@ -40,7 +41,7 @@ export default function ChangeProduct() {
         setProductsMegamenu(updatedProducts);
     }
 
-    const handleRemove = async (productId) => {
+    const handleRemove = async (productId: string | number) => {
         setEditingProductId(null);
         setEditedProduct(null);
 
@@ -61,42 +62,34 @@ export default function ChangeProduct() {
                 throw new Error("Failed to remove product");
             }
 
-        } catch (error) {
+        } catch (error: unknown) {
             setShowError(true);
-            throw new Error("Error removing product: ", error);
+            throw new Error("Error removing product: " + (error instanceof Error ? error.message : String(error)));
         }
     };
 
-    const handleDropdown = (product) => {
+    const handleDropdown = (product: Product) => {
         if(editingProductId === product.id) {
             setEditingProductId(null);
             setEditedProduct(null);
         } else {
             setEditingProductId(product.id);
-            setEditedProduct({
-                name: product.name,
-                price: product.price,
-                creator: product.creator,
-                description: product.description,
-                image: product.image,
-                recommended: product.recommended,
-                category: product.category
-            });
+            setEditedProduct({...product});
         }
     };
     
-    const handleInputChange = (field, value) => {
+    const handleInputChange = (field: keyof Product, value: string | number | boolean) => {
         setEditedProduct(prev => ({
             ...prev,
             [field]: value,
         }));
     };
 
-    const handleUpdate = async (event) => {
+    const handleUpdate = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setShowLoader(true);
 
-        const payload = {};
+        const payload: Partial<Product> = {};
         Object.entries(editedProduct).forEach(([key, value]) => {
             if(typeof value === 'string' && value.trim() !== '') {
                 payload[key] = value;
@@ -171,7 +164,7 @@ export default function ChangeProduct() {
                                     className="form-input" 
                                     placeholder="Product Name" 
                                     value={editedProduct.name} 
-                                    onChange={(e) => handleInputChange("name", e.target.value)} 
+                                    onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange("name", e.target.value)} 
                                     />
                             </div>
                             <div className="input-wrapper">
@@ -180,7 +173,7 @@ export default function ChangeProduct() {
                                     className="form-input" 
                                     placeholder="Product Price"
                                     value={editedProduct.price} 
-                                    onChange={(e) => handleInputChange("price", e.target.value)} 
+                                    onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange("price", e.target.value)} 
                                     />
                             </div>
                             <div className="input-wrapper">
@@ -189,7 +182,7 @@ export default function ChangeProduct() {
                                     className="form-input" 
                                     placeholder="Product Creator"
                                     value={editedProduct.creator} 
-                                    onChange={(e) => handleInputChange("creator", e.target.value)} 
+                                    onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange("creator", e.target.value)} 
                                     />
                             </div>
                             <div className="input-wrapper">
@@ -198,7 +191,7 @@ export default function ChangeProduct() {
                                     className="form-input" 
                                     placeholder="Product Description"
                                     value={editedProduct.description} 
-                                    onChange={(e) => handleInputChange("description", e.target.value)} 
+                                    onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange("description", e.target.value)} 
                                     />
                             </div>
                             <div className="input-wrapper">
@@ -207,7 +200,7 @@ export default function ChangeProduct() {
                                     className="form-input" 
                                     placeholder="Product Category"
                                     value={editedProduct.category} 
-                                    onChange={(e) => handleInputChange("category", e.target.value)} 
+                                    onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange("category", e.target.value)} 
                                     />
                             </div>
                             <div className="input-wrapper">
@@ -243,7 +236,7 @@ export default function ChangeProduct() {
                                     className="form-input" 
                                     placeholder="Image" 
                                     value={editedProduct.image}
-                                    onChange={(e) => handleInputChange("image", e.target.value)} 
+                                    onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange("image", e.target.value)} 
                                     />
                             </div>
                         </div>
