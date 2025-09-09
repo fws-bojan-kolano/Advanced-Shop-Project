@@ -1,7 +1,8 @@
 import { SERVER } from '../../utils/utils';
 import './addNewProduct.scss';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { useUser } from '../user/user-context';
+import type { Product } from '../../interfaces/Product';
 
 export default function AddNewProduct() {
     const [showLoader, setShowLoader] = useState(false);
@@ -9,38 +10,27 @@ export default function AddNewProduct() {
     const [showSuccess, setShowSuccess] = useState(false);
     const [recommended, setRecommended] = useState('yes');
     const {setProductsMegamenu} = useUser();
-    const productNameRef = useRef<HTMLInputElement>(null);
-    const productPriceRef = useRef<HTMLInputElement>(null);
-    const productCreatorRef = useRef<HTMLInputElement>(null);
-    const productDescriptionRef = useRef<HTMLInputElement>(null);
-    const productImageRef = useRef<HTMLInputElement>(null);
-    const productCategoryRef = useRef<HTMLInputElement>(null);
 
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
         event.preventDefault();
         setShowLoader(true);
 
-        const productNameValue = productNameRef.current ? productNameRef.current.value : '';
-        const productPriceValue = productPriceRef.current ? productPriceRef.current.value : '';
-        const productCreatorValue = productCreatorRef.current ? productCreatorRef.current.value : '';
-        const productImageValue = productImageRef.current ? productImageRef.current.value : '';
-        const productDescriptionValue = productDescriptionRef.current ? productDescriptionRef.current.value : '';
-        const recommendedValue = recommended;
-        const productCategoryValue = productCategoryRef.current ? productCategoryRef.current.value : '';
+        const formData = new FormData(event.currentTarget);
+        const newProduct: Product = {
+            name: formData.get('name') as string,
+            price: Number(formData.get('price') as string),
+            creator: formData.get('creator') as string,
+            description: formData.get('description') as string,
+            image: formData.get('image') as string,
+            recommended: recommended as 'yes' | 'no',
+            category: formData.get('category') as string
+        }
 
         try {
             const response = await fetch(`${SERVER}products/new`, {
                 method: "POST",
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({
-                    name: productNameValue,
-                    price: productPriceValue,
-                    creator: productCreatorValue,
-                    description: productDescriptionValue,
-                    image: productImageValue,
-                    recommended: recommendedValue,
-                    category: productCategoryValue
-                })
+                body: JSON.stringify(newProduct),
             });
 
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
@@ -54,20 +44,18 @@ export default function AddNewProduct() {
                 const updatedProducts = await fetch(`${SERVER}products`).then(res => res.json());
                 setProductsMegamenu(updatedProducts);
 
-                if (productNameRef.current) productNameRef.current.value = '';
-                if (productPriceRef.current) productPriceRef.current.value = '';
-                if (productCreatorRef.current) productCreatorRef.current.value = '';
-                if (productImageRef.current) productImageRef.current.value = '';
-                if (productDescriptionRef.current) productDescriptionRef.current.value = '';
-                if (productCategoryRef.current) productCategoryRef.current.value = '';
+                // Reset form fields
+                event.currentTarget.reset();
             } else {
                 setShowLoader(false);
                 setShowError(true);
             }
         } catch (error) {
-            console.error('Error during login:', error);
+            console.error('Error adding product:', error);
             setShowLoader(false);
             setShowError(true);
+        } finally {
+            setShowLoader(false);
         }
     }
 
@@ -81,7 +69,7 @@ export default function AddNewProduct() {
                             type="text" 
                             className="form-input" 
                             placeholder="Product Name"
-                            ref={productNameRef}
+                            name="name"
                             />
                     </div>
                     <div className="input-wrapper">
@@ -89,7 +77,7 @@ export default function AddNewProduct() {
                             type="number" 
                             className="form-input" 
                             placeholder="Product Price"
-                            ref={productPriceRef}
+                            name="price"
                             />
                     </div>
                     <div className="input-wrapper">
@@ -97,7 +85,7 @@ export default function AddNewProduct() {
                             type="text" 
                             className="form-input" 
                             placeholder="Product Creator"
-                            ref={productCreatorRef}
+                            name="creator"
                             />
                     </div>
                     <div className="input-wrapper">
@@ -105,7 +93,7 @@ export default function AddNewProduct() {
                             type="text" 
                             className="form-input" 
                             placeholder="Product Description"
-                            ref={productDescriptionRef}
+                            name="description"
                             />
                     </div>
                     <div className="input-wrapper">
@@ -113,7 +101,7 @@ export default function AddNewProduct() {
                             type="text" 
                             className="form-input" 
                             placeholder="Product Category"
-                            ref={productCategoryRef}
+                            name="category"
                             />
                     </div>
                     <div className="input-wrapper">
@@ -126,7 +114,7 @@ export default function AddNewProduct() {
                                     name="recommended" 
                                     value="yes"
                                     checked={recommended === 'yes'}
-                                    onChange={(e) => setRecommended(e.target.value)}
+                                    onChange={(e) => setRecommended('yes')}
                                     />
                                 <label htmlFor="yes">Yes</label>
                             </div>
@@ -137,7 +125,7 @@ export default function AddNewProduct() {
                                     name="recommended" 
                                     value="no"
                                     checked={recommended === 'no'}
-                                    onChange={(e) => setRecommended(e.target.value)}
+                                    onChange={(e) => setRecommended('no')}
                                     />
                                 <label htmlFor="no">No</label>
                             </div>
@@ -148,7 +136,7 @@ export default function AddNewProduct() {
                             type="text" 
                             className="form-input" 
                             placeholder="Product Image"
-                            ref={productImageRef}
+                            name="image"
                             />
                     </div>
                     {showError && <span className='form-message form-error login__error'>All fields must be correct!</span>}
