@@ -2,11 +2,12 @@ import './dashboard.scss';
 import { useContext, useState } from "react";
 import MyAccount from '../myAccount/MyAccount';
 import ChangeUsers from '../changeUsers/ChangeUsers';
-import { UserContext, UserContextType } from '../user/user-context';
+import { UserContext } from '../user/user-context';
 import AddNewProduct from "../addNewProduct/AddNewProduct";
 import ChangeProduct from "../changeProduct/ChangeProduct";
 import { useLocation, Location } from 'react-router-dom';
 import Orders from '../orders/Orders';
+import type { UserContextType } from '../user/user-context';
 
 export default function Dashboard() {
     type Section = 'myAccount' | 'orders' | 'changeUsers' | 'addNewProduct' | 'changeProduct';

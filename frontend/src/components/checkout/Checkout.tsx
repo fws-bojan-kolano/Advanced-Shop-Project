@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { UserContext, UserContextType } from "../user/user-context";
 import './checkout.scss';
 import { SERVER } from '../../utils/utils';
+import type { User } from '../../interfaces/User';
 
 export default function Checkout() {
     const [address, setAddress] = useState('');

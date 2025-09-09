@@ -89,14 +89,21 @@ export default function ChangeProduct() {
         event.preventDefault();
         setShowLoader(true);
 
-        const payload: Partial<Product> = {};
-        Object.entries(editedProduct).forEach(([key, value]) => {
-            if(typeof value === 'string' && value.trim() !== '') {
-                payload[key] = value;
-            } else if(typeof value === 'number' || typeof value === 'boolean') {
-                payload[key] = value;
+        function assignIfValid<T extends object>(
+            target: Partial<T>,
+            key: keyof T,
+            value: unknown
+        ) {
+            if (typeof value === "string" && value.trim() === "") return;
+            if (typeof value === "string" || typeof value === "number" || typeof value === "boolean") {
+            target[key] = value as T[keyof T];
             }
-        });
+        }
+
+        const payload: Partial<Product> = {};
+        if(editedProduct) {
+            (Object.entries(editedProduct) as [keyof Product, Product[keyof Product]][]).forEach(([key, value]) => assignIfValid(payload, key, value));
+        }
 
         if(Object.keys(payload).length === 0) {
             setShowErrorChange(true);
