@@ -5,10 +5,11 @@ import Slider from 'react-slick';
 import { useEffect, useState } from 'react';
 import { SERVER } from '../../utils/utils';
 import {Link, useParams} from 'react-router-dom';
+import type { Product } from '../../interfaces/Product';
 
 export default function Recommended() {
     const {id} = useParams();
-    const [recommendedProducts, setRecommendedProducts] = useState([]);
+    const [recommendedProducts, setRecommendedProducts] = useState<Product[]>([]);
     const settings = {
         dots: true,
         infinite: true,

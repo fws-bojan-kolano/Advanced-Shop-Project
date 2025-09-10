@@ -26,7 +26,7 @@ export default function Megamenu() {
         fetchProducts();
     }, [productsMegamenu, setProductsMegamenu]);
 
-    const categories = Array.isArray(productsMegamenu) ? [...new Set(productsMegamenu.map(product => product.category))] : [];
+    const categories = Array.isArray(productsMegamenu) ? [...new Set(productsMegamenu.map(product => product.category || "Uncategorized"))] : [];
 
     const handleCloseMegamenu = () => {
         const megamenu = document.querySelector('.js-megamenu');
