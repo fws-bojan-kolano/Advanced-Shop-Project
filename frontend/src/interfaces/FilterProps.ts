@@ -3,7 +3,9 @@ export interface FilterState {
     priceMin: number | string;
     priceMax: number | string;
     creators: string[];
+    recommended: 'yes' | 'no' | null;
 }
+
 
 export interface FilterProps {
     filters: FilterState;

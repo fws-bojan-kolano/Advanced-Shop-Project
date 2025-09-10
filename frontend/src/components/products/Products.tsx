@@ -1,24 +1,26 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { SERVER } from '../../utils/utils';
+import { SERVER, type SortValue } from '../../utils/utils';
 import Product from "../product/Product";
 import { useParams, useLocation } from 'react-router-dom';
 import { SORT_OPTIONS } from "../../utils/utils";
 import './products.scss';
 import Filters from "../filters/Filters";
+import type { Product as ProductType } from "../../interfaces/Product";
+import type { FilterState } from "../../interfaces/FilterProps";
 
 export default function Products() {
-    const [products, setProducts] = useState([]);
+    const [products, setProducts] = useState<ProductType[]>([]);
     const [showLoader, setShowLoader] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
-    const [sortOrder, setSortOrder] = useState('asc');
+    const [sortOrder, setSortOrder] = useState<"asc" | "desc">('asc');
     const [presentedOrderValue, setPresentedOrderValue] = useState('Ascending');
     const [isSortingListOpen, setIsSortingListOpen] = useState(false);
     const [noResultsMessage, setNoResultsMessage] = useState('');
-    const [allCategories, setAllCategories] = useState([]);
-    const [allCreators, setAllCreators] = useState([]);
+    const [allCategories, setAllCategories] = useState<string[]>([]);
+    const [allCreators, setAllCreators] = useState<string[]>([]);
     const productsPerPage = 6;
-    const [filters, setFilters] = useState({
+    const [filters, setFilters] = useState<FilterState>({
         categories: [],
         priceMin: '',
         priceMax: '',
@@ -26,23 +28,23 @@ export default function Products() {
         recommended: null
     });
     const productsRef = useRef<HTMLInputElement>(null);
-    const {categoryName} = useParams();
+    const {categoryName} = useParams<{categoryName: string}>();
     const location = useLocation();
     const query = new URLSearchParams(location.search);
     const searchQuery = query.get('search');
 
     const buildQueryParams = () => {
         const params = new URLSearchParams();
-        params.append('page', currentPage);
-        params.append('limit', productsPerPage);
+        params.append('page', String(currentPage));
+        params.append('limit', String(productsPerPage));
         params.append('sort', sortOrder);
 
-        if (searchQuery?.trim() !== '') params.append('query', searchQuery);
+        if (searchQuery?.trim() !== '') params.append('query', String(searchQuery));
         if (categoryName) params.append('category', categoryName);
         filters?.categories?.forEach(cat => params.append('category', cat));
         filters?.creators?.forEach(cre => params.append('creators', cre));
-        if (filters.priceMin !== '') params.append('priceMin', filters.priceMin);
-        if (filters.priceMax !== '') params.append('priceMax', filters.priceMax);
+        if (filters.priceMin !== '') params.append('priceMin', String(filters.priceMin));
+        if (filters.priceMax !== '') params.append('priceMax', String(filters.priceMax));
         if (filters.recommended !== null) params.append('recommended', filters.recommended);
 
         return params;
@@ -105,7 +107,7 @@ export default function Products() {
     }, [currentPage]);
 
     //Change page
-    const paginate = pageNumber => setCurrentPage(pageNumber);
+    const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
     const handleNext = () => {
         if(currentPage < totalPages) setCurrentPage(currentPage + 1);
@@ -116,7 +118,7 @@ export default function Products() {
     };
 
     const generatePageNumbers = useMemo(() => {
-        const pageNumbers = [];
+        const pageNumbers: number[] = [];
         let startpage, endpage;
 
         if(totalPages <= 5) {
@@ -141,10 +143,10 @@ export default function Products() {
         return pageNumbers;
     }, [totalPages, currentPage]);
 
-    const handleSortAndClose = (order) => {
+    const handleSortAndClose = (order: SortValue) => {
         const selected = SORT_OPTIONS.find(opt => opt.value === order);
         setPresentedOrderValue(selected?.label || 'Sort')
-        setSortOrder(order);
+        setSortOrder(order === 'asc' || order === 'desc' ? order : 'asc');
         setCurrentPage(1);
         setIsSortingListOpen(false);
     };
