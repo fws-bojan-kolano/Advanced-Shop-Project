@@ -3,27 +3,33 @@ import { useCart } from '../cart/cart-context';
 import './product.scss';
 import '../cart/listingProductsItemCart.scss';
 import PositiveNumberInput from '../common/PositiveNumberInput';
+import type { Product as ProductType } from '../../interfaces/Product';
 
-export default function Product({ product }) {
+interface ProductProps {
+    product: ProductType;
+}
+
+export default function Product({ product }: ProductProps) {
     const { cart, addToCart, removeFromCart } = useCart();
     const cartItem = cart?.find(item => item.id === product.id);
     const quantity = cartItem ? cartItem.quantity : 0;
 
-    const handleIncrement = () => addToCart(product, quantity + 1);
+    const handleIncrement = () => addToCart({...product, quantity: quantity + 1}, quantity + 1);
 
     const handleDecrement = () => removeFromCart(product.id, quantity - 1);
 
-    const handleChangeQuantity = (newQuantity) => {
-        if (isNaN(newQuantity) || newQuantity === '') return;
+    const handleChangeQuantity = (newQuantity: number | string) => {
+        const qty = Number(newQuantity);
+        if (isNaN(qty) || newQuantity === '') return;
 
         if (newQuantity === 0 || newQuantity === '0') {
             removeFromCart(product.id);
         } else {
-            addToCart(product, newQuantity);
+            addToCart({...product, quantity: qty}, qty);
         }
     };
 
-    const truncateDescription = (text, maxLength = 60) => {
+    const truncateDescription = (text: string, maxLength = 60) => {
         return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
     };
 
@@ -58,7 +64,7 @@ export default function Product({ product }) {
                         <h2 className="figcaption__title">{product.name}</h2>
                         <h2 className="figcaption__category">Category: {product.category}</h2>
                         <span className="figcaption__sub-title">By {product.creator}</span>
-                        <p className="figcaption__text">{truncateDescription(product.description)}</p>
+                        <p className="figcaption__text">{truncateDescription(product.description || 'No description available')}</p>
                         <span className="figcaption__price">Price: ${product.price}</span>
                         <PositiveNumberInput
                             value={quantity}
