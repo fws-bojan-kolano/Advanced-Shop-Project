@@ -7,13 +7,14 @@ import markerIcon2x from 'leaflet/dist/images/layers.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 import { useEffect, useState } from 'react';
 import { SERVER } from '../../utils/utils';
+import type { MapMarker } from '../../interfaces/MapMarker';
 
 const markerConfiguration = {
     shadowUrl: markerShadow,
-    iconSize: [25, 41],
-    iconAnchor: [12, 41],
-    popupAnchor: [1, -34],
-    shadowSize: [41, 41],
+    iconSize: [25, 41] as [number, number],
+    iconAnchor: [12, 41] as [number, number],
+    popupAnchor: [1, -34] as [number, number],
+    shadowSize: [41, 41] as [number, number],
 }
 
 const blueMarker = new L.Icon({
@@ -27,7 +28,7 @@ const redMarker = new L.Icon({
 });
 
 export default function Map() {
-    const [markers, setMarkers] = useState([]);
+    const [markers, setMarkers] = useState<MapMarker[]>([]);
 
     useEffect(() => {
         const fetchLocations = async () => {
@@ -35,7 +36,7 @@ export default function Map() {
                 const response = await fetch(`${SERVER}locations`);
                 if(!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
                 const data = await response.json();
-                setMarkers(data.locations)
+                setMarkers(data.locations as MapMarker[]);
             } catch (error) {
                 console.error('Error loading locations:', error);
             }
@@ -64,7 +65,7 @@ export default function Map() {
                     >
                         <Popup>
                             <strong>{marker.title} </strong>
-                            {marker.description}
+                            {marker.description ?? 'No description available'}
                         </Popup>
                     </Marker>
                 ))}
