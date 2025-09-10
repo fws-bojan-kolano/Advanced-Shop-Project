@@ -1,8 +1,10 @@
+import type { ChangeEvent } from 'react';
 import './filters.scss';
+import type { FilterProps } from '../../interfaces/FilterProps';
 
-export default function Filters({filters, setFilters, categories, creators}) {
+export default function Filters({filters, setFilters, categories, creators}: FilterProps) {
 
-    const handleChange = (e) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value, type, checked } = e.target;
 
         setFilters(prev => ({
@@ -11,7 +13,7 @@ export default function Filters({filters, setFilters, categories, creators}) {
         }));
     };
 
-    const toggleCheckboxValue = (key, value) => {
+    const toggleCheckboxValue = (key: 'categories' | 'creators', value: string) => {
         const updatedArray = filters[key].includes(value)
             ? filters[key].filter(item => item !== value)
             : [...filters[key], value];
@@ -19,8 +21,8 @@ export default function Filters({filters, setFilters, categories, creators}) {
         setFilters(prev => ({ ...prev, [key]: updatedArray }));
     };
     
-    const handleCategoryChange = category => toggleCheckboxValue('categories', category);
-    const handleCreatorChange = creator => toggleCheckboxValue('creators', creator);
+    const handleCategoryChange = (category: string) => toggleCheckboxValue('categories', category);
+    const handleCreatorChange = (creator: string) => toggleCheckboxValue('creators', creator);
 
     return (
         <div className="filters">
