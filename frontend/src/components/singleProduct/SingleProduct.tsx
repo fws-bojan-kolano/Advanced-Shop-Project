@@ -5,6 +5,7 @@ import { SERVER } from '../../utils/utils';
 import PositiveNumberInput from '../common/PositiveNumberInput';
 import { useCart } from '../cart/cart-context';
 import type { Product } from '../../interfaces/Product';
+import type { CartItem } from '../../interfaces/CartItem';
 
 export default function SingleProduct() {
     const {id} = useParams<{id: string}>();
@@ -22,7 +23,7 @@ export default function SingleProduct() {
                 return;
             }
 
-            const data = await response.json();
+            const data: Product = await response.json();
             setProduct(data);
         }
 
@@ -37,18 +38,28 @@ export default function SingleProduct() {
         }
     }, [product, cart]);
 
-    const handleIncrement = () => addToCart(product, newQuantity + 1);
+    const handleIncrement = () => {
+        if (product) {
+            addToCart({ ...product, quantity: newQuantity + 1 }, newQuantity + 1);
+        }
+    };
 
-    const handleDecrement = () => removeFromCart(product.id, newQuantity - 1);
+    const handleDecrement = () => {
+        if (product) {
+            removeFromCart(product.id, newQuantity - 1);
+        }
+    }
 
-    const handleChangeQuantity = (newQuantity) => {
+    const handleChangeQuantity = (newQuantity: string | number) => {
 
-        if (isNaN(newQuantity) || newQuantity === '') return;
+        if (isNaN(Number(newQuantity)) || newQuantity === '') return;
+
+        if (!product) return;
 
         if (newQuantity === 0 || newQuantity === '0') {
             removeFromCart(product.id);
         } else {
-            addToCart(product, newQuantity);
+            addToCart({ ...product, quantity: Number(newQuantity) }, Number(newQuantity));
         }
     };
 

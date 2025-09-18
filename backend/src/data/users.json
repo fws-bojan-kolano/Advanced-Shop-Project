@@ -1063,5 +1063,14 @@
     "email": "another@mail.com",
     "cart": [],
     "orders": []
+  },
+  {
+    "id": "bed3eb87-a0d4-431b-8174-451c727882c6",
+    "username": "bojan",
+    "password": "$2b$10$VaZdex/Nxp6GhExuWWjfvuoEDqkoOp33O6/98JyC2ukDoXSO7ha06",
+    "role": "admin",
+    "email": "bojan@forwardslashny.com",
+    "cart": [],
+    "orders": []
   }
 ]
