@@ -81,10 +81,8 @@ export default function Products() {
                 setTotalPages(data.totalPages || 1);
                 data.total === 0 ? setNoResultsMessage(data.message) : setNoResultsMessage('');
 
-                if (searchQuery) {
-                    setAllCategories(data.categories || []);
-                    setAllCreators(data.creators || []);
-                }
+                setAllCategories(data.categories || []);
+                setAllCreators(data.creators || []);
             } catch (error) {
                 console.error("Error fetching products:", error);
             } finally {
