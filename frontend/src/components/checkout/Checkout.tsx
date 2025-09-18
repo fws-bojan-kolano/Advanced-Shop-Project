@@ -1,25 +1,34 @@
-import { useCallback, useEffect, useState, useContext } from 'react';
+import React, { useCallback, useEffect, useState, useContext } from 'react';
 import { useCart } from '../cart/cart-context';
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../user/user-context";
 import './checkout.scss';
 import { SERVER } from '../../utils/utils';
-import type { User } from '../../interfaces/User';
 import type { UserContextType } from '../../interfaces/UserContextType';
+import type { AddressSuggestion } from '../../interfaces/AddressSuggestion';
+
+interface FormErrors {
+    name: string;
+    email: string;
+    phone: string;
+    address: string;
+    zip: string;
+    company: string;
+}
 
 export default function Checkout() {
-    const [address, setAddress] = useState('');
-    const [zip, setZip] = useState('');
-    const [shippingCost, setShippingCost] = useState(0);
-    const [suggestions, setSuggestions] = useState([]);
-    const [error, setError] = useState(null);
+    const [address, setAddress] = useState<string>('');
+    const [zip, setZip] = useState<string>('');
+    const [shippingCost, setShippingCost] = useState<number>(0);
+    const [suggestions, setSuggestions] = useState<AddressSuggestion[]>([]);
+    const [error, setError] = useState<string | null>(null);
     const [showLoaderAddress, setShowLoaderAddress] = useState(false);
     const [showLoaderSubmit, setShowLoaderSubmit] = useState(false);
     const [couponCode, setCouponCode] = useState('');
     const [couponDiscount, setCouponDiscount] = useState(0);
     const [couponError, setCouponError] = useState('');
     const [showCoupon, setShowCoupon] = useState(false);
-    const [formErrors, setFormErrors] = useState({
+    const [formErrors, setFormErrors] = useState<FormErrors>({
         name: '',
         email: '',
         phone: '',
@@ -32,7 +41,7 @@ export default function Checkout() {
     const cartItems = cart.filter(item => item.quantity > 0);
     const subtotal = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
     const total = couponDiscount > 0 ? (subtotal + shippingCost) - ((subtotal + shippingCost) * (couponDiscount / 100)) : (subtotal + shippingCost);
-    const validCoupons = {
+    const validCoupons: Record<string, number> = {
         'DISCOUNT10': 10, // 10% discount
         'SAVE20': 20 // 20% discount
     }
@@ -59,15 +68,18 @@ export default function Checkout() {
         }
     }
 
-    const debounce = (func, delay) => {
-        let timer;
-        return (...args) => {
+    const debounce = <T extends unknown[]>(
+        func: (...args: T) => void,
+        delay: number
+    ) => {
+        let timer: number;
+        return (...args: T) => {
             clearTimeout(timer);
-            timer = setTimeout(() => func(...args), delay);
-        }
-    }
+            timer = window.setTimeout(() => func(...args), delay);
+        };
+    };
 
-    const fetchAddressSuggestions = async (query) => {
+    const fetchAddressSuggestions = async (query: string) => {
         if(query.length < 3) {
             setSuggestions([]);
             setShowLoaderAddress(false);
@@ -95,7 +107,7 @@ export default function Checkout() {
 
     const debouncedFetch = useCallback(debounce(fetchAddressSuggestions, 500), []);
 
-    const handleSelectAddress = (place) => {
+    const handleSelectAddress = (place: AddressSuggestion) => {
         setAddress(place.display_name);
         setSuggestions([]);
 
@@ -103,7 +115,7 @@ export default function Checkout() {
         if(place.address && place.address.country) calculateShipping(place.address.country);
     }
 
-    const fetchNeighboringCountries = async (selectedCountry) => {
+    const fetchNeighboringCountries = async (selectedCountry: string) => {
         try {
             const response = await fetch(`https://restcountries.com/v3.1/name/${selectedCountry}?fields=borders`);
             if(!response.ok) throw new Error('Failed to fetch neighboring countries');
@@ -116,7 +128,7 @@ export default function Checkout() {
         }
     }
 
-    const calculateShipping = async (selectedCountry) => {
+    const calculateShipping = async (selectedCountry: string) => {
         if(!selectedCountry) return;
 
         let cost = 25; //Default international shipping cost
@@ -130,43 +142,56 @@ export default function Checkout() {
         setShippingCost(cost);
     }
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setShowLoaderSubmit(true);
 
-        const errors = {};
+        const errors: FormErrors = {
+            name: '',
+            email: '',
+            phone: '',
+            address: '',
+            zip: '',
+            company: ''
+        };
         const nameRegex = /^[a-zA-Z]+\s+[a-zA-Z]+$/;
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const phoneRegex = /^[0-9\s+()-]{6,}$/;
 
-        !nameRegex.test(e.target.name.value.trim()) ? errors.name = 'Enter correct first and last name.' : null;
-        !emailRegex.test(e.target.email.value.trim()) ? errors.email = 'Enter correct email.' : null;
-        !phoneRegex.test(e.target.phone.value.trim()) ? errors.phone = 'Enter correct phone.' : null;
+        const form = e.target as HTMLFormElement;
+        const nameValue = (form.elements.namedItem('name') as HTMLInputElement)?.value || '';
+        const emailValue = (form.elements.namedItem('email') as HTMLInputElement)?.value || '';
+        const phoneValue = (form.elements.namedItem('phone') as HTMLInputElement)?.value || '';
+        const companyValue = (form.elements.namedItem('company') as HTMLInputElement)?.value || '';
+
+        !nameRegex.test(nameValue.trim()) ? errors.name = 'Enter correct first and last name.' : null;
+        !emailRegex.test(emailValue.trim()) ? errors.email = 'Enter correct email.' : null;
+        !phoneRegex.test(phoneValue.trim()) ? errors.phone = 'Enter correct phone.' : null;
         !address.trim() ? errors.address = 'Enter correct address.' : null;
         !zip.trim() ? errors.zip = 'Enter correct ZIP.' : null;
-        !e.target.company.value.trim() ? errors.company = 'Enter correct company name.' : null;
+        !companyValue.trim() ? errors.company = 'Enter correct company name.' : null;
 
         setFormErrors(errors);
 
         if(Object.keys(errors).length === 0) {
             const order = {
-                firstAndLastName: e.target.name.value,
-                checkoutEmail: e.target.email.value,
-                phone: e.target.phone.value,
-                address: e.target.address.value,
-                zip: e.target.zip.value,
-                company: e.target.company.value,
+                firstAndLastName: nameValue,
+                checkoutEmail: emailValue,
+                phone: phoneValue,
+                address: address,
+                zip: zip,
+                company: companyValue,
                 total: total
             }
 
             try {
-                const response = await fetch(`${SERVER}users/${user.id}/checkout`, {
+                const response: Response = await fetch(`${SERVER}users/${user?.id}/checkout`, {
                     method: 'PUT',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify(order)
                 });
 
-                if(!response) {
+                if(!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
 
@@ -175,11 +200,11 @@ export default function Checkout() {
                     if(result.user) {
                         setUser(result.user);
                     } else {
-                        setUser(prevUser => ({
+                        setUser(prevUser => prevUser ? ({
                             ...prevUser,
                             order: result.order,
                             orders: result.orders
-                        }));
+                        }) : null);
                     }
 
                     navigate('/thank-you');
@@ -269,7 +294,12 @@ export default function Checkout() {
                                         className='checkout__form-submit'
                                         type="submit"
                                         value="Place Order"
-                                        onClick={() => document.getElementById('checkout-form').requestSubmit()} />
+                                        onClick={() => {
+                                            const form = document.getElementById('checkout-form') as HTMLFormElement | null;
+                                            if (form) {
+                                                form.requestSubmit();
+                                            }
+                                        }} />
                                         {showLoaderSubmit && <span className='loader my-account__loader'></span>}
                                     </div>
                                 </div>

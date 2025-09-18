@@ -6,7 +6,10 @@ const offset = 20;
 
 export default function PopSlide() {
     const sliderRef = useRef<HTMLUListElement>(null);
-    const [items, setItems] = useState([
+
+    type PopSlideItem = { text: string; color: string };
+
+    const [items, setItems] = useState<PopSlideItem[]>([
         { text: 'Click Here!', color: '#FF6B6B' },
         { text: 'Click Again!', color: '#6BCB77' },
         { text: 'Woah! It keeps going!', color: '#4D96FF' },

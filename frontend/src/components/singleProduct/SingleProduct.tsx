@@ -4,7 +4,6 @@ import { Link, useParams } from 'react-router-dom';
 import { SERVER } from '../../utils/utils';
 import PositiveNumberInput from '../common/PositiveNumberInput';
 import { useCart } from '../cart/cart-context';
-import type { CartItem } from '../../interfaces/CartItem';
 import type { Product } from '../../interfaces/Product';
 
 export default function SingleProduct() {

@@ -41,7 +41,7 @@ export default function MyAccount() {
 
         const passwordValue = passwordRef.current ? passwordRef.current.value : '';
         const passwordRepeatValue = passwordRepeatRef.current ? passwordRepeatRef.current.value : '';
-        let updatedData = {id: user?.id};
+        let updatedData: { id: string | undefined; [key: string]: any } = {id: user?.id};
         if(username !== user?.username) updatedData.username = username;
         if(email !== user?.email) updatedData.email = email;
 
@@ -84,12 +84,12 @@ export default function MyAccount() {
 
             const result = await response.json();
             if(result.success) {
-                setUser(prevUser => ({
+                setUser(prevUser => prevUser ? ({
                     ...prevUser,
                     username: result.user.username,
                     email: result.user.email,
                     password: result.user.password
-                }));
+                }) : null);
                 if(passwordRef.current) passwordRef.current.value = '';
                 if(passwordRepeatRef.current) passwordRepeatRef.current.value = '';
                 setShowLoader(false);
