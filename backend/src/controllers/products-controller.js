@@ -316,14 +316,16 @@ const productsControllerSearch = async(req, res) => {
 const productsControllerFilters = (req, res) => {
     try {
         const products = getProducts();
+
         const categories = [...new Set(products.map(p => p.category))].filter(Boolean);
         const creators = [...new Set(products.map(p => p.creator))].filter(Boolean);
+
         res.json({ categories, creators });
     } catch (error) {
         console.error('Error fetching filter data:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
-}
+};
 
 module.exports = {
     productsController: {

@@ -1070,7 +1070,41 @@
     "password": "$2b$10$VaZdex/Nxp6GhExuWWjfvuoEDqkoOp33O6/98JyC2ukDoXSO7ha06",
     "role": "admin",
     "email": "bojan@forwardslashny.com",
-    "cart": [],
+    "cart": [
+      {
+        "id": "bd680521-b4dd-47ba-8f47-f57c14d5e0db",
+        "name": " 123 123 123 123 12 3213",
+        "price": 213,
+        "creator": "123",
+        "description": "http s://tympanu s.net/Develop ment/AnimatedBook s/img/cover.jpg ",
+        "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
+        "recommended": true,
+        "category": "Comedy",
+        "quantity": 4
+      },
+      {
+        "id": "3766e17d-5676-4a16-b9af-6371ccbc5127",
+        "name": "asodija ",
+        "price": 123,
+        "creator": "zxczxcz",
+        "description": "s zxcas ac asc ascas ascwqqwc asc asc ",
+        "image": "https://wastesolutionservices.com/wp-content/uploads/2024/10/control4.jpg",
+        "recommended": false,
+        "category": "Horror",
+        "quantity": 3
+      },
+      {
+        "id": "f581d313-1eae-4cf2-b879-3ec09eb27632",
+        "name": "adadasdas",
+        "price": 2131,
+        "creator": "adasda",
+        "description": "asdasdasd",
+        "image": "https://wastesolutionservices.com/wp-content/uploads/2024/10/control4.jpg",
+        "recommended": true,
+        "category": "Mistery",
+        "quantity": 2
+      }
+    ],
     "orders": []
   }
 ]
