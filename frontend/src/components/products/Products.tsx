@@ -13,7 +13,7 @@ export default function Products() {
     const [showLoader, setShowLoader] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
-    const [sortOrder, setSortOrder] = useState<"asc" | "desc">('asc');
+    const [sortOrder, setSortOrder] = useState<SortValue>('asc');
     const [presentedOrderValue, setPresentedOrderValue] = useState('Ascending');
     const [isSortingListOpen, setIsSortingListOpen] = useState(false);
     const [noResultsMessage, setNoResultsMessage] = useState('');
@@ -37,7 +37,7 @@ export default function Products() {
         const params = new URLSearchParams();
         params.append('page', String(currentPage));
         params.append('limit', String(productsPerPage));
-        params.append('sort', sortOrder);
+        if (sortOrder) params.append("sort", sortOrder);
 
         if (searchQuery?.trim() !== '') params.append('query', String(searchQuery));
         if (categoryName) params.append('category', categoryName);
@@ -146,7 +146,7 @@ export default function Products() {
     const handleSortAndClose = (order: SortValue) => {
         const selected = SORT_OPTIONS.find(opt => opt.value === order);
         setPresentedOrderValue(selected?.label || 'Sort')
-        setSortOrder(order === 'asc' || order === 'desc' ? order : 'asc');
+        setSortOrder(order);
         setCurrentPage(1);
         setIsSortingListOpen(false);
     };
