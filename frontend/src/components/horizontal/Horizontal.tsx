@@ -1,6 +1,6 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import BasicText from "../basicText/BasicText";
 import HeroComic from "../heroScrolling/HeroComic";
 import "./horizontal.scss";
@@ -17,18 +17,16 @@ export default function Horizontal() {
         }
     };
 
-    useEffect(() => {
-        const setupGSAP = () => {
-            const totalPanels = panels.current.length;
+    useLayoutEffect(() => {
+        if (!panelsContainer.current || panels.current.length === 0) return;
 
-            if (totalPanels === 0 || !panelsContainer.current) return;
+        const totalPanels = panels.current.length;
 
-            ScrollTrigger.getAll().forEach(st => {
-                if (st.trigger === panelsContainer.current) {
-                    st.kill();
-                }
-            });
+        ScrollTrigger.getAll().forEach(st => {
+            if (st.trigger === panelsContainer.current) st.kill();
+        });
 
+        const ctx = gsap.context(() => {
             gsap.to(panels.current, {
                 xPercent: -100 * (totalPanels - 1),
                 ease: "none",
@@ -45,11 +43,10 @@ export default function Horizontal() {
                     end: () => "+=" + (panelsContainer.current?.offsetWidth ?? 0),
                 }
             });
-        };
+        }, panelsContainer);
 
-        const timeoutId = setTimeout(setupGSAP, 0);
         return () => {
-            clearTimeout(timeoutId);
+            ctx.revert();
             ScrollTrigger.getAll().forEach(st => st.kill());
         };
     }, []);
