@@ -40,9 +40,9 @@ export default function Products() {
         if (sortOrder) params.append("sort", sortOrder);
 
         if (searchQuery?.trim() !== '') params.append('query', String(searchQuery));
-        if (categoryName) params.append('category', categoryName);
-        filters?.categories?.forEach(cat => params.append('category', cat));
-        filters?.creators?.forEach(cre => params.append('creators', cre));
+        if (categoryName) params.append('category', String(categoryName));
+        filters?.categories?.forEach(cat => params.append('category', String(cat)));
+        filters?.creators?.forEach(cre => params.append('creators', String(cre)));
         if (filters.priceMin !== '') params.append('priceMin', String(filters.priceMin));
         if (filters.priceMax !== '') params.append('priceMax', String(filters.priceMax));
         if (filters.recommended !== null) params.append('recommended', filters.recommended);
