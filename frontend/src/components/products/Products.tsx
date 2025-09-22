@@ -10,13 +10,13 @@ import type { FilterState } from "../../interfaces/FilterProps";
 
 export default function Products() {
     const [products, setProducts] = useState<ProductType[]>([]);
-    const [showLoader, setShowLoader] = useState(false);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(1);
+    const [showLoader, setShowLoader] = useState<boolean>(false);
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const [totalPages, setTotalPages] = useState<number>(1);
     const [sortOrder, setSortOrder] = useState<SortValue>('asc');
-    const [presentedOrderValue, setPresentedOrderValue] = useState('Ascending');
-    const [isSortingListOpen, setIsSortingListOpen] = useState(false);
-    const [noResultsMessage, setNoResultsMessage] = useState('');
+    const [presentedOrderValue, setPresentedOrderValue] = useState<string>('Ascending');
+    const [isSortingListOpen, setIsSortingListOpen] = useState<boolean>(false);
+    const [noResultsMessage, setNoResultsMessage] = useState<string>('');
     const [allCategories, setAllCategories] = useState<string[]>([]);
     const [allCreators, setAllCreators] = useState<string[]>([]);
     const productsPerPage = 6;
