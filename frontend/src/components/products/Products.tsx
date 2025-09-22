@@ -52,6 +52,9 @@ export default function Products() {
 
     useEffect(() => {
         const fetchFilters = async () => {
+            setShowLoader(true);
+            setNoResultsMessage('');
+
             try {
                 const res = await fetch(`${SERVER}filters`);
                 const data = await res.json();
@@ -73,6 +76,7 @@ export default function Products() {
             try {
                 const params = buildQueryParams();
                 const endpoint = searchQuery ? 'search' : 'products';
+
                 const response = await fetch(`${SERVER}${endpoint}?${params.toString()}`);
                 if (!response.ok) throw new Error("Failed to fetch products");
 
@@ -81,8 +85,11 @@ export default function Products() {
                 setTotalPages(data.totalPages || 1);
                 data.total === 0 ? setNoResultsMessage(data.message) : setNoResultsMessage('');
 
-                setAllCategories(data.categories || []);
-                setAllCreators(data.creators || []);
+                const filtersResponse = await fetch(`${SERVER}filters?${params.toString()}`);
+                const filtersData = await filtersResponse.json();
+
+                setAllCategories(filtersData.categories || []);
+                setAllCreators(filtersData.creators || []);
             } catch (error) {
                 console.error("Error fetching products:", error);
             } finally {

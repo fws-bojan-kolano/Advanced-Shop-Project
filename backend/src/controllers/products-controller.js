@@ -315,12 +315,28 @@ const productsControllerSearch = async(req, res) => {
 
 const productsControllerFilters = (req, res) => {
     try {
-        const products = getProducts();
+        let products = getProducts();
+        const { category, creators, priceMin, priceMax } = req.query;
 
+        // Apply filters to products
+        if (category) {
+            const categoryArray = Array.isArray(category) ? category : [category];
+            products = products.filter(p => categoryArray.includes(p.category));
+        }
+
+        if (creators) {
+            const creatorArray = Array.isArray(creators) ? creators : [creators];
+            products = products.filter(p => creatorArray.includes(p.creator));
+        }
+
+        if (priceMin) products = products.filter(p => p.price >= Number(priceMin));
+        if (priceMax) products = products.filter(p => p.price <= Number(priceMax));
+
+        // Extract remaining categories & creators
         const categories = [...new Set(products.map(p => p.category))].filter(Boolean);
-        const creators = [...new Set(products.map(p => p.creator))].filter(Boolean);
+        const filteredCreators = [...new Set(products.map(p => p.creator))].filter(Boolean);
 
-        res.json({ categories, creators });
+        res.json({ categories, creators: filteredCreators });
     } catch (error) {
         console.error('Error fetching filter data:', error);
         res.status(500).json({ error: 'Internal server error' });
