@@ -90,6 +90,12 @@ export default function Products() {
 
                 setAllCategories(filtersData.categories || []);
                 setAllCreators(filtersData.creators || []);
+
+                if (!data.products || data.products.length === 0) {
+                    setNoResultsMessage(data.message || 'No products found matching your criteria.');
+                } else {
+                    setNoResultsMessage('');
+                }
             } catch (error) {
                 console.error("Error fetching products:", error);
             } finally {
