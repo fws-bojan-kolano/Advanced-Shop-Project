@@ -1106,5 +1106,39 @@
       }
     ],
     "orders": []
+  },
+  {
+    "id": "c94798ab-c5f3-4c10-904f-9f07f26a9153",
+    "username": "b",
+    "password": "$2b$10$QNsitmX/C57No2JmbO8sPuSpVzO0ErPrchFDuDbG4/Tqrlqf9CjEy",
+    "role": "admin",
+    "email": "b@mail.com",
+    "cart": [],
+    "orders": [
+      {
+        "orderId": "8a445068-7d3d-416c-bd31-a30532e8f775",
+        "date": "2025-09-22T12:56:27.475Z",
+        "items": [
+          {
+            "id": "bd680521-b4dd-47ba-8f47-f57c14d5e0db",
+            "name": " 123 123 123 123 12 3213",
+            "price": 213,
+            "creator": "123",
+            "description": "http s://tympanu s.net/Develop ment/AnimatedBook s/img/cover.jpg ",
+            "image": "https://tympanus.net/Development/AnimatedBooks/img/cover.jpg",
+            "recommended": true,
+            "category": "Comedy",
+            "quantity": 1
+          }
+        ],
+        "total": 218,
+        "name": "asdas adasdad",
+        "email": "nenad@forwardslashny.com",
+        "phone": "123123 123123",
+        "address": "Париске комуне, LC Paris Commune, New Belgrade, Belgrade, City of Belgrade, Central Serbia, 11070, Serbia",
+        "zip": "11070",
+        "company": "123"
+      }
+    ]
   }
 ]

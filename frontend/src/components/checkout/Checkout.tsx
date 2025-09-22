@@ -173,7 +173,9 @@ export default function Checkout() {
 
         setFormErrors(errors);
 
-        if(Object.keys(errors).length === 0) {
+        const hasErrors = Object.values(errors).some(errorMsg => errorMsg !== '');
+
+        if(!hasErrors) {
             const order = {
                 firstAndLastName: nameValue,
                 checkoutEmail: emailValue,
@@ -208,8 +210,6 @@ export default function Checkout() {
                     }
 
                     navigate('/thank-you');
-                } else {
-                    
                 }
             } catch (error) {
                 console.error('Error during data update:', error);
@@ -217,7 +217,7 @@ export default function Checkout() {
                 setShowLoaderSubmit(false);
             }
         } else {
-            const firstErrorField = Object.keys(errors)[0];
+            const firstErrorField = Object.keys(errors).find(key => errors[key as keyof FormErrors] !== '');
             const el = document.querySelector(`[name="${firstErrorField}"]`);
             el ? el.scrollIntoView({behavior: 'smooth', block: 'center'}) : null;
             setShowLoaderSubmit(false);
