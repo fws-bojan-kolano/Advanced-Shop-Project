@@ -1,18 +1,22 @@
-import PageHome from './pages/PageHome';
-import PageAbout from './pages/PageAbout';
-import PageDashboard from './pages/PageDashboard';
-import PageSingleProduct from './pages/PageSingleProduct';
-import PageCart from './pages/PageCart';
-import Header from './components/header/Header';
-import Footer from './components/footer/Footer';
+
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import UserContextProvider from './components/user/user-context';
 import { CartContextProvider } from './components/cart/cart-context';
-import PageProductListing from './pages/PageProductListing';
-import PageCheckout from './pages/pageCheckout';
-import PageThankYou from './pages/PageThankYou';
-import SingleOrder from './components/singleOrder/SingleOrder';
-import Products from './components/products/Products';
+import { Suspense, lazy } from 'react';
+import Header from './components/header/Header';
+import Footer from './components/footer/Footer';
+
+// Lazy load pages
+const PageHome = lazy(() => import(/* webpackPrefetch: true */ './pages/PageHome'));
+const PageAbout = lazy(() => import(/* webpackPrefetch: true */ './pages/PageAbout'));
+const PageDashboard = lazy(() => import('./pages/PageDashboard'));
+const PageSingleProduct = lazy(() => import('./pages/PageSingleProduct'));
+const PageCart = lazy(() => import('./pages/PageCart'));
+const PageProductListing = lazy(() => import('./pages/PageProductListing'));
+const PageCheckout = lazy(() => import('./pages/pageCheckout'));
+const PageThankYou = lazy(() => import('./pages/PageThankYou'));
+const SingleOrder = lazy(() => import('./components/singleOrder/SingleOrder'));
+const Products = lazy(() => import('./components/products/Products'));
 
 function App() {
   return (
@@ -22,19 +26,21 @@ function App() {
           <div className='main'>
             <BrowserRouter>
               <Header />
-              <Routes>
-                <Route path="/" element={<PageHome />} />
-                <Route path="/about" element={<PageAbout />} />
-                <Route path="/shop" element={<PageProductListing />} />
-                <Route path="/dashboard/*" element={<PageDashboard />} />
-                <Route path="/product/:id" element={<PageSingleProduct />} />
-                <Route path="/cart" element={<PageCart />} />
-                <Route path="/checkout" element={<PageCheckout />} />
-                <Route path="/thank-you" element={<PageThankYou />} />
-                <Route path="/order/:orderId" element={<SingleOrder />} />
-                <Route path="/category/:categoryName" element={<Products />} />
-                <Route path="/products" element={<Products />} />
-              </Routes>
+              <Suspense fallback={<div>Loading...</div>}>
+                <Routes>
+                  <Route path="/" element={<PageHome />} />
+                  <Route path="/about" element={<PageAbout />} />
+                  <Route path="/shop" element={<PageProductListing />} />
+                  <Route path="/dashboard/*" element={<PageDashboard />} />
+                  <Route path="/product/:id" element={<PageSingleProduct />} />
+                  <Route path="/cart" element={<PageCart />} />
+                  <Route path="/checkout" element={<PageCheckout />} />
+                  <Route path="/thank-you" element={<PageThankYou />} />
+                  <Route path="/order/:orderId" element={<SingleOrder />} />
+                  <Route path="/category/:categoryName" element={<Products />} />
+                  <Route path="/products" element={<Products />} />
+                </Routes>
+              </Suspense>
               <Footer />
             </BrowserRouter>
           </div>
