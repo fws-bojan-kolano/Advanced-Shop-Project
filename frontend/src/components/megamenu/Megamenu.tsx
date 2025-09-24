@@ -10,7 +10,7 @@ export default function Megamenu() {
 
     useEffect(() => {
         const fetchProducts = async () => {
-            if(productsMegamenu.length > 0) return;
+            if (productsMegamenu.length > 0) return;
 
             try {
                 const response = await fetch(`${SERVER}products`);
