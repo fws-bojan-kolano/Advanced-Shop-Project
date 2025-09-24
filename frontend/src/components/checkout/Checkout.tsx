@@ -157,7 +157,6 @@ export default function Checkout() {
         const nameRegex = /^[a-zA-Z]+\s+[a-zA-Z]+$/;
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const phoneRegex = /^[0-9\s+()-]{6,}$/;
-
         const form = e.target as HTMLFormElement;
         const nameValue = (form.elements.namedItem('name') as HTMLInputElement)?.value || '';
         const emailValue = (form.elements.namedItem('email') as HTMLInputElement)?.value || '';

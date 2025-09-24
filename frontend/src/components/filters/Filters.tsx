@@ -3,7 +3,6 @@ import './filters.scss';
 import type { FilterProps } from '../../interfaces/FilterProps';
 
 export default function Filters({filters, setFilters, categories, creators}: FilterProps) {
-
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value, type, checked } = e.target;
 

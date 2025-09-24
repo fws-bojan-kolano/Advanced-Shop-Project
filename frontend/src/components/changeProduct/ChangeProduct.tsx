@@ -18,10 +18,7 @@ export default function ChangeProduct() {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await fetch(`${SERVER}products`, {
-                    method: "GET",
-                });
-
+                const response = await fetch(`${SERVER}products`, { method: "GET" });
                 if(!response.ok) throw new Error("Failed to fetch products!");
 
                 const data = await response.json();
@@ -46,9 +43,7 @@ export default function ChangeProduct() {
         setEditedProduct(null);
 
         try {
-            const response = await fetch(`${SERVER}products/${productId}`, {
-                method: 'DELETE',
-            });
+            const response = await fetch(`${SERVER}products/${productId}`, { method: 'DELETE' });
 
             if(response.ok) {
                 setProducts(prevProducts => prevProducts.filter(product => product.id !== productId));
@@ -102,7 +97,9 @@ export default function ChangeProduct() {
 
         const payload: Partial<Product> = {};
         if(editedProduct) {
-            (Object.entries(editedProduct) as [keyof Product, Product[keyof Product]][]).forEach(([key, value]) => assignIfValid(payload, key, value));
+            (Object.entries(editedProduct) as [keyof Product, Product[keyof Product]][]).forEach(
+                ([key, value]) => assignIfValid(payload, key, value)
+            );
         }
 
         if(Object.keys(payload).length === 0) {

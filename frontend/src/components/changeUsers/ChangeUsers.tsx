@@ -26,7 +26,6 @@ export default function ChangeUsers() {
 
                 const data: { users: User[] } = await response.json();
                 const filteredUsers = data.users.filter(u => u.id !== user.id);//Omit the current logged in user
-
                 setUsers(filteredUsers);
                 setShowError(false);
             } catch (error) {
